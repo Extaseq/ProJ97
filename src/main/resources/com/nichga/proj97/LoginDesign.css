@@ -7,9 +7,5 @@
 }
 
 .hover-text-button:hover {
-    -fx-background-color: transparent;
-    -fx-border-color: transparent;
-    -fx-padding: 0;
-    -fx-underline: true;
-    -fx-text-fill: red; /* Màu chữ khi di chuột vào */
+    -fx-text-fill: red;
 }

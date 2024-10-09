@@ -22,6 +22,22 @@ public class Users {
 
     List<String> mostTags;
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     private final int maxRecommend = 5;
 
     {
@@ -36,6 +52,11 @@ public class Users {
      */
     Users() {
         name = "Unknown";
+    }
+
+    Users(String username, String password) {
+        this.username = username;
+        this.password = password;
     }
 
     Users(String name, List<Documents> doc) {

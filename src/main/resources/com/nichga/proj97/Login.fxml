@@ -11,7 +11,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.text.Font?>
 
-<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nichga.proj97.Controller">
     <children>
         <AnchorPane prefHeight="600.0" prefWidth="900.0">
             <children>
@@ -24,7 +24,7 @@
                     </children></AnchorPane>
                 <AnchorPane layoutX="450.0" prefHeight="600.0" prefWidth="450.0">
                     <children>
-                        <ComboBox layoutX="215.0" layoutY="237.0" prefHeight="32.0" prefWidth="211.0" />
+                        <ComboBox fx:id="roleBox" layoutX="215.0" layoutY="237.0" prefHeight="32.0" prefWidth="211.0" promptText="Your Role" />
                         <Label layoutX="26.0" layoutY="237.0" prefHeight="32.0" prefWidth="136.0" text="Select Role" textFill="#1cc3d9">
                             <font>
                                 <Font size="20.0" />
@@ -40,8 +40,8 @@
                                 <Font size="20.0" />
                             </font>
                         </Label>
-                        <TextField layoutX="215.0" layoutY="308.0" prefHeight="32.0" prefWidth="211.0" promptText="username" />
-                        <PasswordField layoutX="215.0" layoutY="374.0" prefHeight="32.0" prefWidth="211.0" promptText="password" />
+                        <TextField fx:id="userName" layoutX="215.0" layoutY="308.0" prefHeight="32.0" prefWidth="211.0" promptText="username" />
+                        <PasswordField fx:id="passWord" layoutX="215.0" layoutY="374.0" prefHeight="32.0" prefWidth="211.0" promptText="password" />
                         <Label layoutX="132.0" layoutY="147.0" prefHeight="75.0" prefWidth="166.0" text="   LOGIN" textFill="#0d1dd4">
                             <font>
                                 <Font size="35.0" />
@@ -51,7 +51,7 @@
                             <font>
                                 <Font size="15.0" />
                             </font></Button>
-                        <Button defaultButton="true" layoutX="81.0" layoutY="498.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="287.0" text="Login" textFill="#127be4">
+                        <Button fx:id="loginButton" defaultButton="true" layoutX="81.0" layoutY="498.0" mnemonicParsing="false" onAction="#Login" prefHeight="39.0" prefWidth="287.0" text="Login" textFill="#127be4">
                             <font>
                                 <Font size="20.0" />
                             </font>
