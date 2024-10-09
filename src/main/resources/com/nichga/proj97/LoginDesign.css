@@ -1,0 +1,15 @@
+.hover-text-button {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-underline: true;
+    -fx-text-fill: black; /* Màu chữ mặc định */
+}
+
+.hover-text-button:hover {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-padding: 0;
+    -fx-underline: true;
+    -fx-text-fill: red; /* Màu chữ khi di chuột vào */
+}

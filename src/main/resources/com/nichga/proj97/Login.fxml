@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.PasswordField?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.text.Font?>
+
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+    <children>
+        <AnchorPane prefHeight="600.0" prefWidth="900.0">
+            <children>
+                <AnchorPane layoutX="-7.0" prefHeight="600.0" prefWidth="450.0">
+                    <children>
+                        <ImageView fitHeight="600.0" fitWidth="450.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@Library.png" />
+                     </image></ImageView>
+                    </children></AnchorPane>
+                <AnchorPane layoutX="450.0" prefHeight="600.0" prefWidth="450.0">
+                    <children>
+                        <ComboBox layoutX="215.0" layoutY="237.0" prefHeight="32.0" prefWidth="211.0" />
+                        <Label layoutX="26.0" layoutY="237.0" prefHeight="32.0" prefWidth="136.0" text="Select Role" textFill="#1cc3d9">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="308.0" prefHeight="32.0" prefWidth="136.0" text="UserName" textFill="#1cc3d9">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <Label layoutX="26.0" layoutY="374.0" prefHeight="32.0" prefWidth="136.0" text="PassWord" textFill="#1cc3d9">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Label>
+                        <TextField layoutX="215.0" layoutY="308.0" prefHeight="32.0" prefWidth="211.0" promptText="username" />
+                        <PasswordField layoutX="215.0" layoutY="374.0" prefHeight="32.0" prefWidth="211.0" promptText="password" />
+                        <Label layoutX="132.0" layoutY="147.0" prefHeight="75.0" prefWidth="166.0" text="   LOGIN" textFill="#0d1dd4">
+                            <font>
+                                <Font size="35.0" />
+                            </font>
+                        </Label>
+                        <Button layoutX="151.0" layoutY="426.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" styleClass="hover-text-button" stylesheets="@LoginDesign.css" text="Register">
+                            <font>
+                                <Font size="15.0" />
+                            </font></Button>
+                        <Button defaultButton="true" layoutX="81.0" layoutY="498.0" mnemonicParsing="false" prefHeight="39.0" prefWidth="287.0" text="Login" textFill="#127be4">
+                            <font>
+                                <Font size="20.0" />
+                            </font>
+                        </Button>
+                        <ImageView fitHeight="133.0" fitWidth="166.0" layoutX="146.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@IconUser.png" />
+                     </image></ImageView>
+                    </children>
+                </AnchorPane>
+            </children>
+        </AnchorPane>
+    </children>
+</StackPane>
