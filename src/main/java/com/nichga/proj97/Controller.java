@@ -51,7 +51,6 @@ public class Controller implements Initializable {
     public void Login (ActionEvent event) {
         String username = userName.getText();
         String password = passWord.getText();
-        Boolean isLoggedIn = false;
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         if (roleBox.getValue() == null) {
@@ -62,19 +61,16 @@ public class Controller implements Initializable {
             for (Users user : users) {
                 if (user.getUsername().equals(username)) {
                     if (user.getPassword().equals(password)) {
-                        isLoggedIn = true;
-                        break;
+                        alert.setContentText("Login Successful!");
+                        alert.showAndWait();
+                        loginButton.getScene().getWindow().hide();
+                        return;
                     }
                 }
             }
-            if (isLoggedIn) {
-                alert.setContentText("Login Successful!");
-                alert.showAndWait();
-                loginButton.getScene().getWindow().hide();
-            }else {
-                alert.setContentText("Wrong Username or Password!");
-                alert.showAndWait();
-            }
+
+            alert.setContentText("Wrong Username or Password!");
+            alert.showAndWait();
 
         } else  {
 

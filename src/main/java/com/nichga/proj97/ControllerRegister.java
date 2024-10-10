@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ControllerRegister {
     @FXML
@@ -35,7 +36,10 @@ public class ControllerRegister {
 
     @FXML
     public void Register(ActionEvent event) throws IOException {
+
+        UserMangement userMangement = new UserMangement();
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
         if (userName.getText().isEmpty() || passWord.getText().isEmpty() || confirmPassword.getText().isEmpty() || name.getText().isEmpty()) {
 
             alert.setContentText("Please fill all the fields");
@@ -45,8 +49,15 @@ public class ControllerRegister {
             alert.setContentText("Passwords do not match");
             alert.showAndWait();
         } else {
+            CopyOnWriteArrayList <Users> ListUers = userMangement.getUsers();
+            for (Users user : ListUers) {
+                if (user.getUsername().equals(userName.getText())) {
+                    alert.setContentText("Username already exists");
+                    alert.showAndWait();
+                    return;
+                }
+            }
 
-            UserMangement userMangement = new UserMangement();
             Users user = new Users(userName.getText(), passWord.getText());
             user.setName(name.getText());
 
