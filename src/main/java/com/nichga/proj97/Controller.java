@@ -5,12 +5,16 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
+import javafx.scene.Node;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -30,6 +34,9 @@ public class Controller implements Initializable {
     @FXML
     private Button loginButton;
 
+    @FXML
+    private Button registerButton;
+
     private CopyOnWriteArrayList <Users> users;
 
     @Override
@@ -45,21 +52,49 @@ public class Controller implements Initializable {
         String username = userName.getText();
         String password = passWord.getText();
         Boolean isLoggedIn = false;
-        if (roleBox.getValue().equals("USER")) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+
+        if (roleBox.getValue() == null) {
+            alert.setContentText("Please select your role!");
+            alert.showAndWait();
+
+        } else if (roleBox.getValue().equals("USER")) {
             for (Users user : users) {
                 if (user.getUsername().equals(username)) {
                     if (user.getPassword().equals(password)) {
-                        System.out.println("Login Successful!");
                         isLoggedIn = true;
                         break;
                     }
                 }
             }
-            if (!isLoggedIn) {
-                System.out.println("Login Failed!");
+            if (isLoggedIn) {
+                alert.setContentText("Login Successful!");
+                alert.showAndWait();
+                loginButton.getScene().getWindow().hide();
+            }else {
+                alert.setContentText("Wrong Username or Password!");
+                alert.showAndWait();
             }
+
+        } else  {
 
         }
 
+    }
+
+    @FXML
+    public void Register(ActionEvent event) throws IOException {
+        loginButton.getScene().getWindow().hide();
+        Parent root = FXMLLoader.load(getClass().getResource("RegisterForm.fxml"));
+        // Lấy stage hiện tại
+        Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+
+        // Tạo Scene mới với FXML đã tải
+        Scene scene = new Scene(root);
+
+        //stage.initStyle(StageStyle.TRANSPARENT);
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
     }
 }

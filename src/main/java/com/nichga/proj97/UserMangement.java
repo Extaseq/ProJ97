@@ -8,7 +8,7 @@ import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserMangement {
-    private CopyOnWriteArrayList<Users> users = new CopyOnWriteArrayList<>();
+
     private String fileName = "User.txt";
 
     private void clearFile() {
@@ -36,5 +36,18 @@ public class UserMangement {
         }
 
         return users;
+    }
+
+    public void addUser(Users user) {
+        String userInfo = user.getUsername() + "," + user.getPassword() + "\n";
+        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+            if (!userInfo.equals(System.lineSeparator())) {
+                fileWriter.write(userInfo);
+            } else {
+                System.out.println("Nothing to do.");
+            }
+        } catch (IOException e) {
+            System.err.println("An error occurred while writing the document information to the file: " + e.getMessage());
+        }
     }
 }

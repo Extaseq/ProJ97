@@ -47,7 +47,7 @@
                                 <Font size="35.0" />
                             </font>
                         </Label>
-                        <Button layoutX="151.0" layoutY="426.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="128.0" styleClass="hover-text-button" stylesheets="@LoginDesign.css" text="Register">
+                        <Button fx:id="registerButton" layoutX="151.0" layoutY="426.0" mnemonicParsing="false" onAction="#Register" prefHeight="25.0" prefWidth="128.0" styleClass="hover-text-button" stylesheets="@LoginDesign.css" text="Register">
                             <font>
                                 <Font size="15.0" />
                             </font></Button>
