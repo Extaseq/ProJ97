@@ -321,15 +321,11 @@ public class CommandLineInterface {
 
             switch (choice) {
                 case 1 -> {
-                    editDocument(document);
+                    document.editInformation();
                     System.out.println("Document updated successfully!");
                 }
-                case 2 -> {
-                    currentIndex = (currentIndex + 1) % result.size();
-                }
-                case 3 -> {
-                    currentIndex = (currentIndex - 1 + result.size()) % result.size();
-                }
+                case 2 -> currentIndex = (currentIndex + 1) % result.size();
+                case 3 -> currentIndex = (currentIndex - 1 + result.size()) % result.size();
                 case 4 -> {
                     System.out.println("Exiting document update.");
                     return;
@@ -337,10 +333,6 @@ public class CommandLineInterface {
                 default -> System.out.println("Invalid choice. Please select 1-4.");
             }
         }
-    }
-
-    private void editDocument(Documents document) {
-
     }
 
     /**
