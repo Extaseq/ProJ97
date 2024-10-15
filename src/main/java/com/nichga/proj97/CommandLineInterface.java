@@ -446,7 +446,7 @@ public class CommandLineInterface {
                     System.out.println("Exiting document borrow.");
                     return;
                 }
-                default -> System.out.println("Invalid choice. Please select 1-3.");
+                default -> System.out.println("Invalid choice. Please select 1-4.");
             }
         }
     }

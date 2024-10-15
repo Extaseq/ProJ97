@@ -43,8 +43,7 @@ public class User {
         this.password = password;
     }
 
-    User( String name, List<Documents> doc) {
-        this.id = id;
+    User(String name, List<Documents> doc) {
         this.name = name;
         userDocuments = doc;
     }
