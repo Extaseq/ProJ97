@@ -1,13 +1,14 @@
 package com.nichga.proj97;
 
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * Represents a document with a title, author, and number of copies.
  */
 public class Documents {
-
     public String[] tag;
+
     private String title;
 
     private String author;
@@ -82,6 +83,8 @@ public class Documents {
         return timesBorrowed;
     }
 
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -110,5 +113,9 @@ public class Documents {
     public void displayInfo() {
         System.out.println("Title: " + getTitle());
         System.out.println("Author: " + getAuthor());
+    }
+
+    public void editInformation() {
+        // Need to override
     }
 }

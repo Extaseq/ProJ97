@@ -128,7 +128,7 @@ public class Library {
      * @param document the document to be borrowed
      * @throws NoSuchElementException if there are no available copies of the document
      */
-    public void borrowDocument(Users user, Documents document) {
+    public void borrowDocument(User user, Documents document) {
         int idx = documentList.indexOf(document);
         Documents ref = documentList.get(idx);
         if (ref.getCurrentCopies() <= 0) {

@@ -2,7 +2,7 @@ package com.nichga.proj97;
 
 import java.util.*;
 
-public class Users {
+public class User {
 
     private String name;
 
@@ -34,20 +34,25 @@ public class Users {
     /**
      * Default Constructor
      */
-    Users() {
+    User() {
         name = "Unknown";
     }
 
-    Users(String name, List<Documents> doc) {
+    User(int id, String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
+
+    User(String name, List<Documents> doc) {
         this.name = name;
         userDocuments = doc;
     }
 
-    Users(String name) {
+    User(String name) {
         this.name = name;
     }
 
-    Users(List<Documents> doc) {
+    User(List<Documents> doc) {
         name = "Unknown";
         userDocuments = doc;
     }
@@ -67,6 +72,10 @@ public class Users {
     void setUserDocuments(List<Documents> doc) {
         userDocuments.clear();
         userDocuments.addAll(doc);
+    }
+
+    List<Documents> getDocumentList() {
+        return userDocuments;
     }
 
     void setRecommendDoc(List<Documents> doc) {

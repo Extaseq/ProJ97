@@ -2,6 +2,7 @@ package com.nichga.proj97;
 
 import java.util.List;
 import java.util.Objects;
+import java.util.Scanner;
 
 /**
  * Represents a book in the library system, extending the abstract class {@link Documents}.
@@ -77,9 +78,71 @@ public class Book extends Documents {
         );
     }
 
-    void editInformation() {
-        
+    @Override
+    public void editInformation() {
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("Enter new title (" + getTitle() + "): ");
+        String newTitle = scanner.nextLine();
+        if (!newTitle.trim().isEmpty()) {
+            setTitle(newTitle);
+        }
+
+        System.out.print("Enter new author (" + getAuthor() + "): ");
+        String newAuthor = scanner.nextLine();
+        if (!newAuthor.trim().isEmpty()) {
+            setAuthor(newAuthor);
+        }
+
+        System.out.print("Enter new publisher (" + getPublisher() + "): ");
+        String newPublisher = scanner.nextLine();
+        if (!newPublisher.trim().isEmpty()) {
+            setPublisher(newPublisher);
+        }
+
+        System.out.print("Enter new publication year (" + getPublicationYear() + "): ");
+        String newPublicationYear = scanner.nextLine();
+        if (!newPublicationYear.trim().isEmpty()) {
+            try {
+                setPublicationYear(Integer.parseInt(newPublicationYear));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number format. Publication year remains unchanged.");
+            }
+        }
+
+        System.out.print("Enter new number of copies (" + getNumberOfCopies() + "): ");
+        String newCopies = scanner.nextLine();
+        if (!newCopies.trim().isEmpty()) {
+            try {
+                setNumberOfCopies(Integer.parseInt(newCopies));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number format. Number of copies remains unchanged.");
+            }
+        }
+
+        System.out.print("Enter new current copies (" + getCurrentCopies() + "): ");
+        String newCurrentCopies = scanner.nextLine();
+        if (!newCurrentCopies.trim().isEmpty()) {
+            try {
+                setCurrentCopies(Integer.parseInt(newCurrentCopies));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number format. Current copies remain unchanged.");
+            }
+        }
+
+        System.out.print("Enter new times borrowed (" + getTimesBorrowed() + "): ");
+        String newTimesBorrowed = scanner.nextLine();
+        if (!newTimesBorrowed.trim().isEmpty()) {
+            try {
+                setTimesBorrowed(Integer.parseInt(newTimesBorrowed));
+            } catch (NumberFormatException e) {
+                System.out.println("Invalid number format. Times borrowed remains unchanged.");
+            }
+        }
+
+        System.out.println("Book information updated successfully!");
     }
+
 
     /**
      * Displays information about the book, including its publisher and publication year.

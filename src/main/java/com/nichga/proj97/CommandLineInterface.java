@@ -1,5 +1,7 @@
 package com.nichga.proj97;
 
+import org.w3c.dom.Document;
+
 import java.util.*;
 
 /**
@@ -12,15 +14,18 @@ public class CommandLineInterface {
 
     private static final FileStorage fileStorage;
 
-    // private static List<Users> usersList;
+    private static List<User> userList;
 
     private static final Scanner scanner;
 
+    private static int autoIncreaseUID;
+
     static {
         library = new Library();
-        // usersList = new ArrayList<>();
+        userList = new ArrayList<>();
         fileStorage = new FileStorage();
         scanner = new Scanner(System.in);
+        autoIncreaseUID = 1;
     }
 
     public static void main(String[] args) {
@@ -321,15 +326,11 @@ public class CommandLineInterface {
 
             switch (choice) {
                 case 1 -> {
-                    editDocument(document);
+                    document.editInformation();
                     System.out.println("Document updated successfully!");
                 }
-                case 2 -> {
-                    currentIndex = (currentIndex + 1) % result.size();
-                }
-                case 3 -> {
-                    currentIndex = (currentIndex - 1 + result.size()) % result.size();
-                }
+                case 2 -> currentIndex = (currentIndex + 1) % result.size();
+                case 3 -> currentIndex = (currentIndex - 1 + result.size()) % result.size();
                 case 4 -> {
                     System.out.println("Exiting document update.");
                     return;
@@ -339,43 +340,124 @@ public class CommandLineInterface {
         }
     }
 
-    private void editDocument(Documents document) {
-
-    }
-
     /**
      * Placeholder method for finding a document. Implementation can be added later.
      */
     private void findDocument() {
-        System.out.println("Find Document functionality goes here.");
+        List<Documents> result = findDocumentByBasicInfo();
+
+        if (result.isEmpty()) {
+            System.out.println("No documents found.");
+            return;
+        }
+
+        int currentIndex = 0;
+        while (true) {
+            Documents document = result.get(currentIndex);
+            document.displayInfo();
+
+            System.out.println("\nChoose an action:");
+            System.out.println("1. Next document");
+            System.out.println("2. Previous document");
+            System.out.println("3. Exit");
+
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1 -> currentIndex = (currentIndex + 1) % result.size();
+                case 2 -> currentIndex = (currentIndex - 1 + result.size()) % result.size();
+                case 3 -> {
+                    System.out.println("Exiting document finder.");
+                    return;
+                }
+                default -> System.out.println("Invalid choice. Please select 1-3.");
+            }
+        }
     }
 
     /**
      * Placeholder method for displaying document information. Implementation can be added later.
      */
     private void displayDocument() {
-        System.out.println("Display Document functionality goes here.");
+        // Duplicate functionality
+        findDocument();
     }
 
     /**
      * Placeholder method for adding a user. Implementation can be added later.
      */
     private void addUser() {
-        System.out.println("Add User functionality goes here.");
+        System.out.println("Enter username: ");
+        String username = scanner.nextLine();
+
+        System.out.println("Enter password: ");
+        String password = scanner.nextLine();
+
+        String rePassword;
+
+        while (true) {
+            System.out.println("Re-enter password: ");
+            rePassword = scanner.nextLine();
+
+            if (!password.equals(rePassword)) {
+                System.out.println("Passwords do not match. Please try again.");
+                continue;
+            } else {
+                break;
+            }
+        }
+
+        userList.add(new User(autoIncreaseUID++, username, password));
+
+        System.out.println("Account created successfully.");
     }
 
     /**
      * Placeholder method for borrowing a document. Implementation can be added later.
      */
     private void borrowDocument() {
-        System.out.println("Borrow Document functionality goes here.");
+        List<Documents> result = findDocumentByBasicInfo();
+
+        if (result.isEmpty()) {
+            System.out.println("No documents found.");
+            return;
+        }
+
+        int currentIndex = 0;
+        while (true) {
+            Documents document = result.get(currentIndex);
+            document.displayInfo();
+
+            System.out.println("\nChoose an action:");
+            System.out.println("1. Next document");
+            System.out.println("2. Previous document");
+            System.out.println("3. Borrow document");
+            System.out.println("4. Exit");
+
+            int choice = scanner.nextInt();
+            switch (choice) {
+                case 1 -> currentIndex = (currentIndex + 1) % result.size();
+                case 2 -> currentIndex = (currentIndex - 1 + result.size()) % result.size();
+                case 3 -> {
+                    System.out.println("Enter userID: ");
+                    int userID = scanner.nextInt();
+                    library.borrowDocument(userList.get(userID - 1), document);
+                }
+                case 4 -> {
+                    System.out.println("Exiting document borrow.");
+                    return;
+                }
+                default -> System.out.println("Invalid choice. Please select 1-4.");
+            }
+        }
     }
 
     /**
      * Placeholder method for returning a borrowed document. Implementation can be added later.
      */
     private void returnDocument() {
-        System.out.println("Return Document functionality goes here.");
+        System.out.println("Enter userID: ");
+        int userID = scanner.nextInt();
+        List<Documents> docList = userList.get(userID - 1).getDocumentList();
     }
 
     /**
