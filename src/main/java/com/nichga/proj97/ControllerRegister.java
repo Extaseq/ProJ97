@@ -13,6 +13,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class ControllerRegister {
@@ -64,25 +65,16 @@ public class ControllerRegister {
             userMangement.addUser(user);
             alert.setContentText("Successfully registered! Please Login!");
             alert.showAndWait();
-            registerButton.getScene().getWindow().hide();
-            Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-            // Lấy stage hiện tại
-            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
-            // Tạo Scene mới với FXML đã tải
-            Scene scene = new Scene(root);
-
-            //stage.initStyle(StageStyle.TRANSPARENT);
-            stage.setScene(scene);
-            stage.setResizable(false);
-            stage.show();
+            // Avoid duplicate code
+            BackToLogin(event);
         }
     }
 
     @FXML
     public void BackToLogin(ActionEvent event) throws IOException {
         backLoginButton.getScene().getWindow().hide();
-        Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("Login.fxml")));
         // Lấy stage hiện tại
         Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
 
