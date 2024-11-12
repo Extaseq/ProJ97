@@ -1,5 +1,4 @@
 package com.nichga.proj97;
-
 import javafx.beans.property.SimpleStringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -9,12 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
-import javafx.util.Callback;
-import org.w3c.dom.Document;
-
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class UserMainDashboardController extends StageController {
     Users user;
@@ -81,6 +75,11 @@ public class UserMainDashboardController extends StageController {
         tag_col.setCellValueFactory(cellData -> {
             String[] tags = cellData.getValue().tag;
             return new SimpleStringProperty(String.join(", ", tags));
+        });
+        available_col.setCellValueFactory(cellData -> {
+            Integer currentCopies = cellData.getValue().getCurrentCopies();
+            String status = (currentCopies != null && currentCopies > 0) ? "Yes" : "No";
+            return new SimpleStringProperty(status);
         });
         docList.setItems(getDocuments());
     }

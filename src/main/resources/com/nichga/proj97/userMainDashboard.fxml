@@ -23,12 +23,12 @@
                                 <FontAwesomeIcon glyphName="CLOSE" />
                             </graphic>
                         </Button>
-                        <Button fx:id="minimize" layoutX="1067.0" layoutY="-1.0" mnemonicParsing="false" onAction="#minimize" styleClass="Non_close_btn" stylesheets="@Overview.css">
+                        <Button fx:id="minimizeButton" layoutX="1067.0" layoutY="-1.0" mnemonicParsing="false" onAction="#minimize" styleClass="Non_close_btn" stylesheets="@Overview.css">
                             <graphic>
                                 <FontAwesomeIcon glyphName="MINUS" />
                             </graphic>
                         </Button>
-                        <Button layoutY="-1.0" mnemonicParsing="false" styleClass="Non_close_btn" stylesheets="@Overview.css">
+                        <Button fx:id="backButton" layoutY="-1.0" mnemonicParsing="false" styleClass="Non_close_btn" stylesheets="@Overview.css">
                             <graphic>
                                 <FontAwesomeIcon glyphName="ARROW_LEFT" />
                             </graphic>

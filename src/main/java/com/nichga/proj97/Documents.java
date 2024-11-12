@@ -38,6 +38,7 @@ public class Documents {
         this.author = author;
         this.type = type;
         this.numberOfCopies = numberOfCopies;
+        this.currentCopies = numberOfCopies;
         this.timesBorrowed = timesBorrowed;
         this.tag = tags;
     }
