@@ -33,8 +33,16 @@ public class Documents {
         this.author = author;
         this.type = type;
     }
+    Documents(String title, String author, String type,String[] tags, int numberOfCopies, int timesBorrowed) {
+        this.title = title;
+        this.author = author;
+        this.type = type;
+        this.numberOfCopies = numberOfCopies;
+        this.timesBorrowed = timesBorrowed;
+        this.tag = tags;
+    }
 
-    String getTitle() {
+    public String getTitle() {
         return title;
     }
 
@@ -42,7 +50,7 @@ public class Documents {
         this.title = title;
     }
 
-    String getAuthor() {
+    public String getAuthor() {
         return author;
     }
 
@@ -50,7 +58,7 @@ public class Documents {
         this.author = author;
     }
 
-    int getNumberOfCopies() {
+    public int getNumberOfCopies() {
         return numberOfCopies;
     }
 
@@ -58,7 +66,7 @@ public class Documents {
         this.numberOfCopies = numberOfCopies;
     }
 
-    String getType() {
+    public String getType() {
         return type;
     }
 
@@ -70,7 +78,7 @@ public class Documents {
         this.currentCopies = currentCopies;
     }
 
-    int getCurrentCopies() {
+    public int getCurrentCopies() {
         return currentCopies;
     }
 
@@ -78,7 +86,7 @@ public class Documents {
         this.timesBorrowed = timesBorrowed;
     }
 
-    int getTimesBorrowed() {
+    public int getTimesBorrowed() {
         return timesBorrowed;
     }
 

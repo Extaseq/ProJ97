@@ -105,7 +105,7 @@
                                         <TableColumn fx:id="book_tittle_col" prefWidth="138.0" text="Book tittle" />
                                         <TableColumn fx:id="author_col" text="Author" />
                                         <TableColumn fx:id="type_col" text="Type" />
-                                        <TableColumn fx:id="tag_col" text="Tag" />
+                                        <TableColumn fx:id="tag_col" maxWidth="80.0" text="Tag" />
                                         <TableColumn fx:id="available_col" prefWidth="95.0" text="Available" />
                                         <TableColumn fx:id="view_col" prefWidth="95.0" text="View" />
                                     </columns>
