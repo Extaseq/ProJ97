@@ -1,0 +1,42 @@
+/* styles.css */
+.top-form {
+    -fx-background-color: linear-gradient(to bottom right, #FFEAD5, #FFEAD5);
+    -fx-border-color: #000;
+    -fx-border-width: .2px .2px .5px .2px;
+}
+.function-form {
+    -fx-background-color: linear-gradient(to bottom right,#808000,#556B2F);
+}
+.function-button {
+    -fx-background-color: linear-gradient(to bottom right,#344275,#3a6389);
+    -fx-background-radius: 10px;
+    -fx-cursor: hand;
+    -fx-font-size: 15px;
+    -fx-text-fill: #fff;
+}
+.image-card {
+    -fx-background-color: #fff;
+    -fx-border-color: #000;
+}
+.function-button:hover {
+    -fx-background-color: linear-gradient(to bottom right,#46589a,#4278a7);
+}
+.card-form {
+    -fx-background-color: #f8f8f8;
+    -fx-border-color: #454368;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
+}
+.background {
+    -fx-background-color: linear-gradient(to bottom right,#966F33 ,#7B5B29);
+}
+.borrow-button {
+    -fx-background-color: #558e74;
+    -fx-background-radius: 15px;
+    -fx-font-size: 15px;
+    -fx-cursor: hand;
+    -fx-text-fill: #fff;
+}
+.borrow-button:hover {
+    -fx-background-color: #57b187;
+}
