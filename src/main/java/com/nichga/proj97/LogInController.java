@@ -6,6 +6,8 @@ import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class LogInController extends StageController {
@@ -22,6 +24,7 @@ public class LogInController extends StageController {
     private Button registerButton;
     private UserManagement userManagement;
     private CopyOnWriteArrayList<Users> users;
+    private Map<String, Users> userLoginInfo ;
 
     public void initialize() {
         // Thêm danh sách vai trò vào ComboBox
@@ -29,6 +32,7 @@ public class LogInController extends StageController {
         // Khởi tạo UserManagement và danh sách users
         userManagement = new UserManagement();
         users = userManagement.getUsers();
+        userLoginInfo = userManagement.getUserLoginInfo();
     }
 
     public void LogIn(ActionEvent event) {
@@ -44,18 +48,17 @@ public class LogInController extends StageController {
         }
         // Xử lý khi vai trò là USER
         else if (roleButton.getValue().equals("USER")) {
-            for (Users user : users) {
-                if (user.getUsername().equals(u)) {
-                    if (user.getPassword().equals(p)) {
-                        alert.setContentText("Login Successful!");
-                        alert.showAndWait();
-                        try {
-                            goToNextStage("/com/nichga/proj97/userMainDashboard.fxml", logInButton, user);
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                        }
-                        return;
+            if (userLoginInfo.containsKey(u)) {
+                Users user = userLoginInfo.get(u);
+                if (user.getPassword().equals(p)) {
+                    alert.setContentText("Login Successful!");
+                    alert.showAndWait();
+                    try {
+                        goToNextStage("/com/nichga/proj97/userMainDashboard.fxml", logInButton, user);
+                    } catch (IOException e) {
+                        e.printStackTrace();
                     }
+                    return;
                 }
             }
             alert.setContentText("Wrong Username or Password!");

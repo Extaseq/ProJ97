@@ -1,10 +1,13 @@
 package com.nichga.proj97;
 
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class UserManagement {
@@ -12,7 +15,7 @@ public class UserManagement {
     private String fileName = "User.txt";
 
     private void clearFile() {
-        try (FileWriter fileWriter = new FileWriter(this.fileName, false)) {
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(this.fileName, false))) {
             fileWriter.write("");
         } catch (IOException e) {
             System.err.println("An error occurred while clearing the file: " + e.getMessage());
@@ -38,9 +41,19 @@ public class UserManagement {
         return users;
     }
 
+    public HashMap<String, Users> getUserLoginInfo() {
+        HashMap<String, Users> userLoginInfo = new HashMap<>();
+        CopyOnWriteArrayList<Users> users = getUsers();
+        for (Users user : users) {
+            userLoginInfo.put(user.getUsername(), user);
+        }
+        return userLoginInfo;
+    }
+
     public void addUser(Users user) {
         String userInfo = user.getUsername() + "," + user.getPassword() + "\n";
-        try (FileWriter fileWriter = new FileWriter(fileName, true)) {
+        try (BufferedWriter fileWriter = new BufferedWriter(new FileWriter(fileName, true))) {
+
             if (!userInfo.equals(System.lineSeparator())) {
                 fileWriter.write(userInfo);
             } else {
@@ -50,4 +63,5 @@ public class UserManagement {
             System.err.println("An error occurred while writing the document information to the file: " + e.getMessage());
         }
     }
+
 }

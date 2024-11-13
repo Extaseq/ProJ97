@@ -7,6 +7,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.event.ActionEvent;
 import java.io.IOException;
+import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 public class RegisterController extends StageController{
@@ -42,13 +43,11 @@ public class RegisterController extends StageController{
             alert.setContentText("Passwords do not match");
             alert.showAndWait();
         } else {
-            CopyOnWriteArrayList<Users> ListUers = userMangement.getUsers();
-            for (Users user : ListUers) {
-                if (user.getUsername().equals(userName.getText())) {
-                    alert.setContentText("Username already exists");
-                    alert.showAndWait();
-                    return;
-                }
+            Map<String, Users> userLoginInfo = userMangement.getUserLoginInfo();
+            if (userLoginInfo.containsKey(userName.getText())) {
+                alert.setContentText("Username already exists");
+                alert.showAndWait();
+                return;
             }
 
             Users user = new Users(userName.getText(), passWord.getText());
