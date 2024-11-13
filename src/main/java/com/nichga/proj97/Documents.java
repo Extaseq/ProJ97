@@ -120,4 +120,12 @@ public class Documents {
         System.out.println("Title: " + getTitle());
         System.out.println("Author: " + getAuthor());
     }
+    protected boolean hasTag(String searchTag) {
+        for (String t : tag) {
+            if (t.equalsIgnoreCase(searchTag)) {
+                return true;
+            }
+        }
+        return false;
+    }
 }

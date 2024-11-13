@@ -66,8 +66,12 @@ public class UserMainDashboardController extends StageController {
 
     @FXML
     private TableColumn<Documents, Integer> view_col;
+    Library library;
     @FXML
     private void initialize() {
+        library = new Library();
+        tagsField.setHgap(10);
+        tagsField.setVgap(10);
         book_tittle_col.setCellValueFactory(new PropertyValueFactory<Documents,String>("title"));
         author_col.setCellValueFactory(new PropertyValueFactory<Documents,String>("author"));
         type_col.setCellValueFactory(new PropertyValueFactory<Documents,String>("type"));
@@ -82,6 +86,16 @@ public class UserMainDashboardController extends StageController {
             return new SimpleStringProperty(status);
         });
         docList.setItems(getDocuments());
+        docList.setRowFactory(a -> {
+            TableRow<Documents> row = new TableRow<>();
+            row.setOnMouseClicked(event -> {
+                if(!row.isEmpty()) {
+                    Documents doc = row.getItem();
+                    displayDoc(doc);
+                }
+            });
+            return row;
+        });
     }
     private ObservableList<Documents> getDocuments() {
         // Khởi tạo danh sách tài liệu
@@ -104,12 +118,20 @@ public class UserMainDashboardController extends StageController {
         tagsField.getChildren().clear();
         for(String tags : doc.tag) {
             Button tagLabel = new Button(tags);
+            tagLabel.setMaxWidth(100);
             tagLabel.getStyleClass().add("function-button");
             tagLabel.setPrefSize(68,31);
-            // cài đặt chức năng sau khi bấm vào nút hiện ra danh sách các document có cùng tag.
+            tagLabel.setOnAction(event -> showDocumentsWithTag(tags));
             tagsField.getChildren().add(tagLabel);
         }
     }
-
-
+    private void showDocumentsWithTag(String tag) {
+        ObservableList<Documents> filteredDocuments = FXCollections.observableArrayList();
+        for (Documents document : getDocuments()) {
+            if (document.hasTag(tag)) {
+                filteredDocuments.add(document);
+            }
+        }
+        docList.setItems(filteredDocuments);
+    }
 }
