@@ -15,11 +15,10 @@ public class Client extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-
             Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
             Scene scene = new Scene(root);
+            scene.getStylesheets().add(this.getClass().getResource("LogInDesign.css").toExternalForm());
             primaryStage.setScene(scene);
-            primaryStage.setResizable(false);
             primaryStage.show();
         } catch (Exception e) {
             e.printStackTrace();

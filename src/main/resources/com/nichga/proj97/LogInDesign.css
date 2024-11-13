@@ -1,4 +1,10 @@
-/* styles.css */
-.LogIn-form {
-    -fx-background-color: linear-gradient(to bottom right, #FFEAD5, #FFEAD5);
+.glassy-pane {
+    width: 300px; /* Chiều rộng vùng mờ */
+    height: 300px; /* Chiều cao vùng mờ */
+    background-color: rgba(255, 255, 255, 0.3); /* Màu trắng với độ trong suốt 30% */
+    -fx-background-radius: 10px; /* Bo góc */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.1), 6, 0.0, 4, 4); /* Hiệu ứng đổ bóng */
+    -fx-translate-x: 10px;
+    -fx-translate-y: 10px;
+    -fx-border-radius: 10px;
 }

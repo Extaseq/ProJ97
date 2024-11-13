@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Rectangle2D?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.effect.MotionBlur?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fitHeight="552.0" fitWidth="736.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="@bookimage.jpg" />
+         </image>
+      </ImageView>
+      <ImageView disable="true" fitHeight="402.0" fitWidth="586.0" layoutX="75.0" layoutY="75.0" opacity="0.43" pickOnBounds="true" smooth="false">
+         <image>
+            <Image url="@white.png" />
+         </image>
+         <effect>
+            <MotionBlur radius="0.0" />
+         </effect>
+         <viewport>
+            <Rectangle2D />
+         </viewport>
+      </ImageView>
+      <TextField id="Username" layoutX="253.0" layoutY="191.0" prefHeight="45.0" prefWidth="230.0" promptText="Username" text="userLogin">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="253.0" layoutY="254.0" prefHeight="45.0" prefWidth="230.0" promptText="Password" text="passwordLogin">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <ComboBox layoutX="253.0" layoutY="314.0" prefHeight="45.0" prefWidth="230.0" promptText="Role" />
+      <Button id="loginbutton" layoutX="253.0" layoutY="379.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" text="Login">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+      <Button id="loginselect" layoutX="253.0" layoutY="118.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="93.0" text="Login">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <Button id="registerselect" layoutX="354.0" layoutY="118.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="129.0" text="Register">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Button>
+      <TextField id="Username" layoutX="253.0" layoutY="191.0" prefHeight="45.0" prefWidth="230.0" promptText="Username" text="userRegister">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="253.0" layoutY="254.0" prefHeight="45.0" prefWidth="230.0" promptText="Password" text="passwordRegister">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <TextField layoutX="253.0" layoutY="314.0" prefHeight="45.0" prefWidth="230.0" promptText="Confirm Password" text="confirmPassword">
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <Button id="loginbutton" layoutX="253.0" layoutY="379.0" mnemonicParsing="false" prefHeight="45.0" prefWidth="230.0" text="Register">
+         <font>
+            <Font size="21.0" />
+         </font>
+      </Button>
+   </children>
+</Pane>
