@@ -3,16 +3,19 @@ package com.nichga.proj97;
 import java.util.*;
 
 public class User {
-
-    private String name;
+    private int id;
 
     private String username;
 
     private String password;
 
-    private int id;
+    private String name;
+
+    private int permission;
 
     private List<Documents> userDocuments;
+
+    private List<Documents> overdueDocuments;
 
     private Queue<Documents> last5Documents;
 
@@ -27,15 +30,9 @@ public class User {
     {
         userDocuments = new ArrayList<>();
         documentTags = new HashMap<>();
+        overdueDocuments = new ArrayList<>();
         mostTags = new ArrayList<>();
         last5Documents = new LinkedList<>();
-    }
-
-    /**
-     * Default Constructor
-     */
-    User() {
-        name = "Unknown";
     }
 
     User(int id, String username, String password) {
@@ -43,21 +40,15 @@ public class User {
         this.password = password;
     }
 
-    User(String name, List<Documents> doc) {
-        this.name = name;
-        userDocuments = doc;
+    public int getUserID() {
+        return this.id;
     }
 
-    User(String name) {
-        this.name = name;
+    public void setID(int id) {
+        this.id = id;
     }
 
-    User(List<Documents> doc) {
-        name = "Unknown";
-        userDocuments = doc;
-    }
-
-    String getName() {
+    String getUserName() {
         return name;
     }
 
@@ -72,6 +63,14 @@ public class User {
     void setUserDocuments(List<Documents> doc) {
         userDocuments.clear();
         userDocuments.addAll(doc);
+    }
+
+    int getBorrowedBook() {
+        return userDocuments.size();
+    }
+
+    int getOverdueBook() {
+        return overdueDocuments.size();
     }
 
     List<Documents> getDocumentList() {

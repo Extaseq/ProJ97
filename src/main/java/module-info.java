@@ -10,7 +10,11 @@ module com.nichga.proj97 {
     requires org.kordamp.bootstrapfx.core;
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
+    requires java.sql;
 
     opens com.nichga.proj97 to javafx.fxml;
+    opens Application to javafx.fxml;
     exports com.nichga.proj97;
+    exports Application;
+    exports Database;
 }

@@ -1,0 +1,215 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+<?import javafx.scene.text.TextFlow?>
+
+<VBox id="bg_layer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="900.0" prefWidth="1600.0" style="-fx-background-color: #353334;" styleClass="bg_layer" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="120.0" prefWidth="1600.0">
+         <children>
+            <AnchorPane prefHeight="100.0" prefWidth="110.0">
+               <children>
+                  <Text fill="#e5e5e5" layoutX="27.66666666666667" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="LBMG" AnchorPane.rightAnchor="-2.4766642252604214">
+                     <font>
+                        <Font name="Larsseit-ExtraBold" size="30.0" />
+                     </font>
+                  </Text>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="100.0" prefWidth="250.0">
+               <children>
+                  <Text fill="#e5e5e5" fontSmoothingType="LCD" layoutX="74.0" layoutY="65.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Dashboard">
+                     <font>
+                        <Font name="☞Eina03-Bold" size="30.0" />
+                     </font>
+                  </Text>
+                  <ImageView fitHeight="24.0" fitWidth="24.0" layoutX="16.0" layoutY="43.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@menu.png" />
+                     </image>
+                  </ImageView>
+               </children>
+            </AnchorPane>
+         </children>
+      </HBox>
+      <HBox prefHeight="800.0" prefWidth="1600.0">
+         <children>
+            <VBox prefHeight="790.0" prefWidth="120.0">
+               <children>
+                  <AnchorPane prefHeight="790.0" prefWidth="120.0">
+                     <children>
+                        <ImageView fx:id="home_button" fitHeight="64.0" fitWidth="64.0" layoutX="28.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@Home@2x.png" />
+                           </image>
+                        </ImageView>
+                        <ImageView fitHeight="64.0" fitWidth="64.0" layoutX="28.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </AnchorPane>
+               </children></VBox>
+            <VBox id="inner_pane" prefHeight="200.0" prefWidth="1480.0" styleClass="inner_pane" stylesheets="@style.css">
+               <children>
+                  <HBox id="information_pane" prefHeight="160.0" prefWidth="1480.0">
+                     <children>
+                        <AnchorPane prefHeight="130.0" prefWidth="1150.0">
+                           <children>
+                              <TextFlow id="information" fx:id="information" layoutX="19.0" layoutY="40.0" prefHeight="64.0" prefWidth="500.0" />
+                              <TextFlow fx:id="current_time" layoutX="19.0" layoutY="87.0" prefHeight="48.0" prefWidth="700.0" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="160.0" prefWidth="330.0">
+                           <children>
+                              <ComboBox id="time-choice" fx:id="timeBox" layoutX="67.0" layoutY="57.0" prefHeight="50.0" prefWidth="200.0" stylesheets="@style.css" />
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="200.0" prefWidth="1480.0">
+                     <children>
+                        <AnchorPane prefHeight="200.0" prefWidth="345.0" styleClass="small-info-pane" stylesheets="@style.css">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="20.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                           <children>
+                              <ImageView fx:id="total_book_icon" fitHeight="64.0" fitWidth="64.0" layoutX="255.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="info_icon" AnchorPane.rightAnchor="25.666666666666686">
+                                 <image>
+                                    <Image url="@Book@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fx:id="total_book" fill="#e5e5e5" fontSmoothingType="LCD" layoutX="40.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9999" AnchorPane.leftAnchor="20.0">
+                                 <font>
+                                    <Font name="☞Eina03-Bold" size="44.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e5e5e5" layoutX="70.0" layoutY="130.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Books" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="345.0" styleClass="small-info-pane" stylesheets="@style.css">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                           <children>
+                              <ImageView fx:id="borrowed_book_icon" fitHeight="64.0" fitWidth="64.0" layoutX="259.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="info_icon" AnchorPane.rightAnchor="25.666666">
+                                 <image>
+                                    <Image url="@Borrow@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fx:id="total_borrowed" fill="#e5e5e5" layoutX="40.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9999" AnchorPane.leftAnchor="20.0">
+                                 <font>
+                                    <Font name="☞Eina03-Bold" size="44.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e5e5e5" layoutX="62.0" layoutY="126.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Borrowed Books" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="345.0" styleClass="small-info-pane" stylesheets="@style.css">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                           <children>
+                              <ImageView fx:id="overdue_book_icon" fitHeight="64.0" fitWidth="64.0" layoutX="247.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="info_icon" AnchorPane.rightAnchor="25.666666666666">
+                                 <image>
+                                    <Image url="@Overdue@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fx:id="total_overdue" fill="#e5e5e5" layoutX="40.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9999" AnchorPane.leftAnchor="20.0">
+                                 <font>
+                                    <Font name="☞Eina03-Bold" size="44.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e5e5e5" layoutX="55.0" layoutY="124.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Overdue Books" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="200.0" prefWidth="345.0" styleClass="small-info-pane" stylesheets="@style.css">
+                           <HBox.margin>
+                              <Insets bottom="20.0" left="10.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                           <children>
+                              <ImageView fx:id="total_user_icon" fitHeight="64.0" fitWidth="64.0" layoutX="239.0" layoutY="22.0" pickOnBounds="true" preserveRatio="true" styleClass="info_icon" AnchorPane.rightAnchor="25.66666666666666">
+                                 <image>
+                                    <Image url="@Users@2x.png" />
+                                 </image>
+                              </ImageView>
+                              <Text fx:id="total_users" fill="#e5e5e5" layoutX="40.0" layoutY="70.0" strokeType="OUTSIDE" strokeWidth="0.0" text="9999" AnchorPane.leftAnchor="20.0">
+                                 <font>
+                                    <Font name="☞Eina03-Bold" size="44.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e5e5e5" layoutX="14.0" layoutY="120.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Total Users" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="20.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <HBox prefHeight="430.0" prefWidth="1480.0">
+                     <children>
+                        <AnchorPane prefHeight="430.0" prefWidth="740.0" styleClass="small-info-pane">
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="20.0" right="10.0" top="20.0" />
+                           </HBox.margin>
+                           <children>
+                              <Text fill="#e5e5e5" layoutX="57.0" layoutY="61.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Users List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="31.0" />
+                                 </font>
+                              </Text>
+                              <TableView fx:id="small_user_table" layoutX="30.0" layoutY="114.0" prefHeight="200.0" prefWidth="650.0" stylesheets="@style.css" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0">
+                                <columns>
+                                  <TableColumn prefWidth="150.0" text="UserID" />
+                                  <TableColumn prefWidth="200.0" text="User Name" />
+                                    <TableColumn prefWidth="150.0" text="Book Borrowed" />
+                                    <TableColumn prefWidth="150.0" text="Book Overdue" />
+                                </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="430.0" prefWidth="740.0" styleClass="small-info-pane">
+                           <HBox.margin>
+                              <Insets bottom="30.0" left="10.0" right="20.0" top="20.0" />
+                           </HBox.margin>
+                           <children>
+                              <Text fill="#e5e5e5" layoutX="58.0" layoutY="69.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Books List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="30.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="31.0" />
+                                 </font>
+                              </Text>
+                              <TableView layoutX="30.0" layoutY="126.0" prefHeight="200.0" prefWidth="650.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="100.0">
+                                 <columns>
+                                    <TableColumn prefWidth="75.0" text="C1" />
+                                    <TableColumn prefWidth="75.0" text="C2" />
+                                 </columns>
+                              </TableView>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+               </children></VBox>
+         </children>
+      </HBox>
+   </children>
+</VBox>
