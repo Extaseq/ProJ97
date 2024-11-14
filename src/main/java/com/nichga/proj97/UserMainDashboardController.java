@@ -118,9 +118,8 @@ public class UserMainDashboardController extends StageController {
         tagsField.getChildren().clear();
         for(String tags : doc.tag) {
             Button tagLabel = new Button(tags);
-            tagLabel.setMaxWidth(100);
+            tagLabel.setMaxWidth(1000);
             tagLabel.getStyleClass().add("function-button");
-            tagLabel.setPrefSize(68,31);
             tagLabel.setOnAction(event -> showDocumentsWithTag(tags));
             tagsField.getChildren().add(tagLabel);
         }
