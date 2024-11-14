@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="736.0" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nichga.proj97.RegisterController">
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="552.0" prefWidth="736.0" stylesheets="@RegisterDesign.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nichga.proj97.RegisterController">
     <children>
         <ImageView fitHeight="552.0" fitWidth="736.0" pickOnBounds="true" preserveRatio="true">
             <image>
@@ -53,12 +53,12 @@
                 <Font name="System Bold" size="21.0" />
             </font>
         </Button>
-        <Button id="loginselect" fx:id="backButton" layoutX="253.0" layoutY="120.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Login">
+        <Button id="loginselect" fx:id="backButton" layoutX="253.0" layoutY="120.0" mnemonicParsing="false" onAction="#backToLogin" prefHeight="30.0" prefWidth="115.0" text="Login">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>
         </Button>
-        <Button id="registerselect" layoutX="368.0" layoutY="120.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Register" underline="true">
+        <Button id="registerselect" layoutX="368.0" layoutY="120.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="115.0" text="Register">
             <font>
                 <Font name="System Bold" size="22.0" />
             </font>

@@ -8,6 +8,7 @@ import java.util.Objects;
 public class Documents {
 
     public String[] tag;
+    public String imageLink = "Library.png";
     private String title;
 
     private String author;
@@ -89,6 +90,27 @@ public class Documents {
 
     public int getTimesBorrowed() {
         return timesBorrowed;
+    }
+
+    public String getTagsString() {
+        StringBuilder result = new StringBuilder();
+        result.append("Tags: ");
+        for (int i = 0; i < tag.length; i++) {
+            if (i < tag.length - 1) {
+                result.append(tag[i] + ", ");
+            } else {
+                result.append(tag[i]);
+            }
+        }
+        return result.toString();
+    }
+
+    public String getImageLink() {
+        return imageLink;
+    }
+
+    void setImageLink(String imageLink) {
+        this.imageLink = imageLink;
     }
 
     @Override

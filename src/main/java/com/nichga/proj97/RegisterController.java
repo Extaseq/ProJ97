@@ -60,5 +60,9 @@ public class RegisterController extends StageController{
             goToNextStage("LogIn.fxml",registerButton, null);
         }
     }
+    @FXML
+    public void backToLogin(ActionEvent event) throws IOException {
+        goToNextStage("Login.fxml", backButton, null);
+    }
 
 }

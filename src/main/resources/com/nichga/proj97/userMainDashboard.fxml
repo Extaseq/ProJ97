@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.TableColumn?>
 <?import javafx.scene.control.TableView?>
+<?import javafx.scene.control.TextField?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -60,9 +61,9 @@
                             </font>
                         </Label>
                         <Button fx:id="myDoc" layoutX="20.0" layoutY="345.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="178.0" styleClass="function-button" stylesheets="@userDashboardDesign.css" text="My document" />
-                        <Button fx:id="reccomendDoc" layoutX="20.0" layoutY="401.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" styleClass="function-button" stylesheets="@userDashboardDesign.css" text="Reccomend document" />
-                        <Line endX="100.0" layoutX="116.0" layoutY="289.0" startX="-100.0" stroke="#f8f6f6" />
-                        <Button fx:id="signOut" layoutX="22.0" layoutY="488.0" mnemonicParsing="false" onAction="#signOut" styleClass="function-button" stylesheets="@userDashboardDesign.css">
+                        <Button fx:id="reccomendDoc" layoutX="20.0" layoutY="401.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="177.0" styleClass="function-button" stylesheets="@userDashboardDesign.css" text="Recommend document" />
+                        <Line endX="70.0" layoutX="116.0" layoutY="289.0" startX="-100.0" stroke="#f8f6f6" />
+                        <Button fx:id="signOut" layoutX="22.0" layoutY="488.0" mnemonicParsing="false" onAction="#signOut" prefWidth="25.0" styleClass="function-button" stylesheets="@userDashboardDesign.css">
                             <graphic>
                                 <FontAwesomeIcon glyphName="SIGN_OUT" />
                             </graphic>
@@ -91,12 +92,13 @@
                                     </font>
                                 </Label>
                                 <FlowPane fx:id="tagsField" layoutX="13.0" layoutY="285.0" prefHeight="127.0" prefWidth="200.0" />
-                                <Button fx:id="borrowButton" layoutX="79.0" layoutY="445.0" mnemonicParsing="false" styleClass="borrow-button" stylesheets="@userDashboardDesign.css" text="Borrow" />
+                                <Button fx:id="borrowButton" layoutX="14.0" layoutY="453.0" mnemonicParsing="false" styleClass="borrow-button" stylesheets="@userDashboardDesign.css" text="Borrow" />
                                 <AnchorPane layoutX="31.0" layoutY="27.0" prefHeight="200.0" prefWidth="163.0" styleClass="image-card" stylesheets="@userDashboardDesign.css">
                                     <children>
                                         <ImageView fx:id="image" layoutX="14.0" layoutY="10.0" pickOnBounds="true" preserveRatio="true" />
                                     </children>
                                 </AnchorPane>
+                        <Button layoutX="143.0" layoutY="453.0" mnemonicParsing="false" styleClass="borrow-button" stylesheets="@userDashboardDesign.css" text="Detail" />
                             </children></AnchorPane>
                         <AnchorPane layoutX="293.0" layoutY="18.0" prefHeight="502.0" prefWidth="596.0" styleClass="card-form" stylesheets="@userDashboardDesign.css">
                             <children>
@@ -110,6 +112,12 @@
                                         <TableColumn fx:id="view_col" prefWidth="95.0" text="View" />
                                     </columns>
                                 </TableView>
+                        <TextField layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="300.0" promptText="Search sth" />
+                        <Button layoutX="318.0" layoutY="14.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="25.0">
+                           <graphic>
+                              <FontAwesomeIcon glyphName="SEARCH" />
+                           </graphic>
+                        </Button>
                             </children></AnchorPane>
                     </children>
                 </AnchorPane>
