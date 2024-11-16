@@ -11,9 +11,9 @@ import java.io.IOException;
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("NewUserDashboard.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("UserDashboard2.fxml"));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("NewUserDashboard.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getResource("UserDashboard2.css").toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

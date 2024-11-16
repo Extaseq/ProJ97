@@ -1,0 +1,227 @@
+* {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+#leftVbox {
+    -fx-hgap: 0;
+    -fx-background-color: white;
+    -fx-padding: 15px;
+}
+#separator2 {
+    -fx-background-color: transparent;
+    -fx-pref-width: 0px;
+    -fx-background-style: dash;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 7, 5);
+    -fx-border-style: dashed;
+    -fx-border-width: 2px;
+    -fx-border-color: #4CAF50;
+}
+#buttonLibrary {
+    -fx-background-color: white;
+    -fx-translate-y: 100px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-text-fill: rgba(175,140,100,1);
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-alignment: center-left;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+#buttonLibrary:selected {
+    -fx-background-color: rgba(242,236,229,1);
+    -fx-text-fill: rgba(125,67,0,1);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
+}
+#buttonRecommend {
+    -fx-background-color: white;
+    -fx-translate-y: 105px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(175,140,100,1);
+    -fx-font-size: 16;
+    -fx-alignment: center-left;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+#buttonRecommend:selected {
+    -fx-background-color: rgba(242,236,229,1);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
+    -fx-text-fill: rgba(125,67,0,1);
+}
+#buttonMyDocument {
+    -fx-background-color: white;
+    -fx-translate-y: 110px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(175,140,100,1);
+    -fx-font-size: 16;
+    -fx-alignment: center-left;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+#buttonMyDocument:selected {
+    -fx-background-color: rgba(242,236,229,1);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
+    -fx-text-fill: rgba(125,67,0,1);
+}
+#buttonAccount {
+    -fx-background-color: white;
+    -fx-translate-y: 115px;
+    -fx-pref-width: 200px;
+    -fx-pref-height: 50px;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(175,140,100,1);
+    -fx-font-size: 16;
+    -fx-alignment: center-left;
+    -fx-border-radius: 12px;
+    -fx-background-radius: 12px;
+}
+#buttonAccount:selected {
+    -fx-background-color: rgba(242,236,229,1);
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
+    -fx-text-fill: rgba(125,67,0,1);
+}
+#constantText {
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(125,67,0,1);
+    -fx-font-size: 16;
+}
+#namedocument {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-control-inner-background: rgba(255,248,243,1);
+    -fx-border-color: transparent;
+    -fx-text-fill: black;
+    -fx-highlight-fill: transparent;
+    -fx-highlight-text-fill: black;
+    -fx-padding: 0;
+}
+#descripe {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-control-inner-background: rgba(255,248,243,1);
+    -fx-border-color: rgba(255,248,243,1);
+    -fx-border-width: 0;
+    -fx-text-fill: black;
+    -fx-highlight-fill: transparent;
+    -fx-highlight-text-fill: black;
+    -fx-padding: 0;
+}
+/*Library*/
+#libraryPane {
+    -fx-background-color: white;
+}
+#tabpaneLibrary {
+    -fx-background-color: rgba(255,248,243,1);
+}
+#tabpaneLibrary .tab-header-background {
+    -fx-background-color: white;
+    -fx-background-radius: 20px;
+}
+#tabpaneLibrary .tab-header-area {
+    -fx-padding: 10px 10px 10px 10x;
+    -padding-bottom: 10px;
+    -fx-background-radius: 20px;
+    -fx-alignment: center;
+    /*-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 4);*/
+}
+#tabpaneLibrary .tab-header-area .tab {
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
+    -fx-pref-height: 50px;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px 10px 10px 10x;
+}
+#tabpaneLibrary .tab-header-area .tab:selected {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-border-radius: 20px;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
+}
+#tabpaneLibrary .tab-header-area .tab:hover {
+    -fx-background-color: rgba(255,248,243,1);
+}
+#tabpaneLibrary .tab-header-area .tab-label {
+    -fx-text-fill: rgba(125,67,0,1);
+    -fx-font-weight: bold;
+    -fx-font-size: 15;
+    -fx-pref-height: 40px;
+    -fx-pref-width: 150px;
+}
+#Hbox {
+    -fx-alignment: center;
+}
+#Vbox {
+    -fx-alignment: bottom_center;
+    -fx-margin: 0;
+    -fx-spacing: 0;
+}
+#titleDoc {
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+    -fx-background-radius: 0;
+    -fx-background-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-border-width: 1;
+    -fx-border-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+}
+#lefttitleDoc {
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+    -fx-background-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-border-width: 1;
+    -fx-border-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-background-radius: 7 0 0 7;
+    -fx-border-radius: 7 0 0 7;
+}
+#rightTitleDoc {
+    -fx-font-weight: bold;
+    -fx-font-size: 11;
+    -fx-background-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-border-width: 1;
+    -fx-border-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-background-radius: 0 7 7 0;
+    -fx-border-radius: 0 7 7 0;
+}
+#tableView1 {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: rgba(255,248,243,1);
+    -fx-border-width: 2px;
+    -fx-border-style: solid;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 4);
+}
+.table-view .column-header {
+    -fx-background-radius: 5px;
+    -fx-border-radius: 5px;
+    -fx-border-color: rgba(255,248,243,1);
+    -fx-border-width: 1px;
+    -fx-border-style: solid;
+}
+#tableView1 .column-header-background {
+    -fx-background-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-border-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+}
+#tableView1 .column-header .label {
+    -fx-background-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-text-fill: rgba(125,67,0,1);
+    -fx-padding: 0;
+}
+#imagecolumn1 {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-border-color: rgba(255,248,243,1);
+}
+#detailcolumn1 {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-border-color: rgba(255,248,243,1);
+}
+
+/*Recommend Document*/
+#recommendPane {
+    -fx-background-color: white;
+}
+#paneRecomment1 {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-background-radius: 25px;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 0, 0);
+}

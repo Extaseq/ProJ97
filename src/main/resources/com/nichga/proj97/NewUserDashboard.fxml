@@ -46,7 +46,7 @@
                      <children>
                         <ImageView id="documentimage" fx:id="documentimage" fitHeight="300.0" fitWidth="250.0" layoutX="25.0" layoutY="25.0" pickOnBounds="true">
                            <image>
-                              <Image url="@Library.png" />
+                              <Image url="@IconUser.png" />
                            </image>
                         </ImageView>
                         <TextArea id="namedocument" fx:id="namedocument" editable="false" layoutX="25.0" layoutY="330.0" prefHeight="60.0" prefWidth="250.0" promptText="Name of the Document" wrapText="true">
