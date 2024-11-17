@@ -10,6 +10,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
@@ -52,12 +53,19 @@ public class UserDashboard2Controller extends StageController {
     private TextField search1;
     @FXML
     private MenuButton menuButton1;
+
     @FXML
     private MenuItem sorttitle1, sortauthor1, sortview1;
 
+    @FXML
+    private FlowPane tagsfield1;
+
     public void initialize() {
+        tagsfield1.setHgap(10);
+        tagsfield1.setVgap(10);
+
         buttonLibrary.setSelected(true);
-        LockColumn();
+
         StrokeLine();
         SetButton();
         imagecolumn1.setCellValueFactory(new PropertyValueFactory<>("imageLink"));
@@ -104,6 +112,7 @@ public class UserDashboard2Controller extends StageController {
                         setPrefHeight(100);
                         setGraphic(flow);
                         setText(null);
+
                     } else {
                         setText(null);
                         setGraphic(null);
@@ -112,14 +121,15 @@ public class UserDashboard2Controller extends StageController {
             }
         });
         mainData = getDocuments();
-        searchData = Search();
-        tableView1.setItems(searchData);
+        tableView1.setItems(mainData);
+        search(mainData);
         tableView1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 documentimage1.setImage(new Image(getClass().getResourceAsStream(newValue.getImageLink())));
                 namedocument1.setText(newValue.getTitle());
                 descripe1.setText("Author: " + newValue.getAuthor() + "\nDescripe: " + "\nType: " + newValue.getType()
                         + "\n" + newValue.getTagsString()+ "\nAvailable: " + "\nView: ");
+                displayTags(newValue);
             }
         });
         Sort();
@@ -176,31 +186,64 @@ public class UserDashboard2Controller extends StageController {
         );
     }
 
-    private SortedList<Documents> Search() {
-        FilteredList<Documents> filteredData = new FilteredList<>(mainData, p -> true);
-        search1.textProperty().addListener((observable, oldValue, newValue) -> {
-            filteredData.setPredicate(item -> {
-                if (newValue == null || newValue.isEmpty()) {
-                    return true;
-                }
-                String lowerCaseFilter = newValue.toLowerCase();
-                return item.getTitle().toLowerCase().contains(lowerCaseFilter) ||
-                        item.getAuthor().toLowerCase().contains(lowerCaseFilter);
-            });
-        });
-        SortedList<Documents> sortedData = new SortedList<>(filteredData);
-        sortedData.comparatorProperty().bind(tableView1.comparatorProperty());
-        return sortedData;
-    }
-
     private void sortTable(Comparator<Documents> comparator, TableView tab) {
         // Tạo danh sách sắp xếp
-        SortedList<Documents> sortedData = new SortedList<>(searchData, comparator);
+
+        SortedList<Documents> sortedData = new SortedList<>(tableView1.getItems(), comparator);
         tab.setItems(sortedData);
     }
     private void Sort() {
         sorttitle1.setOnAction(event -> sortTable((o1, o2) -> o1.getTitle().compareToIgnoreCase(o2.getTitle()), tableView1));
         sortauthor1.setOnAction(event -> sortTable((o1, o2) -> o1.getAuthor().compareToIgnoreCase(o2.getAuthor()), tableView1));
         //sortViewDesc.setOnAction(event -> sortTable((o1, o2) -> Integer.compare(o2.getViewCount(), o1.getViewCount())), tableView1);
+    }
+
+    private void displayTags(Documents doc) {
+        tagsfield1.getChildren().clear();
+        for(String tags : doc.tag) {
+            Button tagLabel = new Button(tags);
+            tagLabel.setMaxWidth(1000);
+            tagLabel.getStyleClass().add("function-button");
+            tagLabel.setOnAction(event -> showDocumentsWithTag(tags));
+            tagsfield1.getChildren().add(tagLabel);
+        }
+    }
+
+    private void showDocumentsWithTag(String tag) {
+        ObservableList<Documents> filteredDocuments = FXCollections.observableArrayList();
+
+        for (Documents document : mainData) {
+            if (document.hasTag(tag)) {
+                filteredDocuments.add(document);
+            }
+        }
+        search(filteredDocuments);
+
+    }
+
+    public void search(ObservableList<Documents> data) {
+
+        FilteredList<Documents> filteredData = new FilteredList<>(data, p -> true);
+        search1.textProperty().addListener((observable, oldValue, newValue) -> {
+            applyFilter(filteredData, search1.getText());
+        });
+
+        applyFilter(filteredData, search1.getText());
+
+        SortedList<Documents> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView1.comparatorProperty());
+        tableView1.refresh();
+        tableView1.setItems(sortedData);
+
+    }
+    private void applyFilter(FilteredList<Documents> filteredData, String filterText) {
+        filteredData.setPredicate(item -> {
+            if (filterText == null || filterText.isEmpty()) {
+                return true;
+            }
+            String lowerCaseFilter = filterText.toLowerCase();
+            return item.getTitle().toLowerCase().contains(lowerCaseFilter) ||
+                    item.getAuthor().toLowerCase().contains(lowerCaseFilter);
+        });
     }
 }
