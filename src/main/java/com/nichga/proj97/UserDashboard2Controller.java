@@ -2,6 +2,8 @@ package com.nichga.proj97;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.collections.transformation.FilteredList;
+import javafx.collections.transformation.SortedList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -15,7 +17,9 @@ import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
-import javafx.geometry.Insets;
+
+import javax.print.Doc;
+import java.util.Comparator;
 
 
 public class UserDashboard2Controller extends StageController {
@@ -23,6 +27,9 @@ public class UserDashboard2Controller extends StageController {
     protected void setUser(Users user) {
         this.user = user;
     }
+    ObservableList<Documents> mainData;
+    SortedList<Documents> searchData;
+    //SortedList<Documents> sortedData;
 
     @FXML
     private ToggleButton buttonLibrary, buttonRecommend, buttonMyDocument, buttonAccount;
@@ -41,6 +48,12 @@ public class UserDashboard2Controller extends StageController {
     private ImageView documentimage1;
     @FXML
     private TextArea namedocument1, descripe1;
+    @FXML
+    private TextField search1;
+    @FXML
+    private MenuButton menuButton1;
+    @FXML
+    private MenuItem sorttitle1, sortauthor1, sortview1;
 
     public void initialize() {
         buttonLibrary.setSelected(true);
@@ -64,7 +77,7 @@ public class UserDashboard2Controller extends StageController {
                         setGraphic(imageView);
                         setStyle("-fx-alignment: CENTER;");
                     } catch (Exception e) {
-                        setGraphic(null); // Không hiển thị nếu ảnh không tìm thấy
+                        setGraphic(null);
                         System.err.println("Error loading image: " + imageLink);
                     }
                 }
@@ -98,7 +111,9 @@ public class UserDashboard2Controller extends StageController {
                 }
             }
         });
-        tableView1.setItems(getDocuments());
+        mainData = getDocuments();
+        searchData = Search();
+        tableView1.setItems(searchData);
         tableView1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
             if (newValue != null) {
                 documentimage1.setImage(new Image(getClass().getResourceAsStream(newValue.getImageLink())));
@@ -107,7 +122,7 @@ public class UserDashboard2Controller extends StageController {
                         + "\n" + newValue.getTagsString()+ "\nAvailable: " + "\nView: ");
             }
         });
-
+        Sort();
     }
 
     private void LockColumn() {
@@ -159,5 +174,33 @@ public class UserDashboard2Controller extends StageController {
                 new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
                 new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
         );
+    }
+
+    private SortedList<Documents> Search() {
+        FilteredList<Documents> filteredData = new FilteredList<>(mainData, p -> true);
+        search1.textProperty().addListener((observable, oldValue, newValue) -> {
+            filteredData.setPredicate(item -> {
+                if (newValue == null || newValue.isEmpty()) {
+                    return true;
+                }
+                String lowerCaseFilter = newValue.toLowerCase();
+                return item.getTitle().toLowerCase().contains(lowerCaseFilter) ||
+                        item.getAuthor().toLowerCase().contains(lowerCaseFilter);
+            });
+        });
+        SortedList<Documents> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(tableView1.comparatorProperty());
+        return sortedData;
+    }
+
+    private void sortTable(Comparator<Documents> comparator, TableView tab) {
+        // Tạo danh sách sắp xếp
+        SortedList<Documents> sortedData = new SortedList<>(searchData, comparator);
+        tab.setItems(sortedData);
+    }
+    private void Sort() {
+        sorttitle1.setOnAction(event -> sortTable((o1, o2) -> o1.getTitle().compareToIgnoreCase(o2.getTitle()), tableView1));
+        sortauthor1.setOnAction(event -> sortTable((o1, o2) -> o1.getAuthor().compareToIgnoreCase(o2.getAuthor()), tableView1));
+        //sortViewDesc.setOnAction(event -> sortTable((o1, o2) -> Integer.compare(o2.getViewCount(), o1.getViewCount())), tableView1);
     }
 }

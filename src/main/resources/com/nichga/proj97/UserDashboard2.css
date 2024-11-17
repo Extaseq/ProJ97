@@ -191,7 +191,7 @@
     -fx-border-style: solid;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 4);
 }
-.table-view .column-header {
+#tableView1 .column-header {
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
     -fx-border-color: rgba(255,248,243,1);
@@ -206,6 +206,13 @@
     -fx-background-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
     -fx-text-fill: rgba(125,67,0,1);
     -fx-padding: 0;
+}
+#tableView1 .table-row-cell {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
+}
+#tableView1 .table-row-cell:selected {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.7), 15, 0.0, 0, 0);
+    -fx-background-color: red;
 }
 #imagecolumn1 {
     -fx-background-color: rgba(255,248,243,1);

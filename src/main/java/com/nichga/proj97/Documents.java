@@ -8,7 +8,9 @@ import java.util.Objects;
 public class Documents {
 
     public String[] tag;
+
     public String imageLink = "Library.png";
+
     private String title;
 
     private String author;
