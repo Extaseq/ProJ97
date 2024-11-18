@@ -261,3 +261,13 @@
     -fx-background-color: linear-gradient(to right, #ff9a9e, #fad0c4); /* Màu chính của thanh trượt */
     -fx-background-radius: 5px; /* Bo góc thanh trượt */
 }
+
+.default-button {
+    -fx-background-color: lightgray;
+    -fx-text-fill: black;
+}
+
+.highlighted-button {
+    -fx-background-color: linear-gradient(to bottom right,#46589a,#4278a7);
+    -fx-text-fill: black;
+}

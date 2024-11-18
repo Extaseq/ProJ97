@@ -54,7 +54,7 @@ public class LogInController extends StageController {
                     alert.setContentText("Login Successful!");
                     alert.showAndWait();
                     try {
-                        goToNextStage("/com/nichga/proj97/userDashboard2.fxml", logInButton, user);
+                        goToNextStage("/com/nichga/proj97/test2.fxml", logInButton, user);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }
