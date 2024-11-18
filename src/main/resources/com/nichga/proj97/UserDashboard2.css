@@ -259,3 +259,12 @@
 .function-button:hover {
     -fx-background-color: linear-gradient(to bottom right,#46589a,#4278a7);
 }
+.default-button {
+    -fx-background-color: lightgray;
+    -fx-text-fill: black;
+}
+
+.highlighted-button {
+    -fx-background-color: linear-gradient(to bottom right,#46589a,#4278a7);
+    -fx-text-fill: black;
+}

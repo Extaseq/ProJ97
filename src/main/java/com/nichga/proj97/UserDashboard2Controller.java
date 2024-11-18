@@ -12,15 +12,13 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.StackPane;
-import javafx.scene.layout.VBox;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import javax.print.Doc;
-import java.util.Comparator;
+import java.util.*;
 
 
 public class UserDashboard2Controller extends StageController {
@@ -30,7 +28,9 @@ public class UserDashboard2Controller extends StageController {
     }
     ObservableList<Documents> mainData;
     SortedList<Documents> searchData;
+    Set<String> tagList; {tagList = new HashSet<>();}
     //SortedList<Documents> sortedData;
+    private boolean isTagButtonPressed = false;
 
     @FXML
     private ToggleButton buttonLibrary, buttonRecommend, buttonMyDocument, buttonAccount;
@@ -44,7 +44,7 @@ public class UserDashboard2Controller extends StageController {
     @FXML
     private TableColumn<Documents, String> imagecolumn1, detailcolumn1;
     @FXML
-    private TableView<Documents> tableView1;
+    private TableView<Documents> tableView1, tableView11;
     @FXML
     private ImageView documentimage1;
     @FXML
@@ -60,7 +60,12 @@ public class UserDashboard2Controller extends StageController {
     @FXML
     private FlowPane tagsfield1;
 
+
     public void initialize() {
+        initLibrary();
+    }
+
+    public void initLibrary() {
         tagsfield1.setHgap(10);
         tagsfield1.setVgap(10);
 
@@ -120,18 +125,24 @@ public class UserDashboard2Controller extends StageController {
                 }
             }
         });
-        mainData = getDocuments();
+        mainData = getAllDocuments();
         tableView1.setItems(mainData);
-        search(mainData);
+        search(mainData, tableView1);
         tableView1.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
-            if (newValue != null) {
+
+            if (newValue != null && !newValue.equals(oldValue)) {
                 documentimage1.setImage(new Image(getClass().getResourceAsStream(newValue.getImageLink())));
                 namedocument1.setText(newValue.getTitle());
                 descripe1.setText("Author: " + newValue.getAuthor() + "\nDescripe: " + "\nType: " + newValue.getType()
                         + "\n" + newValue.getTagsString()+ "\nAvailable: " + "\nView: ");
-                displayTags(newValue);
+
+                if (isTagButtonPressed == false) {
+                    displayTags(newValue);
+                }
+                isTagButtonPressed = false;
             }
         });
+
         Sort();
     }
 
@@ -168,7 +179,7 @@ public class UserDashboard2Controller extends StageController {
         });
     }
 
-    private ObservableList<Documents> getDocuments() {
+    private ObservableList<Documents> getAllDocuments() {
         // Khởi tạo danh sách tài liệu
         return FXCollections.observableArrayList(
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
@@ -186,11 +197,35 @@ public class UserDashboard2Controller extends StageController {
         );
     }
 
-    private void sortTable(Comparator<Documents> comparator, TableView tab) {
+    private ObservableList<Documents> getUserDocuments() {
+        user.addUserDocuments(
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+        );
+        user.addUserDocuments(
+                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200)
+        );
+        user.addUserDocuments(
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150)
+        );
+        user.addUserDocuments(
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+        );
+        user.addUserDocuments(
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU", "Classic"}, 4, 150)
+        );
+        user.addUserDocuments(
+                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
+        );
+        return FXCollections.observableArrayList(user.getUserDocuments());
+
+    }
+
+
+    private void sortTable(Comparator<Documents> comparator, TableView<Documents> table) {
         // Tạo danh sách sắp xếp
 
-        SortedList<Documents> sortedData = new SortedList<>(tableView1.getItems(), comparator);
-        tab.setItems(sortedData);
+        SortedList<Documents> sortedData = new SortedList<>(table.getItems(), comparator);
+        table.setItems(sortedData);
     }
     private void Sort() {
         sorttitle1.setOnAction(event -> sortTable((o1, o2) -> o1.getTitle().compareToIgnoreCase(o2.getTitle()), tableView1));
@@ -199,29 +234,61 @@ public class UserDashboard2Controller extends StageController {
     }
 
     private void displayTags(Documents doc) {
+        System.out.println("re display");
         tagsfield1.getChildren().clear();
+        tagList.clear();
+
+        isTagButtonPressed = false;
+
         for(String tags : doc.tag) {
-            Button tagLabel = new Button(tags);
-            tagLabel.setMaxWidth(1000);
-            tagLabel.getStyleClass().add("function-button");
-            tagLabel.setOnAction(event -> showDocumentsWithTag(tags));
-            tagsfield1.getChildren().add(tagLabel);
+            Button tag = new Button(tags);
+            tag.getStyleClass().setAll("default-button");
+            tag.setMaxWidth(1000);
+            tag.setOnAction(actionEvent -> {
+                isTagButtonPressed = true;
+                if (tag.getStyleClass().contains("highlighted-button")) {
+
+                    tag.getStyleClass().setAll("default-button");
+                    tagList.remove(tags);
+                    showDocumentsWithTag();
+                } else {
+
+                    tag.getStyleClass().setAll("highlighted-button");
+                    showDocumentsWithTag(tags);
+                }
+            });
+            tagsfield1.getChildren().add(tag);
+
         }
+
+
+
     }
 
-    private void showDocumentsWithTag(String tag) {
+    private void showDocumentsWithTag() {
         ObservableList<Documents> filteredDocuments = FXCollections.observableArrayList();
 
         for (Documents document : mainData) {
-            if (document.hasTag(tag)) {
+            boolean hasAllTags = true;
+            for (String tag : tagList) {
+                if (!document.hasTag(tag)) {
+                    hasAllTags = false;
+                    break;
+                }
+            }
+            if (hasAllTags) {
                 filteredDocuments.add(document);
             }
         }
-        search(filteredDocuments);
+        search(filteredDocuments, tableView1);
+    }
+    private void showDocumentsWithTag(String tag) {
 
+        tagList.add(tag);
+        showDocumentsWithTag();
     }
 
-    public void search(ObservableList<Documents> data) {
+    public void search(ObservableList<Documents> data, TableView<Documents> table) {
 
         FilteredList<Documents> filteredData = new FilteredList<>(data, p -> true);
         search1.textProperty().addListener((observable, oldValue, newValue) -> {
@@ -232,8 +299,8 @@ public class UserDashboard2Controller extends StageController {
 
         SortedList<Documents> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(tableView1.comparatorProperty());
-        tableView1.refresh();
-        tableView1.setItems(sortedData);
+        table.refresh();
+        table.setItems(sortedData);
 
     }
     private void applyFilter(FilteredList<Documents> filteredData, String filterText) {
@@ -246,4 +313,6 @@ public class UserDashboard2Controller extends StageController {
                     item.getAuthor().toLowerCase().contains(lowerCaseFilter);
         });
     }
+
+
 }
