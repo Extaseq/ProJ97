@@ -344,11 +344,11 @@
                                           </Pane>
                                           <TextField id="search1" fx:id="search1" layoutX="195.0" layoutY="3.0" prefHeight="33.0" prefWidth="380.0" promptText="Search in Library" />
                                           <MenuButton id="menubutton1" fx:id="menubutton1" layoutX="125.0" layoutY="3.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="70.0" text="Sort by">
-                                            <items>
-                                              <MenuItem fx:id="sorttitle1" mnemonicParsing="false" text="Title" />
-                                              <MenuItem id="sortauthor" fx:id="sortauthor1" mnemonicParsing="false" text="Author" />
+                                             <items>
+                                                <MenuItem fx:id="sorttitle1" mnemonicParsing="false" text="Title" />
+                                                <MenuItem id="sortauthor" fx:id="sortauthor1" mnemonicParsing="false" text="Author" />
                                                 <MenuItem fx:id="sortview1" mnemonicParsing="false" text="View" />
-                                            </items>
+                                             </items>
                                           </MenuButton>
                                        </children></AnchorPane>
                                  </content>

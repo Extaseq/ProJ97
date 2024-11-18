@@ -156,6 +156,7 @@
     -fx-margin: 0;
     -fx-spacing: 0;
 }
+
 #titleDoc {
     -fx-font-weight: bold;
     -fx-font-size: 11;
@@ -267,4 +268,12 @@
 .highlighted-button {
     -fx-background-color: linear-gradient(to bottom right,#46589a,#4278a7);
     -fx-text-fill: black;
+}
+
+* {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+#leftVbox {
+    -fx-hgap: 0;
 }
