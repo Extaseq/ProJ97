@@ -17,6 +17,7 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import javax.print.Doc;
+import java.io.IOException;
 import java.util.*;
 
 public class UserDashboard2Controller extends StageController {
@@ -70,6 +71,8 @@ public class UserDashboard2Controller extends StageController {
     @FXML
     private HBox currentList, recommendList, finishedList, favouriteAuthorList, mostPopularList;
 
+    @FXML
+    private Button signOut;
 
 
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
@@ -428,4 +431,10 @@ public class UserDashboard2Controller extends StageController {
     }
 
 
+    public void signOut() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure you want to logout?");
+        alert.showAndWait();
+        goToNextStage("/com/nichga/proj97/LogIn.fxml", signOut, null);
+    }
 }
