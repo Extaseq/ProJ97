@@ -1,3 +1,7 @@
+CREATE DATABASE Library;
+
+USE Library;
+
 CREATE TABLE `Authors` (
   `author_id` integer PRIMARY KEY,
   `name` varchar(50),
@@ -25,7 +29,7 @@ CREATE TABLE `Publishers` (
 CREATE TABLE `Members` (
   `member_id` integer PRIMARY KEY AUTO_INCREMENT,
   `fullname` varchar(255),
-  `adress` varchar(255),
+  `address` varchar(255),
   `email` varchar(100),
   `phone` varchar(20),
   `join_date` date
@@ -33,7 +37,7 @@ CREATE TABLE `Members` (
 
 CREATE TABLE `UserAccounts` (
   `account_id` integer PRIMARY KEY AUTO_INCREMENT,
-  `member_id` integer,
+  `member_id` integer UNIQUE,
   `username` varchar(100) UNIQUE,
   `password_hash` varchar(255),
   `salt` varchar(255),
@@ -64,7 +68,7 @@ CREATE TABLE `ReadingHistory` (
   `member_id` integer,
   `book_id` integer,
   `reading_date` date,
-  `status` enum(Borrowed,Completed,In Progress)
+  `status` enum('Borrowed', 'Completed', 'In Progress')
 );
 
 ALTER TABLE `Books` ADD FOREIGN KEY (`author_id`) REFERENCES `Authors` (`author_id`);
@@ -82,3 +86,4 @@ ALTER TABLE `ReadingHistory` ADD FOREIGN KEY (`book_id`) REFERENCES `Books` (`bo
 ALTER TABLE `ReadingHistory` ADD FOREIGN KEY (`member_id`) REFERENCES `Members` (`member_id`);
 
 ALTER TABLE `Members` ADD FOREIGN KEY (`member_id`) REFERENCES `UserAccounts` (`member_id`);
+
