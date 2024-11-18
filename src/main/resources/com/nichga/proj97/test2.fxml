@@ -83,7 +83,7 @@
                                                                 <AnchorPane id="paneShelve" maxWidth="856.0" minHeight="700.0" minWidth="755.0" prefHeight="1150.0" prefWidth="755.0">
                                                                     <children>
                                                                         <TextField id="constantText" editable="false" layoutX="5.0" layoutY="12.0" text="Currently Reading" />
-                                                                        <HBox id="Hbox" fx:id="Hbox1" layoutX="5.0" layoutY="53.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
+                                                                        <HBox id="Hbox" fx:id="currentList" layoutX="5.0" layoutY="53.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox17" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
@@ -158,7 +158,7 @@
                                                                             </children>
                                                                         </HBox>
                                                                         <TextField id="constantText" editable="false" layoutX="5.0" layoutY="243.0" text="Recommend For You" />
-                                                                        <HBox id="Hbox" fx:id="Hbox2" layoutX="5.0" layoutY="279.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
+                                                                        <HBox id="Hbox" fx:id="recommendList" layoutX="5.0" layoutY="279.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox6" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
@@ -233,7 +233,7 @@
                                                                             </children>
                                                                         </HBox>
                                                                         <TextField id="constantText" editable="false" layoutX="5.0" layoutY="469.0" text="Finished" />
-                                                                        <HBox id="Hbox" fx:id="Hbox3" layoutX="5.0" layoutY="505.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
+                                                                        <HBox id="Hbox" fx:id="finishedList" layoutX="5.0" layoutY="505.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox112" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
@@ -308,7 +308,7 @@
                                                                             </children>
                                                                         </HBox>
                                                                         <TextField id="constantText" editable="false" layoutX="5.0" layoutY="695.0" text="Your Favourite Author" />
-                                                                        <HBox id="Hbox" fx:id="Hbox4" layoutX="5.0" layoutY="731.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
+                                                                        <HBox id="Hbox" fx:id="favouriteAuthorList" layoutX="5.0" layoutY="731.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox1121" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
@@ -383,7 +383,7 @@
                                                                             </children>
                                                                         </HBox>
                                                                         <TextField id="constantText" editable="false" layoutX="5.0" layoutY="921.0" text="Most Popular" />
-                                                                        <HBox id="Hbox" fx:id="Hbox5" layoutX="5.0" layoutY="957.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
+                                                                        <HBox id="Hbox" fx:id="mostPopularList" layoutX="5.0" layoutY="957.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox11211" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>

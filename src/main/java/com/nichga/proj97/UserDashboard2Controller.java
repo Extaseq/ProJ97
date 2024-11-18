@@ -9,9 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -33,6 +31,8 @@ public class UserDashboard2Controller extends StageController {
     //SortedList<Documents> sortedData;
     private boolean isTagButtonPressed = false;
 
+
+
     @FXML
     private TabPane tabpaneLibrary;
 
@@ -50,9 +50,9 @@ public class UserDashboard2Controller extends StageController {
     @FXML
     private TableView<Documents> tableView1, tableView12;
     @FXML
-    private ImageView documentimage1, documentimage11;
+    private ImageView documentimage1, documentimage11, documentimage3;
     @FXML
-    private TextArea namedocument1, descripe1, namedocument11, descripe11;
+    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3 ;
     @FXML
     private TextField search1, search12;
     @FXML
@@ -67,8 +67,59 @@ public class UserDashboard2Controller extends StageController {
     @FXML
     private FlowPane tagsfield1, tagsfield11;
 
+    @FXML
+    private HBox currentList, recommendList, finishedList, favouriteAuthorList, mostPopularList;
+
+
+
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
 
+    private ObservableList<Documents> getCurrentDoc() {
+        return FXCollections.observableArrayList(
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
+                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+        );
+    }
+    private ObservableList<Documents> getRecommendedDoc() {
+        return FXCollections.observableArrayList(
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
+                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+        );
+    }
+    private ObservableList<Documents> getFinishedDoc() {
+        return FXCollections.observableArrayList(
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
+                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+        );
+    }
+    private ObservableList<Documents> getFavouriteAuthorDoc() {
+        return FXCollections.observableArrayList(
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
+                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+        );
+    }
+
+    private ObservableList<Documents> getMostPopularDoc() {
+        return FXCollections.observableArrayList(
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
+                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
+                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+        );
+    }
 
     public void initialize() {
         StrokeLine();
@@ -80,6 +131,34 @@ public class UserDashboard2Controller extends StageController {
         initLibrary(tagsfield1, imagecolumn1, detailcolumn1, mainData, documentimage1, namedocument1, descripe1, tableView1);
         initLibrary(tagsfield11, imagecolumn12, detailcolumn12, getUserDocuments(), documentimage11, namedocument11, descripe11, tableView12);
         Sort();
+        initShelve();
+    }
+
+    public void initShelve() {
+        addDocToShelve(getCurrentDoc(), currentList);
+        addDocToShelve(getRecommendedDoc(), recommendList);
+        addDocToShelve(getFinishedDoc(), finishedList);
+        addDocToShelve(getFavouriteAuthorDoc(), favouriteAuthorList);
+        addDocToShelve(getMostPopularDoc(), mostPopularList);
+
+
+    }
+
+    public void addDocToShelve(ObservableList<Documents> docList, HBox hBox) {
+
+        for (int i = 0; i < hBox.getChildren().size(); i++) {
+            Documents doc = docList.get(i);
+            VBox vBox = (VBox) hBox.getChildren().get(i);
+            ImageView image = (ImageView) vBox.getChildren().get(0);
+            TextField title = (TextField) vBox.getChildren().get(1);
+            title.setText(docList.get(i).getTitle());
+            vBox.setOnMouseClicked(event -> {
+                documentimage3.setImage(image.getImage());
+                namedocument3.setText(title.getText());
+                descripe3.setText("Author: " + doc.getAuthor() + "\nDescripe: " + "\nType: " + doc.getType()
+                        + "\n" + doc.getTagsString()+ "\nAvailable: " + "\nView: ");
+            });
+        }
 
     }
 
