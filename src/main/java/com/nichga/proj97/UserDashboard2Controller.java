@@ -33,13 +33,13 @@ public class UserDashboard2Controller extends StageController {
     private boolean isTagButtonPressed = false;
 
     @FXML
-    private ToggleButton buttonLibrary, buttonRecommend, buttonMyDocument, buttonAccount;
+    private ToggleButton buttonLibrary, buttonAccount;
     @FXML
     private StackPane stackPane;
     @FXML
-    private AnchorPane libraryPane, recommendPane, myDocumentPane,accountPane;
+    private AnchorPane libraryPane, accountPane;
     @FXML
-    private Line separator1, separator3, separator5, separator7;
+    private Line separator1, separator3;
     //Library
     @FXML
     private TableColumn<Documents, String> imagecolumn1, detailcolumn1;
@@ -154,8 +154,6 @@ public class UserDashboard2Controller extends StageController {
     private void StrokeLine() {
         separator1.getStrokeDashArray().addAll(7d, 7d);
         separator3.getStrokeDashArray().addAll(7d, 7d);
-        separator5.getStrokeDashArray().addAll(7d, 7d);
-        separator7.getStrokeDashArray().addAll(7d, 7d);
     }
 
     private void SetButton() {
@@ -164,14 +162,6 @@ public class UserDashboard2Controller extends StageController {
         buttonLibrary.setOnAction(event -> {
             stackPane.getChildren().clear();
             stackPane.getChildren().add(libraryPane);
-        });
-        buttonRecommend.setOnAction(event -> {
-            stackPane.getChildren().clear();
-            stackPane.getChildren().add(recommendPane);
-        });
-        buttonMyDocument.setOnAction(event -> {
-            stackPane.getChildren().clear();
-            stackPane.getChildren().add(myDocumentPane);
         });
         buttonAccount.setOnAction(event -> {
             stackPane.getChildren().clear();

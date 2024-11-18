@@ -18,7 +18,7 @@
 }
 #buttonLibrary {
     -fx-background-color: white;
-    -fx-translate-y: 100px;
+    -fx-translate-y: 15px;
     -fx-pref-width: 200px;
     -fx-pref-height: 50px;
     -fx-text-fill: rgba(175,140,100,1);
@@ -33,43 +33,9 @@
     -fx-text-fill: rgba(125,67,0,1);
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
 }
-#buttonRecommend {
-    -fx-background-color: white;
-    -fx-translate-y: 105px;
-    -fx-pref-width: 200px;
-    -fx-pref-height: 50px;
-    -fx-font-weight: bold;
-    -fx-text-fill: rgba(175,140,100,1);
-    -fx-font-size: 16;
-    -fx-alignment: center-left;
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
-}
-#buttonRecommend:selected {
-    -fx-background-color: rgba(242,236,229,1);
-    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
-    -fx-text-fill: rgba(125,67,0,1);
-}
-#buttonMyDocument {
-    -fx-background-color: white;
-    -fx-translate-y: 110px;
-    -fx-pref-width: 200px;
-    -fx-pref-height: 50px;
-    -fx-font-weight: bold;
-    -fx-text-fill: rgba(175,140,100,1);
-    -fx-font-size: 16;
-    -fx-alignment: center-left;
-    -fx-border-radius: 12px;
-    -fx-background-radius: 12px;
-}
-#buttonMyDocument:selected {
-    -fx-background-color: rgba(242,236,229,1);
-    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
-    -fx-text-fill: rgba(125,67,0,1);
-}
 #buttonAccount {
     -fx-background-color: white;
-    -fx-translate-y: 115px;
+    -fx-translate-y: 25px;
     -fx-pref-width: 200px;
     -fx-pref-height: 50px;
     -fx-font-weight: bold;
@@ -83,6 +49,28 @@
     -fx-background-color: rgba(242,236,229,1);
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
     -fx-text-fill: rgba(125,67,0,1);
+}
+#vboxButton1 {
+    -fx-translate-y: 360px;
+    -fx-alignment: bottom_center;
+}
+#continueReading {
+    -fx-alignment: center;
+    -fx-background-color: transparent;
+    -fx-text-fill: rgba(175,140,100,1);
+    -fx-font-size: 13;
+    -fx-font-weight: bold;
+}
+#titleReading {
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-size: 13;
+    -fx-background-radius: 7 7 7 7;
+    -fx-border-radius: 7 7 7 7;
+    -fx-background-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-border-width: 1;
+    -fx-border-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
+    -fx-pref-height: 25;
 }
 #constantText {
     -fx-background-color: transparent;
@@ -148,15 +136,20 @@
     -fx-pref-height: 40px;
     -fx-pref-width: 150px;
 }
+#paneInLibrary {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-background-radius: 25px;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 0, 0);
+}
 #Hbox {
     -fx-alignment: center;
 }
+
 #Vbox {
     -fx-alignment: bottom_center;
     -fx-margin: 0;
     -fx-spacing: 0;
 }
-
 #titleDoc {
     -fx-font-weight: bold;
     -fx-font-size: 11;
@@ -188,14 +181,13 @@
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
     -fx-border-color: rgba(255,248,243,1);
-    -fx-border-width: 2px;
     -fx-border-style: solid;
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 4);
 }
 #tableView1 .column-header {
     -fx-background-radius: 5px;
     -fx-border-radius: 5px;
-    -fx-border-color: rgba(255,248,243,1);
+    -fx-border-color: transparent;
     -fx-border-width: 1px;
     -fx-border-style: solid;
 }
@@ -206,7 +198,7 @@
 #tableView1 .column-header .label {
     -fx-background-color: linear-gradient(to bottom, white 10%, rgba(241,230,213,1) 70%, rgba(213,200,183,1) 100%);
     -fx-text-fill: rgba(125,67,0,1);
-    -fx-padding: 0;
+    -fx-border-radius: 5px;
 }
 #tableView1 .table-row-cell {
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
@@ -216,12 +208,12 @@
     -fx-background-color: red;
 }
 #imagecolumn1 {
-    -fx-background-color: rgba(255,248,243,1);
-    -fx-border-color: rgba(255,248,243,1);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 #detailcolumn1 {
-    -fx-background-color: rgba(255,248,243,1);
-    -fx-border-color: rgba(255,248,243,1);
+    -fx-background-color: transparent;
+    -fx-border-color: transparent;
 }
 #menubutton1 {
     -fx-background-color: rgba(240,240,240,1);
@@ -247,33 +239,25 @@
 #actionbutton:pressed {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0.0, 0, 5);
 }
-
-/*Recommend Document*/
-#recommendPane {
-    -fx-background-color: white;
-}
-#paneRecomment1 {
+#paneShelve {
     -fx-background-color: rgba(255,248,243,1);
-    -fx-background-radius: 25px;
-    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 0, 0);
+    -fx-border-color: rgba(255,248,243,1);
 }
-.function-button:hover {
-    -fx-background-color: linear-gradient(to bottom right,#46589a,#4278a7);
+#scrollPaneShelve {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-border-color: rgba(255,248,243,1);
 }
-.default-button {
-    -fx-background-color: lightgray;
-    -fx-text-fill: black;
+#scrollPaneShelve .scroll-pane {
+    -fx-background: transparent;
 }
-
-.highlighted-button {
-    -fx-background-color: linear-gradient(to bottom right,#46589a,#4278a7);
-    -fx-text-fill: black;
+.scroll-bar {
+    -fx-background-color: rgba(255,248,243,1);
 }
-
-* {
-    -fx-focus-color: transparent;
-    -fx-faint-focus-color: transparent;
+.scroll-bar .increment-button,
+.scroll-bar .decrement-button {
+    -fx-opacity: 0; /* Ẩn các nút cuộn */
 }
-#leftVbox {
-    -fx-hgap: 0;
+.scroll-bar .thumb {
+    -fx-background-color: linear-gradient(to right, #ff9a9e, #fad0c4); /* Màu chính của thanh trượt */
+    -fx-background-radius: 5px; /* Bo góc thanh trượt */
 }
