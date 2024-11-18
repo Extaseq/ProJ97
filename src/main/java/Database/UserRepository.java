@@ -61,14 +61,16 @@ public class UserRepository extends GenericRepository {
         return stmt;
     }
 
+    // Not complete
     public List<User> getUserByName(String name, int attr) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append(
             String.join(", ", Columns.getName(attr))
         );
-        sql.append(" FROM " + tableName + " WHERE ").;
+//        sql.append(" FROM " + tableName + " WHERE ").;
         PreparedStatement stmt = createStatement(sql.toString());
         ResultSet rs = executeQuery(stmt, name);
+        return null;
     }
 
     @Override
