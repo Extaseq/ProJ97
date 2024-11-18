@@ -32,6 +32,13 @@ public class DatabaseConnector {
     }
 
     public Connection getConnection() {
+        try {
+            if (connection == null || connection.isClosed()) {
+                connection = DriverManager.getConnection(URL, USER, PASSWORD);
+            }
+        } catch (SQLException e) {
+            System.out.println("Error re-establishing connection: " + e.getMessage());
+        }
         return connection;
     }
 
