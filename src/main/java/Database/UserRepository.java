@@ -1,5 +1,6 @@
 package Database;
 
+import javax.xml.transform.Result;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -78,8 +79,7 @@ public class UserRepository extends GenericRepository {
 
     public boolean userExists(String username) {
         String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE username = ?";
-        ResultSet rs = executeQuery(createStatement(sql), username);
-        try {
+        try (ResultSet rs = executeQuery(createStatement(sql), username)) {
             if (rs.next()) {
                 return rs.getInt("COUNT(*)") == 1;
             }
@@ -96,8 +96,7 @@ public class UserRepository extends GenericRepository {
 
     public boolean verifyPassword(String username, String passwordHash) {
         String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE username = ? AND password_hash = ?";
-        ResultSet rs = executeQuery(createStatement(sql), username, passwordHash);
-        try {
+        try (ResultSet rs = executeQuery(createStatement(sql), username, passwordHash)) {
             if (rs.next()) {
                 return rs.getInt("COUNT(*)") == 1;
             }
@@ -107,16 +106,32 @@ public class UserRepository extends GenericRepository {
         return false;
     }
 
-    public String getSaltCode(String username) {
-        String sql = "SELECT salt FROM " + tableName + " WHERE username = ?";
-        ResultSet rs = executeQuery(createStatement(sql), username);
-        try {
+    public String[] getAuthInformation(String username) {
+        long findAttr = Column.getNumberRepresentation(Column.columns, "username");
+        long resAttr = Column.getNumberRepresentation(Column.columns, "password_hash", "salt");
+        try (ResultSet rs = getUserInfoBy(findAttr, resAttr, username)) {
             if (rs.next()) {
-                return rs.getString("salt");
+                return new String[]{
+                    rs.getString("password_hash"),
+                    rs.getString("salt")
+                };
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         return null;
     }
+
+    public int getLastUserId() {
+        String sql = "SELECT MAX(account_id) FROM " + tableName;
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
 }

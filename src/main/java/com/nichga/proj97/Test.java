@@ -6,6 +6,7 @@ import java.sql.ResultSet;
 
 import Database.DatabaseConnector;
 import Database.*;
+import Services.Auth;
 
 public class Test {
     public static void main(String[] args) {
@@ -17,11 +18,11 @@ public class Test {
         }
 
         // Khởi tạo repository
-        UserRepository userRepo = new UserRepository();
-        if (userRepo.changePassword("kinastomes", "123")) {
-            System.out.println("Password changed!");
+        Auth authService = new Auth();
+        if (authService.register("kinastomes", "Briantake12!")) {
+            System.out.println("Register successful!");
         } else {
-            System.out.println("Password change failed!");
+            System.out.println("Register failed!");
         }
     }
 }

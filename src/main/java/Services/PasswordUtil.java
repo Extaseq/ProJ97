@@ -19,18 +19,22 @@ public class PasswordUtil {
         return Base64.getEncoder().encodeToString(salt);
     }
 
-    public static String hashPassword(String password, String salt) throws Exception {
+    public static String hashPassword(String password, String salt) {
         char[] passwordChars = password.toCharArray();
         byte[] saltBytes = Base64.getDecoder().decode(salt);
 
         PBEKeySpec spec = new PBEKeySpec(passwordChars, saltBytes, ITERATIONS, HASH_LENGTH);
-        SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
-        byte[] hash = skf.generateSecret(spec).getEncoded();
-
+        byte[] hash = null;
+        try {
+            SecretKeyFactory skf = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA1");
+            hash = skf.generateSecret(spec).getEncoded();
+        } catch (Exception e) {
+            System.err.println("Error while hashing password: " + e.getMessage());
+        }
         return Base64.getEncoder().encodeToString(hash);
     }
 
-    public static boolean verifyPassword(String enteredPassword, String storedHash, String storedSalt) throws Exception {
+    public static boolean verifyPassword(String enteredPassword, String storedHash, String storedSalt) {
         String hashOfEnteredPassword = hashPassword(enteredPassword, storedSalt);
         return hashOfEnteredPassword.equals(storedHash);
     }

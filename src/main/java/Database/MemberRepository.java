@@ -22,7 +22,7 @@ public class MemberRepository extends GenericRepository {
             super(index, name);
             columns.add(this);
         }
-
-
     }
+
+
 }
