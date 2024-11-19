@@ -1,19 +1,27 @@
 package Database;
 
+import com.zaxxer.hikari.HikariConfig;
+import com.zaxxer.hikari.HikariDataSource;
+
 import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
 public class DatabaseConnector {
-    private static final String URL = "jdbc:mysql://localhost:3306/library";
-
-    private static final String USER = "root";
-
-    private static final String PASSWORD = "Briantake12!";
-
     private static DatabaseConnector instance = null;
+    private HikariDataSource dataSource;
 
     private DatabaseConnector() {
+        HikariConfig config = new HikariConfig();
+        config.setJdbcUrl("jdbc:mysql://localhost:3306/library");
+        config.setUsername("root");
+        config.setPassword("Briantake12!");
+        config.setMaximumPoolSize(10);
+        config.setMinimumIdle(2);
+        config.setIdleTimeout(30000);
+        config.setMaxLifetime(1800000);
+
+        // Tạo HikariDataSource
+        dataSource = new HikariDataSource(config);
     }
 
     public static synchronized DatabaseConnector getInstance() {
@@ -25,10 +33,16 @@ public class DatabaseConnector {
 
     public Connection getConnection() {
         try {
-            return DriverManager.getConnection(URL, USER, PASSWORD);
+            return dataSource.getConnection();
         } catch (SQLException e) {
-            System.out.println("Error re-establishing connection: " + e.getMessage());
+            System.out.println("Error getting connection: " + e.getMessage());
+            return null;
         }
-        return null;
+    }
+
+    public void close() {
+        if (dataSource != null) {
+            dataSource.close();
+        }
     }
 }
