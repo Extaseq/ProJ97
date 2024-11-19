@@ -12,15 +12,14 @@ public class DatabaseConnector {
 
     private DatabaseConnector() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://localhost:3306/library");
-        config.setUsername("root");
-        config.setPassword("Briantake12!");
+        config.setJdbcUrl("jdbc:mysql://nichga.mysql.database.azure.com/library");
+        config.setUsername("kinastomes");
+        config.setPassword("TestNigga12!");
         config.setMaximumPoolSize(10);
         config.setMinimumIdle(2);
         config.setIdleTimeout(30000);
         config.setMaxLifetime(1800000);
 
-        // Tạo HikariDataSource
         dataSource = new HikariDataSource(config);
     }
 
@@ -40,7 +39,7 @@ public class DatabaseConnector {
         }
     }
 
-    public void close() {
+    public void closeConnection() {
         if (dataSource != null) {
             dataSource.close();
         }
