@@ -60,8 +60,8 @@ public abstract class StageController {
         if (controller instanceof StageController) {
             ((StageController) controller).setPreviousStage(currentStage);
         }
-        if (controller instanceof UserMainDashboardController && user!=null) {
-            ((UserMainDashboardController) controller).setUser(user);
+        if (controller instanceof UserDashboardController && user!=null) {
+            ((UserDashboardController) controller).setUser(user);
         }
 
         // Hiển thị Stage mới

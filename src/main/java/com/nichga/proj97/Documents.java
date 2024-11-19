@@ -9,7 +9,8 @@ public class Documents {
 
     public String[] tag;
 
-    public String imageLink = "Library.png";
+    //sửa theo link ảnh
+    public String imageLink = "image/Library.png";
 
     private String title;
 

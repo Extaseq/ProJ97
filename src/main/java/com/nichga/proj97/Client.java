@@ -15,9 +15,9 @@ public class Client extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(getClass().getResource("LogIn.fxml"));
+            Parent root = FXMLLoader.load(getClass().getResource("LoginRegister.fxml"));
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(this.getClass().getResource("LogInDesign.css").toExternalForm());
+            scene.getStylesheets().add(this.getClass().getResource("LoginRegister.css").toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {

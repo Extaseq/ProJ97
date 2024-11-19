@@ -16,11 +16,10 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
-import javax.print.Doc;
 import java.io.IOException;
 import java.util.*;
 
-public class UserDashboard2Controller extends StageController {
+public class UserDashboardController extends StageController {
     Users user;
     protected void setUser(Users user) {
         this.user = user;
@@ -127,6 +126,7 @@ public class UserDashboard2Controller extends StageController {
     public void initialize() {
         StrokeLine();
         SetButton();
+        LockColumn();
         mainData = getAllDocuments();
         buttonLibrary.setSelected(true);
         tableView1.setItems(mainData);
@@ -165,6 +165,8 @@ public class UserDashboard2Controller extends StageController {
 
     }
 
+
+    //Sua mac dinh anh
     public void initLibrary(FlowPane tagsfield, TableColumn<Documents, String> imagecolumn,
                             TableColumn<Documents, String> detailcolumn, ObservableList<Documents> data,
                             ImageView documentImage, TextArea namedocument, TextArea descripe, TableView<Documents> tableView) {
@@ -205,8 +207,6 @@ public class UserDashboard2Controller extends StageController {
                 } else {
                     Documents doc = getTableRow().getItem();
                     if (doc != null) {
-//                        setText(doc.getTitle() + "\nAuthor: " + doc.getAuthor() + "\nType: " + doc.getType()
-//                                + "\n" + doc.getTagsString() + "\nAvailable: " + "\nView: ");
                         Text title = new Text(doc.getTitle() + "\n");
                         title.setFont(Font.font("System", FontWeight.BOLD, 16));
                         Text detail = new Text("Author: " + doc.getAuthor() + "\nType: " + doc.getType() + "\n" + doc.getTagsString() + "\nAvailable: " + "\nView: ");
@@ -251,6 +251,8 @@ public class UserDashboard2Controller extends StageController {
     private void LockColumn() {
         imagecolumn1.setReorderable(false);
         detailcolumn1.setReorderable(false);
+        imagecolumn12.setReorderable(false);
+        detailcolumn12.setReorderable(false);
     }
 
     private void StrokeLine() {
@@ -435,6 +437,6 @@ public class UserDashboard2Controller extends StageController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to logout?");
         alert.showAndWait();
-        goToNextStage("/com/nichga/proj97/LogIn.fxml", signOut, null);
+        goToNextStage("/com/nichga/proj97/LoginRegister.fxml", signOut, null);
     }
 }

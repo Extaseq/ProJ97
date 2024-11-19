@@ -25,13 +25,13 @@
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="850.0" maxWidth="1214.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1400.0" stylesheets="@UserDashboard2.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nichga.proj97.UserDashboard2Controller">
+<BorderPane maxHeight="850.0" maxWidth="1214.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1400.0" stylesheets="@UserDashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nichga.proj97.UserDashboardController">
     <left>
         <VBox id="leftVbox" fx:id="leftVbox" prefHeight="850.0" prefWidth="230.0" BorderPane.alignment="TOP_CENTER">
             <children>
                 <ImageView fitHeight="170.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@bookimage.jpg" />
+                        <Image url="@image/bookimage.jpg" />
                     </image>
                 </ImageView>
                 <ToggleButton id="buttonLibrary" fx:id="buttonLibrary" mnemonicParsing="false" text="Library">
@@ -52,7 +52,7 @@
                         </TextField>
                         <ImageView id="imageReading" fx:id="imageReading" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
                             <image>
-                                <Image url="@bia2.png" />
+                                <Image url="@image/bia2.png" />
                             </image>
                         </ImageView>
                         <TextField id="titleReading" fx:id="titleReading" prefHeight="13.0" prefWidth="200.0" text="Title">
@@ -89,7 +89,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia4.png" />
+                                                                                                <Image url="@image/bia4.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -103,7 +103,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia4.png" />
+                                                                                                <Image url="@image/bia4.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -117,7 +117,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia4.png" />
+                                                                                                <Image url="@image/bia4.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -131,7 +131,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia4.png" />
+                                                                                                <Image url="@image/bia4.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="30.0" maxWidth="192.0" minWidth="150.0" prefHeight="25.0" prefWidth="192.0">
@@ -145,7 +145,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia4.png" />
+                                                                                                <Image url="@image/bia4.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -164,7 +164,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia2.png" />
+                                                                                                <Image url="@image/bia2.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -178,7 +178,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia2.png" />
+                                                                                                <Image url="@image/bia2.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -192,7 +192,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia2.png" />
+                                                                                                <Image url="@image/bia2.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -206,7 +206,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia2.png" />
+                                                                                                <Image url="@image/bia2.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -220,7 +220,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia2.png" />
+                                                                                                <Image url="@image/bia2.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -239,7 +239,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia5.png" />
+                                                                                                <Image url="@image/bia5.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -253,7 +253,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia5.png" />
+                                                                                                <Image url="@image/bia5.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -267,7 +267,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia5.png" />
+                                                                                                <Image url="@image/bia5.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -281,7 +281,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia5.png" />
+                                                                                                <Image url="@image/bia5.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -295,7 +295,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia5.png" />
+                                                                                                <Image url="@image/bia5.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -314,7 +314,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia3.png" />
+                                                                                                <Image url="@image/bia3.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -328,7 +328,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia3.png" />
+                                                                                                <Image url="@image/bia3.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -342,7 +342,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia3.png" />
+                                                                                                <Image url="@image/bia3.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -356,7 +356,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia3.png" />
+                                                                                                <Image url="@image/bia3.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -370,7 +370,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia3.png" />
+                                                                                                <Image url="@image/bia3.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -389,7 +389,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia1.png" />
+                                                                                                <Image url="@image/bia1.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -403,7 +403,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia1.png" />
+                                                                                                <Image url="@image/bia1.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -417,7 +417,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia1.png" />
+                                                                                                <Image url="@image/bia1.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -431,7 +431,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia1.png" />
+                                                                                                <Image url="@image/bia1.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -445,7 +445,7 @@
                                                                                     <children>
                                                                                         <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
                                                                                             <image>
-                                                                                                <Image url="@bia1.png" />
+                                                                                                <Image url="@image/bia1.png" />
                                                                                             </image>
                                                                                         </ImageView>
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
@@ -465,7 +465,7 @@
                                                             <children>
                                                                 <ImageView id="documentimage" fx:id="documentimage3" fitHeight="300.0" fitWidth="200.0" layoutX="50.0" layoutY="25.0" pickOnBounds="true">
                                                                     <image>
-                                                                        <Image url="@IconUser.png" />
+                                                                        <Image url="@image/IconUser.png" />
                                                                     </image>
                                                                 </ImageView>
                                                                 <TextArea id="namedocument" fx:id="namedocument3" editable="false" layoutX="25.0" layoutY="330.0" prefHeight="60.0" prefWidth="250.0" promptText="Name of the Document" wrapText="true">
@@ -526,9 +526,9 @@
                                                         <TextField id="search1" fx:id="search1" layoutX="195.0" layoutY="3.0" prefHeight="33.0" prefWidth="380.0" promptText="Search in Library" />
                                                         <MenuButton id="menubutton1" fx:id="menubutton1" layoutX="125.0" layoutY="3.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="70.0" text="Sort by">
                                                             <items>
-                                                                <MenuItem fx:id="sorttitle1" mnemonicParsing="false" text="Title" />
-                                                                <MenuItem id="sortauthor" fx:id="sortauthor1" mnemonicParsing="false" text="Author" />
-                                                                <MenuItem fx:id="sortview1" mnemonicParsing="false" text="View" />
+                                                                <MenuItem id="menuItem" fx:id="sorttitle1" mnemonicParsing="false" text="Title" />
+                                                                <MenuItem id="menuItem" fx:id="sortauthor1" mnemonicParsing="false" text="Author" />
+                                                                <MenuItem id="menuItem" fx:id="sortview1" mnemonicParsing="false" text="View" />
                                                             </items>
                                                         </MenuButton>
                                                     </children></AnchorPane>
@@ -574,9 +574,9 @@
                                                         <TextField id="search1" fx:id="search12" layoutX="195.0" layoutY="3.0" prefHeight="33.0" prefWidth="380.0" promptText="Search in Library" />
                                                         <MenuButton id="menubutton1" fx:id="menubutton12" layoutX="125.0" layoutY="3.0" mnemonicParsing="false" prefHeight="32.0" prefWidth="70.0" text="Sort by">
                                                             <items>
-                                                                <MenuItem fx:id="sorttitle12" mnemonicParsing="false" text="Title" />
-                                                                <MenuItem id="sortauthor" fx:id="sortauthor12" mnemonicParsing="false" text="Author" />
-                                                                <MenuItem fx:id="sortview12" mnemonicParsing="false" text="View" />
+                                                                <MenuItem id="menuItem" fx:id="sorttitle12" mnemonicParsing="false" text="Title" />
+                                                                <MenuItem id="menuItem" fx:id="sortauthor12" mnemonicParsing="false" text="Author" />
+                                                                <MenuItem id="menuItem" fx:id="sortview12" mnemonicParsing="false" text="View" />
                                                             </items>
                                                         </MenuButton>
                                                     </children>
@@ -591,13 +591,13 @@
                         <Line id="separator2" fx:id="separator2" endX="7.0" endY="853.0" startX="7.0" startY="-1.0" stroke="WHITE" />
                     </children>
                 </AnchorPane>
-                <AnchorPane id="recommendPane" fx:id="accountPane" prefHeight="852.0" prefWidth="970.0">
+                <AnchorPane id="recommendPane" fx:id="accountPane" prefHeight="852.0" prefWidth="970.0" visible="false">
                     <children>
                         <AnchorPane id="paneInLibrary" fx:id="paneAccount1" layoutX="35.0" layoutY="20.0" prefHeight="812.0" prefWidth="1115.0">
                             <children>
                                 <ImageView fitHeight="201.0" fitWidth="200.0" layoutX="458.0" layoutY="100.0" pickOnBounds="true" preserveRatio="true">
                                     <image>
-                                        <Image url="@IconUser.png" />
+                                        <Image url="@image/IconUser.png" />
                                     </image>
                                 </ImageView>
                                 <TextField layoutX="483.0" layoutY="317.0" text="Name" />
