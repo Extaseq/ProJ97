@@ -18,6 +18,7 @@ import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserDashboardController extends StageController {
     Users user;
@@ -71,10 +72,13 @@ public class UserDashboardController extends StageController {
     private HBox currentList, recommendList, finishedList, favouriteAuthorList, mostPopularList;
 
     @FXML
-    private Button signOut;
-
+    private Button signOut, returnbutton1;
+    @FXML
+    private VBox continueReadDoc;
 
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
+
+    private ToggleGroup toggleGroup;
 
     private ObservableList<Documents> getCurrentDoc() {
         return FXCollections.observableArrayList(
@@ -124,17 +128,58 @@ public class UserDashboardController extends StageController {
     }
 
     public void initialize() {
+        toggleGroup = new ToggleGroup();
+        buttonLibrary.setToggleGroup(toggleGroup);
+        buttonAccount.setToggleGroup(toggleGroup);
         StrokeLine();
         SetButton();
         LockColumn();
         mainData = getAllDocuments();
         buttonLibrary.setSelected(true);
         tableView1.setItems(mainData);
-        tableView12.setItems(getUserDocuments());
+        tableView12.setItems(userDocuments);
         initLibrary(tagsfield1, imagecolumn1, detailcolumn1, mainData, documentimage1, namedocument1, descripe1, tableView1);
-        initLibrary(tagsfield11, imagecolumn12, detailcolumn12, getUserDocuments(), documentimage11, namedocument11, descripe11, tableView12);
+        initLibrary(tagsfield11, imagecolumn12, detailcolumn12, userDocuments, documentimage11, namedocument11, descripe11, tableView12);
         Sort();
         initShelve();
+        initContinueReadDoc();
+
+    }
+
+
+    @FXML
+    public void returnDoc() {
+        Documents doc = tableView12.getSelectionModel().getSelectedItem();
+        if (doc != null) {
+            System.out.println("remove " + doc.getTitle());
+            userDocuments.remove(doc);
+            tableView12.refresh();
+            tableView12.setItems(userDocuments);
+            setContinueReadDoc(userDocuments.get(0));
+        }
+
+    }
+
+    public void initContinueReadDoc() {
+
+        Documents doc = getCurrentDoc().get(0);
+        TextField title = (TextField) continueReadDoc.getChildren().get(2);
+        title.setText(doc.getTitle());
+        continueReadDoc.setOnMouseClicked(event -> {
+            if (buttonAccount.isSelected()) {
+                toggleGroup.selectToggle(buttonLibrary);
+                stackPane.getChildren().clear();
+                stackPane.getChildren().add(libraryPane);
+            }
+
+            tabpaneLibrary.getSelectionModel().select(2);
+            tableView12.getSelectionModel().select(0);
+        });
+    }
+
+    public void setContinueReadDoc(Documents doc) {
+        TextField title = (TextField) continueReadDoc.getChildren().get(2);
+        title.setText(doc.getTitle());
     }
 
     public void initShelve() {
@@ -143,7 +188,6 @@ public class UserDashboardController extends StageController {
         addDocToShelve(getFinishedDoc(), finishedList);
         addDocToShelve(getFavouriteAuthorDoc(), favouriteAuthorList);
         addDocToShelve(getMostPopularDoc(), mostPopularList);
-
 
     }
 
@@ -242,6 +286,7 @@ public class UserDashboardController extends StageController {
                 if (isTagButtonPressed == false) {
                     displayTags(newValue, tagsfield, tableView);
                 }
+
                 isTagButtonPressed = false;
             }
         });
@@ -437,6 +482,9 @@ public class UserDashboardController extends StageController {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to logout?");
         alert.showAndWait();
-        goToNextStage("/com/nichga/proj97/LoginRegister.fxml", signOut, null);
+        if (alert.getResult() == ButtonType.OK) {
+            goToNextStage("/com/nichga/proj97/LoginRegister.fxml", signOut, null);
+        }
+
     }
 }

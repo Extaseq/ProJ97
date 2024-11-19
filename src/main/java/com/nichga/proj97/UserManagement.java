@@ -63,5 +63,4 @@ public class UserManagement {
             System.err.println("An error occurred while writing the document information to the file: " + e.getMessage());
         }
     }
-
 }

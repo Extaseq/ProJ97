@@ -43,7 +43,7 @@
                     </font>
                 </ToggleButton>
                 <ToggleButton id="buttonAccount" fx:id="buttonAccount" mnemonicParsing="false" text="Account" toggleGroup="$menu" />
-                <VBox id="vboxButton1" fx:id="vboxButton1" prefHeight="205.0" prefWidth="200.0">
+                <VBox id="vboxButton1" fx:id="continueReadDoc" prefHeight="205.0" prefWidth="200.0">
                     <children>
                         <TextField id="continueReading" text="Continue Reading">
                             <font>
@@ -564,7 +564,7 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </Button>
-                                                                <Button id="actionbutton" fx:id="returnbutton1" layoutX="112.0" layoutY="658.0" mnemonicParsing="false" text="Return">
+                                                                <Button id="actionbutton" fx:id="returnbutton1" layoutX="112.0" layoutY="658.0" mnemonicParsing="false" onAction="#returnDoc" text="Return">
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
