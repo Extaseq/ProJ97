@@ -11,17 +11,9 @@ public class DatabaseConnector {
 
     private static final String PASSWORD = "Briantake12!";
 
-    private Connection connection = null;
-
     private static DatabaseConnector instance = null;
 
     private DatabaseConnector() {
-        try {
-            connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            System.out.println("Connected to Library Database.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
     }
 
     public static synchronized DatabaseConnector getInstance() {
@@ -33,24 +25,10 @@ public class DatabaseConnector {
 
     public Connection getConnection() {
         try {
-            if (connection == null || connection.isClosed()) {
-                connection = DriverManager.getConnection(URL, USER, PASSWORD);
-            }
+            return DriverManager.getConnection(URL, USER, PASSWORD);
         } catch (SQLException e) {
             System.out.println("Error re-establishing connection: " + e.getMessage());
         }
-        return connection;
-    }
-
-    public void closeConnection() {
-        if (connection == null) {
-            return;
-        }
-        try {
-            connection.close();
-            System.out.println("Disconnected to the Library Database.");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
+        return null;
     }
 }

@@ -17,4 +17,5 @@ module com.nichga.proj97 {
     exports com.nichga.proj97;
     exports Application;
     exports Database;
+    exports Services;
 }

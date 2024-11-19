@@ -1,56 +1,27 @@
 package com.nichga.proj97;
 
-import javafx.application.Application;
-import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.scene.SnapshotParameters;
-import javafx.scene.effect.DropShadow;
-import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Stage;
+import java.lang.reflect.Member;
+import java.sql.Connection;
+import java.sql.ResultSet;
 
-import java.io.IOException;
+import Database.DatabaseConnector;
+import Database.*;
 
-public class Test extends Application {
-
-    static class RoundedAvatar {
-        @FXML
-        private ImageView avatar_img;
-
-        @FXML
-        public void initialize() {
-            Rectangle clip = new Rectangle(avatar_img.getBoundsInLocal().getWidth(), avatar_img.getBoundsInLocal().getHeight());
-            clip.setArcWidth(20);
-            clip.setArcHeight(20);
-            avatar_img.setClip(clip);
-
-            SnapshotParameters params = new SnapshotParameters();
-            params.setFill(Color.TRANSPARENT);
-            WritableImage image = avatar_img.snapshot(params, null);
-
-            avatar_img.setClip(null);
-            avatar_img.setEffect(new DropShadow(10, Color.BLACK));
-            avatar_img.setImage(image);
-        }
-    }
-
+public class Test {
     public static void main(String[] args) {
-        launch(args);
-    }
+        // Kết nối với database
+        Connection connection = DatabaseConnector.getInstance().getConnection();
+        if (connection == null) {
+            System.out.println("Database connection failed!");
+            return;
+        }
 
-    @Override
-    public void start(Stage stage) throws IOException {
-        FXMLLoader loader = new FXMLLoader(
-            getClass().getResource(
-                "/com/nichga/proj97/test.fxml"
-            )
-        );
-        loader.setController(new RoundedAvatar());
-        stage.setTitle("Test");
-        stage.setScene(new Scene(loader.load()));
-        stage.show();
+        // Khởi tạo repository
+        UserRepository userRepo = new UserRepository();
+        if (userRepo.changePassword("kinastomes", "123")) {
+            System.out.println("Password changed!");
+        } else {
+            System.out.println("Password change failed!");
+        }
     }
 }
