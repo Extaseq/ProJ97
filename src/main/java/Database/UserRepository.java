@@ -1,7 +1,5 @@
 package Database;
 
-import javax.xml.transform.Result;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,6 +7,10 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * This class is responsible for interacting with the Users table in the database.
+ * It provides methods for querying, updating, and managing user-related data.
+ */
 public class UserRepository extends GenericRepository {
     public UserRepository() {
         super("UserAccounts");
@@ -35,7 +37,7 @@ public class UserRepository extends GenericRepository {
     /**
      * Creates a PreparedStatement for the given SQL query.
      *
-     * @param sql the SQL query string.
+     * @param sql The SQL query string.
      * @return the prepared statement, or null if an error occurs.
      */
     private PreparedStatement createStatement(String sql) {
@@ -48,12 +50,12 @@ public class UserRepository extends GenericRepository {
     }
 
     /**
-     * Retrieves user data based on specified attributes.
+     * Retrieves user information based on a specific attribute and corresponding result attributes.
      *
-     * @param findAttribute the number representation of the attributes to search by.
-     * @param resultAttribute the number representation of the attributes to retrieve.
-     * @param args the values to match for the search attributes.
-     * @return a ResultSet containing the matching user data.
+     * @param findAttribute    The attribute to search by (e.g., username).
+     * @param resultAttribute  The result attributes to return (e.g., password, salt).
+     * @param args             The values to be used in the query.
+     * @return A ResultSet containing the user information.
      */
     public ResultSet getUserInfoBy(long findAttribute, long resultAttribute, String... args) {
         StringBuilder sql = new StringBuilder("SELECT ");
@@ -61,22 +63,34 @@ public class UserRepository extends GenericRepository {
         sql.append(" FROM ").append(tableName).append(" WHERE ");
         String[] findColumns = Column.getAttributes(Column.columns, findAttribute).toArray(new String[0]);
         sql.append(String.join(" = ? AND ", findColumns)).append(" = ?");
-
-        System.out.println(sql);
-
         return executeQuery(createStatement(sql.toString()), args);
     }
 
+    /**
+     * Adds a new user to the user table.
+     *
+     * @param args The user details (e.g., username, password, etc.) to insert into the table.
+     * @return The number of rows affected (1 if the user was added successfully, 0 otherwise).
+     */
     public int addNewUser(String... args) {
+        if (args.length != 4) {
+            return 0;
+        }
         String sql = "INSERT INTO " + tableName + " (" +
                 Column.columns.stream()
-                        .filter(column -> column != Column.ACCOUNT_ID) // Skip the primary key column
+                        .filter(column -> column != Column.ACCOUNT_ID)
                         .map(GenericColumn::getName)
                         .collect(Collectors.joining(", ")) +
                 ") VALUES (?, ?, ?, ?, NOW(), NOW(), 'active')";
         return executeUpdate(createStatement(sql), args);
     }
 
+    /**
+     * Checks if a user with the given username already exists in the database.
+     *
+     * @param username The username to search for.
+     * @return {@code true} if the user exists, {@code false} otherwise.
+     */
     public boolean userExists(String username) {
         String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE username = ?";
         try (ResultSet rs = executeQuery(createStatement(sql), username)) {
@@ -89,23 +103,24 @@ public class UserRepository extends GenericRepository {
         return false;
     }
 
+    /**
+     * Changes the password of a user identified by their username.
+     *
+     * @param username        The username of the user whose password is to be changed.
+     * @param newPasswordHash The new hashed password to set for the user.
+     * @return {@code true} if the password was successfully changed, {@code false} otherwise.
+     */
     public boolean changePassword(String username, String newPasswordHash) {
         String sql = "UPDATE " + tableName + " SET password_hash = ? WHERE username = ?";
         return executeUpdate(createStatement(sql), newPasswordHash, username) > 0;
     }
 
-    public boolean verifyPassword(String username, String passwordHash) {
-        String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE username = ? AND password_hash = ?";
-        try (ResultSet rs = executeQuery(createStatement(sql), username, passwordHash)) {
-            if (rs.next()) {
-                return rs.getInt("COUNT(*)") == 1;
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
-    }
-
+    /**
+     * Retrieves the authentication information (password hash and salt) for a given username.
+     *
+     * @param username The username to retrieve the authentication information for.
+     * @return An array containing the password hash and salt, or {@code null} if the user is not found.
+     */
     public String[] getAuthInformation(String username) {
         long findAttr = Column.getNumberRepresentation(Column.columns, "username");
         long resAttr = Column.getNumberRepresentation(Column.columns, "password_hash", "salt");
@@ -122,6 +137,11 @@ public class UserRepository extends GenericRepository {
         return null;
     }
 
+    /**
+     * Retrieves the ID of the last user added to the database.
+     *
+     * @return The ID of the last user, or 0 if no user exists.
+     */
     public int getLastUserId() {
         String sql = "SELECT MAX(account_id) FROM " + tableName;
         try (ResultSet rs = executeQuery(createStatement(sql))) {
@@ -133,5 +153,4 @@ public class UserRepository extends GenericRepository {
         }
         return 0;
     }
-
 }

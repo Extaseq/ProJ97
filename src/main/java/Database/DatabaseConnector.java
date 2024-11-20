@@ -6,10 +6,18 @@ import com.zaxxer.hikari.HikariDataSource;
 import java.sql.Connection;
 import java.sql.SQLException;
 
+/**
+ * Singleton class that manages the connection to the database using HikariCP.
+ * It provides a connection pool to manage database connections efficiently.
+ */
 public class DatabaseConnector {
     private static DatabaseConnector instance = null;
     private HikariDataSource dataSource;
 
+    /**
+     * Private constructor to initialize the database connection pool with the specified configuration.
+     * The configuration includes database URL, username, password, and connection pool settings.
+     */
     private DatabaseConnector() {
         HikariConfig config = new HikariConfig();
         config.setJdbcUrl("jdbc:mysql://nichga.mysql.database.azure.com/library");
@@ -19,10 +27,15 @@ public class DatabaseConnector {
         config.setMinimumIdle(2);
         config.setIdleTimeout(30000);
         config.setMaxLifetime(1800000);
-
         dataSource = new HikariDataSource(config);
     }
 
+    /**
+     * Returns the singleton instance of the DatabaseConnector class.
+     * If the instance does not exist, it will be created.
+     *
+     * @return The singleton instance of DatabaseConnector.
+     */
     public static synchronized DatabaseConnector getInstance() {
         if (instance == null) {
             instance = new DatabaseConnector();
@@ -30,6 +43,11 @@ public class DatabaseConnector {
         return instance;
     }
 
+    /**
+     * Retrieves a database connection from the connection pool.
+     *
+     * @return A Connection object to the database, or null if unable to get a connection.
+     */
     public Connection getConnection() {
         try {
             return dataSource.getConnection();
@@ -39,6 +57,10 @@ public class DatabaseConnector {
         }
     }
 
+    /**
+     * Closes the database connection pool and releases all resources.
+     * This should be called when the application is shutting down.
+     */
     public void closeConnection() {
         if (dataSource != null) {
             dataSource.close();

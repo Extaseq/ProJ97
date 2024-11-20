@@ -16,12 +16,5 @@ public class Test {
             System.out.println("Database connection failed!");
             return;
         }
-
-        Auth authService = new Auth();
-        if (authService.register("kinastomes", "Briantake12!")) {
-            System.out.println("Register successful!");
-        } else {
-            System.out.println("Register failed!");
-        }
     }
 }
