@@ -13,33 +13,33 @@
     <children>
         <AnchorPane id="MidPane" layoutX="60.0" layoutY="60.0" prefHeight="430.0" prefWidth="580.0">
             <children>
-                <StackPane id="stackPane" fx:id="stackPane" layoutX="175.0" layoutY="122.0" prefHeight="265.0" prefWidth="230.0">
+                <StackPane id="stackPane" fx:id="stackPane" layoutX="35.0" layoutY="71.0" prefHeight="321.0" prefWidth="510.0">
                     <children>
-                        <AnchorPane fx:id="loginPane" prefHeight="265.0" prefWidth="200.0">
+                        <AnchorPane id="mainPane" fx:id="loginPane" prefHeight="299.0" prefWidth="510.0">
                             <children>
-                                <Button fx:id="loginButton" layoutY="238.0" mnemonicParsing="false" onAction="#Login" prefWidth="230.0" text="Login" />
-                                <TextField id="textField" fx:id="userName1" layoutY="32.0" prefWidth="230.0" promptText="Username" />
-                                <PasswordField id="textField" fx:id="password1" layoutY="88.0" prefWidth="230.0" promptText="Password" />
-                                <ComboBox fx:id="roleButton" layoutY="148.0" prefWidth="230.0" />
+                                <Button id="button" fx:id="loginButton" layoutX="140.0" layoutY="275.0" mnemonicParsing="false" onAction="#Login" prefWidth="230.0" text="Login" />
+                                <TextField id="textField" fx:id="userName1" layoutX="140.0" layoutY="60.0" prefWidth="230.0" promptText="Username" />
+                                <PasswordField id="textField" fx:id="password1" layoutX="140.0" layoutY="120.0" prefWidth="230.0" promptText="Password" />
+                                <ComboBox id="comboBox" fx:id="roleButton" layoutX="140.0" layoutY="180.0" prefWidth="230.0" promptText="Role" />
                             </children>
                         </AnchorPane>
-                        <AnchorPane fx:id="registerPane" prefHeight="265.0" prefWidth="200.0">
+                        <AnchorPane id="mainPane" fx:id="registerPane" prefHeight="265.0" prefWidth="200.0">
                             <children>
-                                <Button fx:id="registerButton" layoutX="89.0" layoutY="226.0" mnemonicParsing="false" onAction="#Register" text="Register" />
-                                <TextField id="textField" fx:id="name" layoutY="21.0" prefWidth="230.0" promptText="Name" />
-                                <TextField id="textField" fx:id="userName2" layoutY="60.0" prefWidth="230.0" promptText="Username" />
-                                <PasswordField id="textField" fx:id="password2" layoutY="108.0" prefWidth="230.0" promptText="Password" />
-                                <PasswordField id="textField" fx:id="confirmPassword" layoutY="159.0" prefWidth="230.0" promptText="Confirm Password" />
+                                <Button id="button" fx:id="registerButton" layoutX="140.0" layoutY="275.0" mnemonicParsing="false" onAction="#Register" prefHeight="25.0" prefWidth="230.0" text="Register" />
+                                <TextField id="textField" fx:id="name" layoutX="140.0" layoutY="35.0" prefWidth="230.0" promptText="Name" />
+                                <TextField id="textField" fx:id="userName2" layoutX="140.0" layoutY="95.0" prefWidth="230.0" promptText="Username" />
+                                <PasswordField id="textField" fx:id="password2" layoutX="140.0" layoutY="155.0" prefWidth="230.0" promptText="Password" />
+                                <PasswordField id="textField" fx:id="confirmPassword" layoutX="140.0" layoutY="215.0" prefWidth="230.0" promptText="Confirm Password" />
                             </children>
                         </AnchorPane>
                     </children>
                 </StackPane>
-                <ToggleButton id="selectButton" fx:id="loginSelect" layoutX="175.0" layoutY="86.0" mnemonicParsing="false" prefWidth="115.0" text="Login">
+                <ToggleButton id="selectButton" fx:id="loginSelect" layoutX="35.0" layoutY="35.0" mnemonicParsing="false" prefWidth="255.0" text="Login">
                     <toggleGroup>
                         <ToggleGroup fx:id="LoginRegister" />
                     </toggleGroup>
                 </ToggleButton>
-                <ToggleButton id="selectButton" fx:id="registerSelect" layoutX="290.0" layoutY="86.0" mnemonicParsing="false" prefWidth="115.0" text="Register" toggleGroup="$LoginRegister" />
+                <ToggleButton id="selectButton" fx:id="registerSelect" layoutX="290.0" layoutY="35.0" mnemonicParsing="false" prefWidth="255.0" text="Register" toggleGroup="$LoginRegister" />
             </children>
         </AnchorPane>
     </children>

@@ -16,6 +16,12 @@
     -fx-border-width: 2px;
     -fx-border-color: #4CAF50;
 }
+#fontIcon {
+    -fx-fill: rgba(175,140,100,1);
+}
+#fontIcon:selected {
+    -fx-fill: rgba(125,67,0,1);
+}
 #buttonLibrary {
     -fx-background-color: white;
     -fx-translate-y: 15px;
@@ -51,7 +57,7 @@
     -fx-text-fill: rgba(125,67,0,1);
 }
 #vboxButton1 {
-    -fx-translate-y: 360px;
+    -fx-translate-y: 265px;
     -fx-alignment: bottom_center;
 }
 #continueReading {

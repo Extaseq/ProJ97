@@ -29,9 +29,9 @@
     <left>
         <VBox id="leftVbox" fx:id="leftVbox" prefHeight="850.0" prefWidth="230.0" BorderPane.alignment="TOP_CENTER">
             <children>
-                <ImageView fitHeight="170.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                <ImageView fitHeight="212.0" fitWidth="201.0" pickOnBounds="true" preserveRatio="true">
                     <image>
-                        <Image url="@image/bookimage.jpg" />
+                        <Image url="@image/logo.png" />
                     </image>
                 </ImageView>
                 <ToggleButton id="buttonLibrary" fx:id="buttonLibrary" mnemonicParsing="false" text="Library">
@@ -41,11 +41,17 @@
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
+               <graphic>
+                  <FontAwesomeIcon id="fontIcon" glyphName="BOOK" />
+               </graphic>
                 </ToggleButton>
-                <ToggleButton id="buttonAccount" fx:id="buttonAccount" mnemonicParsing="false" text="Account" toggleGroup="$menu" />
+                <ToggleButton id="buttonAccount" fx:id="buttonAccount" mnemonicParsing="false" text="Account" toggleGroup="$menu">
+               <graphic>
+                  <FontAwesomeIcon id="fontIcon" glyphName="USER" />
+               </graphic></ToggleButton>
                 <VBox id="vboxButton1" fx:id="continueReadDoc" prefHeight="205.0" prefWidth="200.0">
                     <children>
-                        <TextField id="continueReading" text="Continue Reading">
+                        <TextField id="continueReading" editable="false" text="Continue Reading">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -591,7 +597,7 @@
                         <Line id="separator2" fx:id="separator2" endX="7.0" endY="853.0" startX="7.0" startY="-1.0" stroke="WHITE" />
                     </children>
                 </AnchorPane>
-                <AnchorPane id="recommendPane" fx:id="accountPane" prefHeight="852.0" prefWidth="970.0" visible="false">
+                <AnchorPane id="recommendPane" fx:id="accountPane" prefHeight="852.0" prefWidth="970.0">
                     <children>
                         <AnchorPane id="paneInLibrary" fx:id="paneAccount1" layoutX="35.0" layoutY="20.0" prefHeight="812.0" prefWidth="1115.0">
                             <children>
