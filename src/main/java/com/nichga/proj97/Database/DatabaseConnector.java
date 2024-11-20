@@ -1,4 +1,4 @@
-package Database;
+package com.nichga.proj97.Database;
 
 import com.zaxxer.hikari.HikariConfig;
 import com.zaxxer.hikari.HikariDataSource;

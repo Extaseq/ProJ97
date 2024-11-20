@@ -1,4 +1,4 @@
-package Database;
+package com.nichga.proj97.Database;
 
 import java.util.ArrayList;
 import java.util.List;

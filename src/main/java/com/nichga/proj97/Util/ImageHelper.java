@@ -1,4 +1,4 @@
-package com.nichga.proj97;
+package com.nichga.proj97.Util;
 
 import javafx.scene.SnapshotParameters;
 import javafx.scene.image.ImageView;

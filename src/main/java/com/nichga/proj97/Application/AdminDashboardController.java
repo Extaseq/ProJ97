@@ -1,12 +1,9 @@
-package Application;
+package com.nichga.proj97.Application;
 
-import com.nichga.proj97.Documents;
-import com.nichga.proj97.User;
-import Database.DatabaseConnector;
+import com.nichga.proj97.Database.DatabaseConnector;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
@@ -17,7 +14,7 @@ import javafx.scene.text.TextFlow;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import com.nichga.proj97.ImageHelper;
+import com.nichga.proj97.Util.ImageHelper;
 
 public class AdminDashboardController {
     @FXML
@@ -59,11 +56,11 @@ public class AdminDashboardController {
     @FXML
     private Text total_users;
 
-    @FXML
-    TableView<User> small_user_table;
-
-    @FXML
-    TableView<Documents> small_document_table;
+//    @FXML
+//    TableView<User> small_user_table;
+//
+//    @FXML
+//    TableView<Documents> small_document_table;
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy | EEEE, hh:mm a");
 
@@ -124,25 +121,25 @@ public class AdminDashboardController {
 
     // Test
     public void prepareUserTableView() {
-        small_user_table.getColumns().clear();
-
-        TableColumn<User, Integer> UserID = new TableColumn<>("User ID");
-        UserID.setCellValueFactory(new PropertyValueFactory<>("UserID"));
-        UserID.setPrefWidth(150);
-        TableColumn<User, String> UserName = new TableColumn<>("User Name");
-        UserName.setCellValueFactory(new PropertyValueFactory<>("UserName"));
-        UserName.setPrefWidth(200);
-        TableColumn<User, Integer> BookBorrowed = new TableColumn<>("Book Borrowed");
-        BookBorrowed.setCellValueFactory(new PropertyValueFactory<>("BorrowedBook"));
-        BookBorrowed.setPrefWidth(150);
-        TableColumn<User, Integer> BookOverdue = new TableColumn<>("Book Overdue");
-        BookOverdue.setCellValueFactory(new PropertyValueFactory<>("OverdueBook"));
-        BookOverdue.setPrefWidth(150);
-
-        small_user_table.getColumns().add(UserID);
-        small_user_table.getColumns().add(UserName);
-        small_user_table.getColumns().add(BookBorrowed);
-        small_user_table.getColumns().add(BookOverdue);
+//        small_user_table.getColumns().clear();
+//
+//        TableColumn<User, Integer> UserID = new TableColumn<>("User ID");
+//        UserID.setCellValueFactory(new PropertyValueFactory<>("UserID"));
+//        UserID.setPrefWidth(150);
+//        TableColumn<User, String> UserName = new TableColumn<>("User Name");
+//        UserName.setCellValueFactory(new PropertyValueFactory<>("UserName"));
+//        UserName.setPrefWidth(200);
+//        TableColumn<User, Integer> BookBorrowed = new TableColumn<>("Book Borrowed");
+//        BookBorrowed.setCellValueFactory(new PropertyValueFactory<>("BorrowedBook"));
+//        BookBorrowed.setPrefWidth(150);
+//        TableColumn<User, Integer> BookOverdue = new TableColumn<>("Book Overdue");
+//        BookOverdue.setCellValueFactory(new PropertyValueFactory<>("OverdueBook"));
+//        BookOverdue.setPrefWidth(150);
+//
+//        small_user_table.getColumns().add(UserID);
+//        small_user_table.getColumns().add(UserName);
+//        small_user_table.getColumns().add(BookBorrowed);
+//        small_user_table.getColumns().add(BookOverdue);
     }
 
     @FXML

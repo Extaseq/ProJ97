@@ -1,4 +1,4 @@
-package Database;
+package com.nichga.proj97.Database;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;

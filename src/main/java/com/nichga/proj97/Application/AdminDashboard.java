@@ -1,6 +1,6 @@
-package Application;
+package com.nichga.proj97.Application;
 
-import Database.DatabaseConnector;
+import com.nichga.proj97.Database.DatabaseConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
