@@ -11,6 +11,7 @@ module com.nichga.proj97 {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires com.zaxxer.hikari;
+    requires com.google.gson;
     requires java.sql;
 
     opens com.nichga.proj97 to javafx.fxml;

@@ -1,20 +1,49 @@
 package com.nichga.proj97;
 
-import java.lang.reflect.Member;
-import java.sql.Connection;
-import java.sql.ResultSet;
-
-import Database.DatabaseConnector;
-import Database.*;
-import Services.Auth;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 
 public class Test {
     public static void main(String[] args) {
-        // Kết nối với database
-        Connection connection = DatabaseConnector.getInstance().getConnection();
-        if (connection == null) {
-            System.out.println("Database connection failed!");
-            return;
+        try {
+            // Define the query and encode it
+            String query = "java programming";
+            String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+            String apiKey = "AIzaSyA5B1G2E0gdk-1vag_sJTrsPKOlh7O2y_Y";
+            String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + encodedQuery + "&key=" + apiKey;
+
+            // Create a URL object
+            URL url = new URL(urlString);
+
+            // Open a connection
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+
+            // Check the response code
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) { // HTTP OK
+                // Read the response
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine).append("\n");
+                }
+                in.close();
+
+                // Print the response
+                System.out.println("Response: ");
+                System.out.println(response);
+            } else {
+                System.out.println("Error: HTTP " + responseCode);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
