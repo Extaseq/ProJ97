@@ -17,12 +17,13 @@ public class Client extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("LoginRegister.fxml")));
+            Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nichga/proj97/LoginRegister.fxml")));
             Scene scene = new Scene(root);
-            scene.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("LoginRegister.css")).toExternalForm());
+            scene.getStylesheets().add(Objects.requireNonNull(this.getClass().getResource("/com/nichga/proj97/LoginRegister.css")).toExternalForm());
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (Exception e) {
+            System.out.println("1");
             System.out.println(e.getMessage());
         }
     }
