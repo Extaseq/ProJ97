@@ -14,6 +14,7 @@ module com.nichga.proj97 {
     requires com.google.gson;
     requires com.fasterxml.jackson.databind;
     requires java.sql;
+    requires com.google.protobuf;
 
     opens com.nichga.proj97 to javafx.fxml;
     opens com.nichga.proj97.Application to javafx.fxml;

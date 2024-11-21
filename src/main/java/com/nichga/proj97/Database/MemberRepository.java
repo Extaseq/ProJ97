@@ -98,4 +98,21 @@ public class MemberRepository extends GenericRepository {
         sql.append(" WHERE member_id = ?");
         return executeUpdate(createStatement(sql.toString()), args);
     }
+
+    /**
+     * Retrieves the ID of the last member added to the database.
+     *
+     * @return The ID of the last member, or 0 if no user exists.
+     */
+    public int getLastMemberId() {
+        String sql = "SELECT MAX(member_id) FROM " + tableName;
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
 }

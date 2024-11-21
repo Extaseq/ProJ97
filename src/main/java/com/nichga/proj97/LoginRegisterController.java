@@ -1,5 +1,9 @@
 package com.nichga.proj97;
 
+import com.google.protobuf.StringValue;
+import com.nichga.proj97.Database.MemberRepository;
+import com.nichga.proj97.Database.UserRepository;
+import com.nichga.proj97.Services.PasswordUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -32,6 +36,9 @@ public class LoginRegisterController extends StageController {
     private UserManagement userManagement;
     private CopyOnWriteArrayList<Users> users;
     private Map<String, Users> userLoginInfo ;
+    private UserRepository userRepository;
+    private MemberRepository memberRepository;
+
 
     public void initialize() {
         // Thêm danh sách vai trò vào ComboBox
@@ -40,14 +47,16 @@ public class LoginRegisterController extends StageController {
         userManagement = new UserManagement();
         users = userManagement.getUsers();
 
+        userRepository = new UserRepository();
+        memberRepository = new MemberRepository();
         SetButton();
     }
 
     public void Login(ActionEvent event) {
         // Lấy giá trị từ các trường nhập
-        userLoginInfo = userManagement.getUserLoginInfo();
-        String u = userName1.getText();
-        String p = password1.getText();
+        String userName = userName1.getText();
+        String passWord = password1.getText();
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
 
         // Kiểm tra nếu người dùng không chọn vai trò
@@ -57,11 +66,11 @@ public class LoginRegisterController extends StageController {
         }
         // Xử lý khi vai trò là USER
         else if (roleButton.getValue().equals("USER")) {
-            if (userLoginInfo.containsKey(u)) {
-                Users user = userLoginInfo.get(u);
-                if (user.getPassword().equals(p)) {
+            if (userRepository.userExists(userName)) {
+                String[] authInfo = userRepository.getAuthInformation(userName);
+                if (PasswordUtil.verifyPassword(passWord, authInfo[0], authInfo[1])) {
                     try {
-                        
+                        Users user = new Users(userName, passWord);
                         goToNextStage("/com/nichga/proj97/UserDashboard.fxml", loginButton, user);
                     } catch (IOException e) {
                         e.printStackTrace();
@@ -69,6 +78,7 @@ public class LoginRegisterController extends StageController {
                     return;
                 }
             }
+
             alert.setContentText("Wrong Username or Password!");
             alert.showAndWait();
         }
@@ -82,6 +92,9 @@ public class LoginRegisterController extends StageController {
 
     public void Register(ActionEvent event) throws IOException {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        String userName = userName2.getText();
+        String passWord = password2.getText();
+
         if (userName2.getText().isEmpty() || password2.getText().isEmpty() || confirmPassword.getText().isEmpty() || name.getText().isEmpty()) {
             alert.setContentText("Please fill all the fields");
             alert.showAndWait();
@@ -89,17 +102,22 @@ public class LoginRegisterController extends StageController {
             alert.setContentText("Passwords do not match");
             alert.showAndWait();
         } else {
-            Map<String, Users> userLoginInfo = userManagement.getUserLoginInfo();
-            if (userLoginInfo.containsKey(userName2.getText())) {
+
+            if (userRepository.userExists(userName)) {
                 alert.setContentText("Username already exists");
                 alert.showAndWait();
                 return;
             }
-            Users user = new Users(userName2.getText(), password2.getText());
+            Users user = new Users(userName, passWord);
             if(name.getText() != null) {
                 user.setName(name.getText());
             }
-            userManagement.addUser(user);
+            String salt = PasswordUtil.generateSalt();
+            String passwordHash = PasswordUtil.hashPassword(passWord, salt);
+
+            String newMemberId = String.valueOf(memberRepository.getLastMemberId() + 1);
+            userRepository.addNewUser(newMemberId, userName, passwordHash, salt);
+            memberRepository.addNewMember(name.getText(), "NULL", "NULL");
             alert.setContentText("Successfully registered! Please Login!");
             alert.showAndWait();
             //goto Login
