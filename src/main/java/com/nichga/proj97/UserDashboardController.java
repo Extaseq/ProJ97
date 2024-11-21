@@ -477,6 +477,9 @@ public class UserDashboardController extends StageController {
         });
     }
 
+    public void borrow() {
+
+    }
 
     public void signOut() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
