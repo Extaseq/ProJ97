@@ -1,5 +1,6 @@
 package com.nichga.proj97.Services;
 
+import com.nichga.proj97.Database.MemberRepository;
 import com.nichga.proj97.Database.UserRepository;
 
 /**

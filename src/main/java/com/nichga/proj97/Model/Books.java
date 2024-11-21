@@ -36,10 +36,11 @@ public class Books {
 
     @Override
     public String toString() {
-        return "Title: " + getVolumeInfo().getTitle() + "\n" +
-                "Authors: " + getVolumeInfo().getAuthors() + "\n" +
-                "Publisher: " + getVolumeInfo().getPublisher() + "\n" +
-                "ISBN-10: " + getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier() + "\n" +
-                "Thumbnail: " + getVolumeInfo().getImageLinks().getThumbnail() + "\n";
+        return "ID: " + getId() + "\n"
+            + "Title: " + getVolumeInfo().getTitle() + "\n"
+            + "Authors: " + getVolumeInfo().getAuthors() + "\n"
+            + "Publisher: " + getVolumeInfo().getPublisher() + "\n"
+            + "ISBN-10: " + getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier() + "\n"
+            + "Thumbnail: " + getVolumeInfo().getImageLinks().getThumbnail() + "\n";
     }
 }
