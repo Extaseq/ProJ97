@@ -1,5 +1,7 @@
 package com.nichga.proj97;
 
+import com.nichga.proj97.Database.BookRepository;
+import com.nichga.proj97.Database.BorrowRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -32,7 +34,7 @@ public class UserDashboardController extends StageController {
     //SortedList<Documents> sortedData;
     private boolean isTagButtonPressed = false;
 
-
+    private String userId;
 
     @FXML
     private TabPane tabpaneLibrary;
@@ -478,7 +480,17 @@ public class UserDashboardController extends StageController {
     }
 
     public void borrow() {
+        BookRepository bookRepo = new BookRepository();
+        BorrowRepository borrowRepo = new BorrowRepository();
+        if(bookRepo.adjustInfoAfterBorrow(currentBooksId)) {
+            borrowRepo.createBorrowRequest(userId,currentBooksId);
 
+        }
+        else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("This books is currently not available in our library");
+            alert.showAndWait();
+        }
     }
 
     public void signOut() throws IOException {
