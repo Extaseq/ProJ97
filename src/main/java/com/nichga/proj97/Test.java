@@ -1,5 +1,9 @@
 package com.nichga.proj97;
 
+import com.nichga.proj97.Model.Books;
+import com.nichga.proj97.Model.BooksResponse;
+import com.nichga.proj97.Util.JsonParser;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
@@ -14,7 +18,7 @@ public class Test {
             String query = "java programming";
             String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
             String apiKey = "AIzaSyA5B1G2E0gdk-1vag_sJTrsPKOlh7O2y_Y";
-            String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + encodedQuery + "&key=" + apiKey;
+            String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + encodedQuery + "&key=" + apiKey + "&maxResults=15";
 
             // Create a URL object
             URL url = new URL(urlString);
@@ -36,9 +40,19 @@ public class Test {
                 }
                 in.close();
 
-                // Print the response
-                System.out.println("Response: ");
-                System.out.println(response);
+                // Parse the JSON response
+                String json = response.toString();
+                BooksResponse responseObj = JsonParser.ParseJson(json);
+
+                // Print the book details
+                if (responseObj != null && !responseObj.getItems().isEmpty()) {
+                    for (Books book : responseObj.getItems()) {
+                        System.out.println("Book Details: ");
+                        System.out.println(book);
+                    }
+                } else {
+                    System.out.println("No books found.");
+                }
             } else {
                 System.out.println("Error: HTTP " + responseCode);
             }

@@ -1,10 +1,14 @@
-package com.nichga.proj97.Model;
+package com.nichga.proj97.Util;
 
 import java.io.IOException;
+
+import com.fasterxml.jackson.core.Version;
 import com.fasterxml.jackson.databind.*;
+import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.nichga.proj97.Model.Books;
 
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
@@ -14,7 +18,7 @@ import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import java.time.temporal.ChronoField;
 
-public class Converter {
+public class Converter extends Module {
     private static final DateTimeFormatter DATE_TIME_FORMATTER = new DateTimeFormatterBuilder()
             .appendOptional(DateTimeFormatter.ISO_DATE_TIME)
             .appendOptional(DateTimeFormatter.ISO_OFFSET_DATE_TIME)
@@ -79,5 +83,20 @@ public class Converter {
     private static ObjectWriter getObjectWriter() {
         if (writer == null) instantiateMapper();
         return writer;
+    }
+
+    @Override
+    public String getModuleName() {
+        return "";
+    }
+
+    @Override
+    public Version version() {
+        return null;
+    }
+
+    @Override
+    public void setupModule(SetupContext setupContext) {
+
     }
 }

@@ -1,54 +1,45 @@
 package com.nichga.proj97.Model;
 
-import com.fasterxml.jackson.annotation.*;
-
 public class Books {
-    private String kind;
-    private String id;
-    private String etag;
-    private String selfLink;
-    private VolumeInfo volumeInfo;
-    private LayerInfo layerInfo;
-    private SaleInfo saleInfo;
-    private AccessInfo accessInfo;
+    String kind;
+    String id;
+    String etag;
+    String selfLink;
+    VolumeInfo volumeInfo;
+    LayerInfo layerInfo;
+    SaleInfo saleInfo;
+    AccessInfo accessInfo;
 
-    @JsonProperty("kind")
     public String getKind() { return kind; }
-    @JsonProperty("kind")
-    public void setKind(String value) { this.kind = value; }
+    public void setKind(String kind) { this.kind = kind; }
 
-    @JsonProperty("id")
-    public String getID() { return id; }
-    @JsonProperty("id")
-    public void setID(String value) { this.id = value; }
+    public String getId() { return id; }
+    public void setId(String id) { this.id = id; }
 
-    @JsonProperty("etag")
     public String getEtag() { return etag; }
-    @JsonProperty("etag")
-    public void setEtag(String value) { this.etag = value; }
+    public void setEtag(String etag) { this.etag = etag; }
 
-    @JsonProperty("selfLink")
     public String getSelfLink() { return selfLink; }
-    @JsonProperty("selfLink")
-    public void setSelfLink(String value) { this.selfLink = value; }
+    public void setSelfLink(String selfLink) { this.selfLink = selfLink; }
 
-    @JsonProperty("volumeInfo")
     public VolumeInfo getVolumeInfo() { return volumeInfo; }
-    @JsonProperty("volumeInfo")
-    public void setVolumeInfo(VolumeInfo value) { this.volumeInfo = value; }
+    public void setVolumeInfo(VolumeInfo volumeInfo) { this.volumeInfo = volumeInfo; }
 
-    @JsonProperty("layerInfo")
     public LayerInfo getLayerInfo() { return layerInfo; }
-    @JsonProperty("layerInfo")
-    public void setLayerInfo(LayerInfo value) { this.layerInfo = value; }
+    public void setLayerInfo(LayerInfo layerInfo) { this.layerInfo = layerInfo; }
 
-    @JsonProperty("saleInfo")
     public SaleInfo getSaleInfo() { return saleInfo; }
-    @JsonProperty("saleInfo")
-    public void setSaleInfo(SaleInfo value) { this.saleInfo = value; }
+    public void setSaleInfo(SaleInfo saleInfo) { this.saleInfo = saleInfo; }
 
-    @JsonProperty("accessInfo")
     public AccessInfo getAccessInfo() { return accessInfo; }
-    @JsonProperty("accessInfo")
-    public void setAccessInfo(AccessInfo value) { this.accessInfo = value; }
+    public void setAccessInfo(AccessInfo accessInfo) { this.accessInfo = accessInfo; }
+
+    @Override
+    public String toString() {
+        return "Title: " + getVolumeInfo().getTitle() + "\n" +
+                "Authors: " + getVolumeInfo().getAuthors() + "\n" +
+                "Publisher: " + getVolumeInfo().getPublisher() + "\n" +
+                "ISBN-10: " + getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier() + "\n" +
+                "Thumbnail: " + getVolumeInfo().getImageLinks().getThumbnail() + "\n";
+    }
 }

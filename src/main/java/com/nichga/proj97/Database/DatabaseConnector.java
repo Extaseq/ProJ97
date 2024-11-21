@@ -12,7 +12,7 @@ import java.sql.SQLException;
  */
 public class DatabaseConnector {
     private static DatabaseConnector instance = null;
-    private HikariDataSource dataSource;
+    private final HikariDataSource dataSource;
 
     /**
      * Private constructor to initialize the database connection pool with the specified configuration.
