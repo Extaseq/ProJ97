@@ -79,7 +79,7 @@ public class UserDashboardController extends StageController {
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
 
     private ToggleGroup toggleGroup;
-
+    private String currentBooksId = null;
     private ObservableList<Documents> getCurrentDoc() {
         return FXCollections.observableArrayList(
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),

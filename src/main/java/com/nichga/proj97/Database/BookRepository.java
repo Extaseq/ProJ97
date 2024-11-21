@@ -1,6 +1,7 @@
 package com.nichga.proj97.Database;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,5 +31,32 @@ public class BookRepository extends GenericRepository {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+    public boolean adjustInfoAfterBorrow(String bookId) {
+        String sql = "SELECT copies_available FROM " + tableName + " WHERE book_id = ?";
+        try (PreparedStatement stmt = createStatement(sql)) {
+            stmt.setString(1, bookId);
+            ResultSet rs = stmt.executeQuery();
+            if (rs.next()) {
+                int availableCopies = rs.getInt("copies_available");
+                if (availableCopies > 0) {
+                    String updateSql = "UPDATE " + tableName + " SET copies_available = ? WHERE book_id = ?";
+                    try (PreparedStatement updateStmt = createStatement(updateSql)) {
+                        updateStmt.setInt(1, availableCopies - 1);
+                        updateStmt.setString(2, bookId);
+                        updateStmt.executeUpdate();
+                        return true;
+                    }
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+    public ResultSet getBookById(String bookId) {
+        String sql = "SELECT * FROM " + tableName + " WHERE book_id = ?";
+        PreparedStatement stmt = createStatement(sql);
+        return executeQuery(stmt, bookId);
     }
 }
