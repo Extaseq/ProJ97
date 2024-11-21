@@ -79,7 +79,7 @@ public class MemberRepository extends GenericRepository {
                         .filter(column -> column != Column.MEMBER_ID)
                         .map(GenericColumn::getName)
                         .collect(Collectors.joining(", ")) +
-                ") VALUES (?, NULL, ?, ?, NOW())";
+                ") VALUES (?, null, null, null, NOW())";
         return executeUpdate(createStatement(sql), args);
     }
 

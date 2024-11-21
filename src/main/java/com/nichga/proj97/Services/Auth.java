@@ -10,8 +10,11 @@ import com.nichga.proj97.Database.UserRepository;
 public class Auth {
     private final UserRepository userRepo;
 
+    private final MemberRepository memberRepo;
+
     public Auth() {
         this.userRepo = new UserRepository();
+        this.memberRepo = new MemberRepository();
     }
 
     /**
@@ -37,10 +40,11 @@ public class Auth {
      * @param pass_word The plain-text password provided by the new user.
      * @return {@code true} if the registration is successful, {@code false} otherwise.
      */
-    public boolean register(String username, String pass_word) {
+    public boolean register(String username, String pass_word, String fullname) {
         String generatedSalt = PasswordUtil.generateSalt();
         String hashedPassword = PasswordUtil.hashPassword(pass_word, generatedSalt);
         String lastMemberAdded = String.valueOf(userRepo.getLastUserId() + 1);
-        return userRepo.addNewUser(lastMemberAdded, username, hashedPassword, generatedSalt) > 0;
+        return userRepo.addNewUser(lastMemberAdded, username, hashedPassword, generatedSalt) > 0
+            && memberRepo.addNewMember(fullname) > 0;
     }
 }

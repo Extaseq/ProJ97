@@ -35,7 +35,9 @@ public class TokenProvider {
         return image;
     }
 
-    public static boolean generateToken() {
-        return tokenRepo.pushToken(UUID.randomUUID().toString());
+    public static String generateToken() {
+        String token = UUID.randomUUID().toString();
+        tokenRepo.pushToken(token);
+        return token;
     }
 }

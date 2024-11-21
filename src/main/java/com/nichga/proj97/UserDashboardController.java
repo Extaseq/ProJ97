@@ -4,6 +4,7 @@ import com.google.zxing.WriterException;
 import com.nichga.proj97.Database.BookRepository;
 import com.nichga.proj97.Database.BorrowRepository;
 import com.nichga.proj97.Database.QRCodeTokenService;
+import com.nichga.proj97.Services.TokenProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -486,10 +487,8 @@ public class UserDashboardController extends StageController {
         BorrowRepository borrowRepo = new BorrowRepository();
         if(bookRepo.adjustInfoAfterBorrow(currentBooksId)) {
             borrowRepo.createBorrowRequest(userId,currentBooksId);
-            QRCodeTokenService qrCode = new QRCodeTokenService();
-            String token = qrCode.generateToken();
-            qrCode.storeTokenInDatabase(token,qrCode.getExpiryTime(),currentBooksId);
-            BufferedImage img = qrCode.generateQRCodeImage(token,400,400);
+            String token = TokenProvider.generateToken();
+            BufferedImage img = TokenProvider.generateQRCode(token);
             //Display qrCode.
         }
         else {
