@@ -1,7 +1,9 @@
 package com.nichga.proj97;
 
+import com.google.zxing.WriterException;
 import com.nichga.proj97.Database.BookRepository;
 import com.nichga.proj97.Database.BorrowRepository;
+import com.nichga.proj97.Database.QRCodeTokenService;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -18,6 +20,7 @@ import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
@@ -479,12 +482,16 @@ public class UserDashboardController extends StageController {
         });
     }
 
-    public void borrow() {
+    public void borrow() throws WriterException {
         BookRepository bookRepo = new BookRepository();
         BorrowRepository borrowRepo = new BorrowRepository();
         if(bookRepo.adjustInfoAfterBorrow(currentBooksId)) {
             borrowRepo.createBorrowRequest(userId,currentBooksId);
-
+            QRCodeTokenService qrCode = new QRCodeTokenService();
+            String token = qrCode.generateToken();
+            qrCode.storeTokenInDatabase(token,qrCode.getExpiryTime(),currentBooksId);
+            BufferedImage img = qrCode.generateQRCodeImage(token,400,400);
+            //Display qrCode.
         }
         else {
             Alert alert = new Alert(Alert.AlertType.ERROR);

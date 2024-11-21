@@ -12,8 +12,8 @@ import java.sql.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class QRCodeTokenService {
-
+public class QRCodeTokenService extends GenericRepository{
+    public QRCodeTokenService() {super("qr_tokens");}
     public static String generateToken() {
         return UUID.randomUUID().toString();
     }
