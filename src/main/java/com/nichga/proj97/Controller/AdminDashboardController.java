@@ -1,10 +1,8 @@
-package com.nichga.proj97.Application;
+package com.nichga.proj97.Controller;
 
 import com.nichga.proj97.Database.DatabaseConnector;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;

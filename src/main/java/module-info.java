@@ -25,4 +25,6 @@ module com.nichga.proj97 {
     opens com.nichga.proj97.Util to javafx.fxml;
     exports com.nichga.proj97.Model;
     opens com.nichga.proj97.Model to javafx.fxml;
+    exports com.nichga.proj97.Controller;
+    opens com.nichga.proj97.Controller to javafx.fxml;
 }

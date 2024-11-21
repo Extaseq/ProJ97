@@ -27,7 +27,7 @@ public class LoginRegisterController extends StageController {
     private Button loginButton, registerButton;
     @FXML
     private ComboBox<String> roleButton;
-    private ObservableList<String> rolesList = FXCollections.observableArrayList("USER", "ADMIN");
+    private final ObservableList<String> rolesList = FXCollections.observableArrayList("USER", "ADMIN");
 
     private UserManagement userManagement;
     private CopyOnWriteArrayList<Users> users;

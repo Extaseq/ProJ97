@@ -7,13 +7,14 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.Objects;
 
 public class HelloApplication extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        Parent root = FXMLLoader.load(getClass().getResource("UserDashboard.fxml"));
+        Parent root = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("UserDashboard.fxml")));
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getResource("UserDashboard.css").toExternalForm());
+        scene.getStylesheets().add(Objects.requireNonNull(getClass().getResource("UserDashboard.css")).toExternalForm());
         stage.setScene(scene);
         stage.show();
     }

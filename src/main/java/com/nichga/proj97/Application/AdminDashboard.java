@@ -1,5 +1,6 @@
 package com.nichga.proj97.Application;
 
+import com.nichga.proj97.Controller.AdminDashboardController;
 import com.nichga.proj97.Database.DatabaseConnector;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
