@@ -76,7 +76,7 @@ public class UserDashboardController extends StageController {
     @FXML
     private VBox continueReadDoc;
 
-    private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
+    private ObservableList<Documents> userDocuments;
 
     private ToggleGroup toggleGroup;
 
@@ -128,13 +128,16 @@ public class UserDashboardController extends StageController {
     }
 
     public void initialize() {
+
+        mainData = getAllDocuments();
+        userDocuments = getUserDocuments();
         toggleGroup = new ToggleGroup();
         buttonLibrary.setToggleGroup(toggleGroup);
         buttonAccount.setToggleGroup(toggleGroup);
         StrokeLine();
         SetButton();
         LockColumn();
-        mainData = getAllDocuments();
+
         buttonLibrary.setSelected(true);
         tableView1.setItems(mainData);
         tableView12.setItems(userDocuments);
@@ -337,21 +340,9 @@ public class UserDashboardController extends StageController {
     }
 
     private ObservableList<Documents> getUserDocuments() {
-        return FXCollections.observableArrayList(
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
-        );
-
+        user.setUserDocuments(new ArrayList<>(mainData));
+        ObservableList<Documents> list = FXCollections.observableArrayList(user.getUserDocuments());
+        return list;
     }
 
 

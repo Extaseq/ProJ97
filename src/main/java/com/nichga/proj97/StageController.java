@@ -49,6 +49,7 @@ public abstract class StageController {
         }
     }
     public void goToNextStage(String s, Button b, Users user) throws IOException {
+
         Stage currentStage = (Stage) b.getScene().getWindow();
         currentStage.close();
 
@@ -60,6 +61,7 @@ public abstract class StageController {
         if (controller instanceof StageController) {
             ((StageController) controller).setPreviousStage(currentStage);
         }
+
         if (controller instanceof UserDashboardController && user!=null) {
             ((UserDashboardController) controller).setUser(user);
         }

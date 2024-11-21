@@ -61,6 +61,7 @@ public class LoginRegisterController extends StageController {
                 Users user = userLoginInfo.get(u);
                 if (user.getPassword().equals(p)) {
                     try {
+                        
                         goToNextStage("/com/nichga/proj97/UserDashboard.fxml", loginButton, user);
                     } catch (IOException e) {
                         e.printStackTrace();
