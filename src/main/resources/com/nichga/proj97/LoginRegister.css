@@ -1,0 +1,47 @@
+* {
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+#BackPane {
+    -fx-background-color: white;
+}
+#MidPane {
+    -fx-background-color: #E1DACA;
+    -fx-background-radius: 15px;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 10, 0.0, 0, 0);
+}
+#mainPane {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-background-radius: 15px 15px 15px 15px;
+}
+#selectButton {
+    -fx-background-color: transparent;
+    -fx-background-radius: 15px 15px 0 0;
+    -fx-text-fill: rgba(175,140,100,1);
+    -fx-font-size: 16;
+    -fx-font-weight: bold;
+    -fx-pref-height: 50;
+    -fx-alignment: TOP_CENTER;
+}
+#selectButton:selected {
+    -fx-background-color: rgba(255,248,243,1);
+    -fx-text-fill: rgba(125,67,0,1);
+    -fx-underline: true;
+}
+#button {
+    -fx-background-color: #E1DACA;
+    -fx-background-radius: 5px;
+    -fx-font-size: 15;
+    -fx-font-weight: bold;
+    -fx-text-fill: rgba(125,67,0,1);
+}
+#textField {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 10px;
+    -fx-font-size: 15;
+}
+#comboBox {
+    -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-background-radius: 10px;
+    -fx-font-size: 15;
+}

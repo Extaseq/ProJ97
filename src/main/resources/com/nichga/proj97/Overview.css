@@ -1,0 +1,15 @@
+/* styles.css */
+.Close_btn {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.Close_btn:hover {
+    -fx-background-color:#f13f57 ;
+}
+.Non_close_btn {
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+}
+.Non_close_btn:hover {
+    -fx-background-color: #dddddd;
+}
