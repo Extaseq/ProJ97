@@ -3,6 +3,7 @@ package com.nichga.proj97;
 import com.google.protobuf.StringValue;
 import com.nichga.proj97.Database.MemberRepository;
 import com.nichga.proj97.Database.UserRepository;
+import com.nichga.proj97.Services.Auth;
 import com.nichga.proj97.Services.PasswordUtil;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -36,9 +37,7 @@ public class LoginRegisterController extends StageController {
     private UserManagement userManagement;
     private CopyOnWriteArrayList<Users> users;
     private Map<String, Users> userLoginInfo ;
-    private UserRepository userRepository;
-    private MemberRepository memberRepository;
-
+    private Auth auth;
 
     public void initialize() {
         // Thêm danh sách vai trò vào ComboBox
@@ -46,9 +45,8 @@ public class LoginRegisterController extends StageController {
         // Khởi tạo UserManagement và danh sách users
         userManagement = new UserManagement();
         users = userManagement.getUsers();
+        auth = new Auth();
 
-        userRepository = new UserRepository();
-        memberRepository = new MemberRepository();
         SetButton();
     }
 
@@ -66,17 +64,14 @@ public class LoginRegisterController extends StageController {
         }
         // Xử lý khi vai trò là USER
         else if (roleButton.getValue().equals("USER")) {
-            if (userRepository.userExists(userName)) {
-                String[] authInfo = userRepository.getAuthInformation(userName);
-                if (PasswordUtil.verifyPassword(passWord, authInfo[0], authInfo[1])) {
-                    try {
-                        Users user = new Users(userName, passWord);
-                        goToNextStage("/com/nichga/proj97/UserDashboard.fxml", loginButton, user);
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
-                    return;
+            if (auth.login(userName, passWord)) {
+                try {
+                    Users user = new Users(userName, passWord);
+                    goToNextStage("/com/nichga/proj97/UserDashboard.fxml", loginButton, user);
+                } catch (IOException e) {
+                    e.printStackTrace();
                 }
+                return;
             }
 
             alert.setContentText("Wrong Username or Password!");
@@ -103,21 +98,13 @@ public class LoginRegisterController extends StageController {
             alert.showAndWait();
         } else {
 
-            if (userRepository.userExists(userName)) {
-                alert.setContentText("Username already exists");
+            if (!auth.register(userName, passWord)) {
+                alert.setContentText("Username is already exist!");
                 alert.showAndWait();
+
                 return;
             }
-            Users user = new Users(userName, passWord);
-            if(name.getText() != null) {
-                user.setName(name.getText());
-            }
-            String salt = PasswordUtil.generateSalt();
-            String passwordHash = PasswordUtil.hashPassword(passWord, salt);
 
-            String newMemberId = String.valueOf(memberRepository.getLastMemberId() + 1);
-            userRepository.addNewUser(newMemberId, userName, passwordHash, salt);
-            memberRepository.addNewMember(name.getText(), "NULL", "NULL");
             alert.setContentText("Successfully registered! Please Login!");
             alert.showAndWait();
             //goto Login

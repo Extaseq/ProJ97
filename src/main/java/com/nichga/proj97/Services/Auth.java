@@ -37,6 +37,9 @@ public class Auth {
      * @return {@code true} if the registration is successful, {@code false} otherwise.
      */
     public boolean register(String username, String pass_word) {
+        if (userRepo.userExists(username)) {
+            return false;
+        }
         String generatedSalt = PasswordUtil.generateSalt();
         String hashedPassword = PasswordUtil.hashPassword(pass_word, generatedSalt);
         String lastMemberAdded = String.valueOf(userRepo.getLastUserId() + 1);
