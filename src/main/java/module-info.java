@@ -11,6 +11,7 @@ module com.nichga.proj97 {
     requires eu.hansolo.tilesfx;
     requires com.almasb.fxgl.all;
     requires java.desktop;
+    requires fontawesomefx;
 
     opens com.nichga.proj97 to javafx.fxml;
     exports com.nichga.proj97;
