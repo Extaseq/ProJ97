@@ -1,5 +1,7 @@
 package com.nichga.proj97.Database;
 
+import com.nichga.proj97.Users;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -83,20 +85,25 @@ public class MemberRepository extends GenericRepository {
         return executeUpdate(createStatement(sql), args);
     }
 
-    public int updateInfo(int member_id, int updateAttribute, String... args) {
+    public int updateInfo(int member_id, long updateAttribute, String... args) {
         StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
         List<String> colToUpdate = Column.getAttributes(Column.columns, updateAttribute);
         if (colToUpdate.size() != args.length) {
             return 0;
         }
-        for (int i = 0; i < colToUpdate.size(); i++) {
+        for (int i = 0; i < colToUpdate.size() ; i++) {
             sql.append(colToUpdate.get(i)).append(" = ?");
             if (i < colToUpdate.size() - 1) {
                 sql.append(", ");
             }
         }
-        sql.append(" WHERE member_id = ?");
+        sql.append(" WHERE member_id =" + String.valueOf(member_id));
         return executeUpdate(createStatement(sql.toString()), args);
+    }
+
+    public void updateInfo(int member_id, String... args) {
+        long updateAttr = Column.getNumberRepresentation(Column.columns, "fullname", "address", "email", "phone");
+        updateInfo(member_id, updateAttr, args);
     }
 
     /**
@@ -114,5 +121,36 @@ public class MemberRepository extends GenericRepository {
             System.out.println(e.getMessage());
         }
         return 0;
+    }
+
+    public Users getUserByUsername(String username) {
+        UserRepository userRepository = new UserRepository();
+        int memberId = userRepository.getMemberId(username);
+        Users user = new Users();
+        user.setUsername(username);
+        long findAttr = Column.getNumberRepresentation(Column.columns, "member_id");
+        long resAttr = Column.getNumberRepresentation(Column.columns,
+                "member_id", "fullname", "address", "email", "phone");
+        try (ResultSet rs = getMemberInfoBy(findAttr, resAttr, String.valueOf(memberId))) {
+            if (rs.next()) {
+                user.setId(rs.getInt("member_id"));
+
+                user.setName(rs.getString("fullname"));
+
+                user.setAddress(rs.getString("address"));
+
+                user.setEmail(rs.getString("email"));
+
+                user.setPhone(rs.getString("phone"));
+
+                return user;
+            } else {
+                System.out.println("No user found with member ID: " + memberId);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 }

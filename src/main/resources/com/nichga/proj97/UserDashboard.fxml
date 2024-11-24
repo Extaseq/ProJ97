@@ -2,6 +2,7 @@
 
 <?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.MenuButton?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
@@ -41,14 +42,14 @@
                     <font>
                         <Font name="System Bold" size="16.0" />
                     </font>
-               <graphic>
-                  <FontAwesomeIcon id="fontIcon" glyphName="BOOK" />
-               </graphic>
+                    <graphic>
+                        <FontAwesomeIcon id="fontIcon" glyphName="BOOK" />
+                    </graphic>
                 </ToggleButton>
                 <ToggleButton id="buttonAccount" fx:id="buttonAccount" mnemonicParsing="false" text="Account" toggleGroup="$menu">
-               <graphic>
-                  <FontAwesomeIcon id="fontIcon" glyphName="USER" />
-               </graphic></ToggleButton>
+                    <graphic>
+                        <FontAwesomeIcon id="fontIcon" glyphName="USER" />
+                    </graphic></ToggleButton>
                 <VBox id="vboxButton1" fx:id="continueReadDoc" prefHeight="205.0" prefWidth="200.0">
                     <children>
                         <TextField id="continueReading" editable="false" text="Continue Reading">
@@ -606,30 +607,32 @@
                                         <Image url="@image/IconUser.png" />
                                     </image>
                                 </ImageView>
-                                <TextField layoutX="483.0" layoutY="317.0" text="Name" />
-                                <Button fx:id="signOut" layoutX="519.0" layoutY="712.0" mnemonicParsing="false" onAction="#signOut" text="Sign Out">
+                                <TextField fx:id="accountName" layoutX="495.0" layoutY="317.0" promptText="Name" />
+                                <TextField fx:id="accountID" layoutX="495.0" layoutY="364.0" promptText="ID" />
+                                <TextField fx:id="accountEmail" layoutX="495.0" layoutY="406.0" promptText="Email" />
+                                <TextField fx:id="accountAddress" layoutX="495.0" layoutY="448.0" promptText="Address" />
+                                <Button fx:id="signOut" layoutX="484.0" layoutY="713.0" mnemonicParsing="false" onAction="#signOut" text="Sign Out">
                                     <graphic>
                                         <FontAwesomeIcon glyphName="SIGN_OUT" />
                                     </graphic>
                                 </Button>
-<<<<<<< Updated upstream
-=======
-                        <Button fx:id="ChangePasswordButton" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" text="Change Password">
-                           <graphic>
-                              <FontAwesomeIcon glyphName="KEY" />
-                           </graphic>
-                        </Button>
-                        <Label layoutX="444.0" layoutY="321.0" text="Name:" />
-                        <Label layoutX="444.0" layoutY="368.0" text="ID:" />
-                        <Label layoutX="444.0" layoutY="410.0" text="Email:" />
-                        <Label layoutX="444.0" layoutY="452.0" text="Address:" />
-                        <ToggleButton fx:id="ChangeInfoButton" layoutX="479.0" layoutY="492.0" mnemonicParsing="false" text="Change Info">
-                           <toggleGroup>
-                              <ToggleGroup fx:id="account" />
-                           </toggleGroup>
-                        </ToggleButton>
-                        <ToggleButton fx:id="SaveButton" layoutX="562.0" layoutY="492.0" mnemonicParsing="false" text="Save" toggleGroup="$account" />
->>>>>>> Stashed changes
+                                <Button fx:id="ChangePasswordButton" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" text="Change Password">
+                                    <graphic>
+                                        <FontAwesomeIcon glyphName="KEY" />
+                                    </graphic>
+                                </Button>
+                                <Label layoutX="444.0" layoutY="321.0" text="Name:" />
+                                <Label layoutX="444.0" layoutY="368.0" text="ID:" />
+                                <Label layoutX="444.0" layoutY="410.0" text="Email:" />
+                                <Label layoutX="444.0" layoutY="452.0" text="Address:" />
+                                <ToggleButton fx:id="ChangeInfoButton" layoutX="482.0" layoutY="544.0" mnemonicParsing="false" text="Change Info">
+                                    <toggleGroup>
+                                        <ToggleGroup fx:id="account" />
+                                    </toggleGroup>
+                                </ToggleButton>
+                                <ToggleButton fx:id="SaveButton" layoutX="570.0" layoutY="544.0" mnemonicParsing="false" text="Save" toggleGroup="$account" />
+                        <Label layoutX="443.0" layoutY="495.0" text="Phone:" />
+                        <TextField fx:id="accountPhone" layoutX="495.0" layoutY="491.0" promptText="Phone" />
                             </children></AnchorPane>
                         <Line id="separator3" fx:id="separator3" endY="852.0" />
                         <Line id="separator2" fx:id="separator4" endX="7.0" endY="852.0" startX="7.0" stroke="WHITE" />

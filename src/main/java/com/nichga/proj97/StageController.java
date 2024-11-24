@@ -62,9 +62,15 @@ public abstract class StageController {
             ((StageController) controller).setPreviousStage(currentStage);
         }
 
-        if (controller instanceof UserDashboardController && user!=null) {
-            ((UserDashboardController) controller).setUser(user);
+        if (controller instanceof UserDashboardController) {
+            if (user != null) {
+                ((UserDashboardController) controller).setUser(user);
+                ((UserDashboardController) controller).initAccount();
+            } else {
+                System.out.println("Warning: Users object is null, skipping setUser.");
+            }
         }
+
 
         // Hiển thị Stage mới
         Stage stage = new Stage();

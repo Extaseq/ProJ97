@@ -137,6 +137,19 @@ public class UserRepository extends GenericRepository {
         return null;
     }
 
+    public int getMemberId(String username) {
+        long findAttr = Column.getNumberRepresentation(Column.columns, "username");
+        long resAttr = Column.getNumberRepresentation(Column.columns, "member_id");
+        try (ResultSet rs = getUserInfoBy(findAttr, resAttr, username)) {
+            if (rs.next()) {
+                return rs.getInt("member_id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
     /**
      * Retrieves the ID of the last user added to the database.
      *

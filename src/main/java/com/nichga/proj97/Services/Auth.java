@@ -1,6 +1,7 @@
 package com.nichga.proj97.Services;
 
 import com.nichga.proj97.Database.UserRepository;
+import com.nichga.proj97.Users;
 
 /**
  * The Auth class provides authentication and user registration functionalities.

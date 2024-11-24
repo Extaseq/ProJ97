@@ -14,6 +14,7 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
 
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.util.Map;
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -38,6 +39,7 @@ public class LoginRegisterController extends StageController {
     private CopyOnWriteArrayList<Users> users;
     private Map<String, Users> userLoginInfo ;
     private Auth auth;
+    private MemberRepository memberRepository;
 
     public void initialize() {
         // Thêm danh sách vai trò vào ComboBox
@@ -46,6 +48,7 @@ public class LoginRegisterController extends StageController {
         userManagement = new UserManagement();
         users = userManagement.getUsers();
         auth = new Auth();
+        memberRepository = new MemberRepository();
 
         SetButton();
     }
@@ -66,7 +69,9 @@ public class LoginRegisterController extends StageController {
         else if (roleButton.getValue().equals("USER")) {
             if (auth.login(userName, passWord)) {
                 try {
-                    Users user = new Users(userName, passWord);
+                    Users user = memberRepository.getUserByUsername(userName);
+                    user.setPassword(passWord);
+
                     goToNextStage("/com/nichga/proj97/UserDashboard.fxml", loginButton, user);
                 } catch (IOException e) {
                     e.printStackTrace();

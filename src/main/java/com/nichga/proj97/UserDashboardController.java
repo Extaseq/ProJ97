@@ -1,5 +1,6 @@
 package com.nichga.proj97;
 
+import com.nichga.proj97.Database.MemberRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -21,7 +22,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserDashboardController extends StageController {
-    Users user;
+    private Users user;
     protected void setUser(Users user) {
         this.user = user;
     }
@@ -69,13 +70,16 @@ public class UserDashboardController extends StageController {
     @FXML
     private Button signOut, returnbutton1;
     @FXML
-    private TextField accountName, accountID, accountEmail, accountAddress;
+    private TextField accountName, accountID, accountEmail, accountAddress, accountPhone;
     @FXML
     private ToggleButton ChangeInfoButton, SaveButton;
 
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
 
     private ToggleGroup toggleGroup;
+    private MemberRepository memberRepository; {
+        memberRepository = new MemberRepository();
+    }
 
     private ObservableList<Documents> getCurrentDoc() {
         return FXCollections.observableArrayList(
@@ -139,7 +143,6 @@ public class UserDashboardController extends StageController {
         Sort();
         initShelve();
         initContinueReadDoc();
-
     }
 
     @FXML
@@ -152,6 +155,46 @@ public class UserDashboardController extends StageController {
             tableView12.setItems(userDocuments);
             setContinueReadDoc(userDocuments.get(0));
         }
+
+    }
+
+    public void initAccount() {
+        ToggleGroup group = new ToggleGroup();
+        ChangeInfoButton.setToggleGroup(group);
+        SaveButton.setToggleGroup(group);
+
+        ChangeInfoButton.setVisible(true);
+        SaveButton.setVisible(false);
+        accountName.setText(user.getName());
+        accountName.setEditable(false);
+        accountEmail.setText(user.getEmail());
+        accountEmail.setEditable(false);
+        accountID.setText(String.valueOf(user.getId()));
+        accountID.setEditable(false);
+        accountAddress.setText(user.getAddress());
+        accountAddress.setEditable(false);
+        accountPhone.setText(user.getPhone());
+        accountPhone.setEditable(false);
+
+
+        group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(ChangeInfoButton)) {
+                SaveButton.setVisible(true);
+                ChangeInfoButton.setVisible(false);
+                accountName.setEditable(true);
+                accountEmail.setEditable(true);
+                accountAddress.setEditable(true);
+                accountPhone.setEditable(true);
+            } else if (newValue.equals(SaveButton)) {
+                SaveButton.setVisible(false);
+                ChangeInfoButton.setVisible(true);
+                accountName.setEditable(false);
+                accountEmail.setEditable(false);
+                accountAddress.setEditable(false);
+                accountPhone.setEditable(false);
+                memberRepository.updateInfo(user.getId(), accountName.getText(), accountAddress.getText(), accountEmail.getText(), accountPhone.getText());
+            }
+        });
 
     }
 
@@ -478,16 +521,6 @@ public class UserDashboardController extends StageController {
         if (alert.getResult() == ButtonType.OK) {
             goToNextStage("/com/nichga/proj97/LoginRegister.fxml", signOut, null);
         }
-
-    }
-
-    public void initAccount() {
-        ChangeInfoButton.setVisible(true);
-        SaveButton.setVisible(false);
-        accountName.setEditable(false);
-        accountEmail.setEditable(false);
-        accountID.setEditable(false);
-        accountAddress.setEditable(false);
 
     }
 
