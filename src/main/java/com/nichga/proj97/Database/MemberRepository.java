@@ -67,11 +67,11 @@ public class MemberRepository extends GenericRepository {
     /**
      * Adds a new member to the user table.
      *
-     * @param args The member details to insert into the table.
+     * @param fullname The member name to insert into the table.
      * @return The number of rows affected (1 if the member was added successfully, 0 otherwise).
      */
-    public int addNewMember(String... args) {
-        if (args == null || args.length != 3) {
+    public int addNewMember(String fullname) {
+        if (fullname == null || fullname.trim().isEmpty()) {
             return 0;
         }
         String sql = "INSERT INTO " + tableName + " (" +
@@ -80,8 +80,9 @@ public class MemberRepository extends GenericRepository {
                         .map(GenericColumn::getName)
                         .collect(Collectors.joining(", ")) +
                 ") VALUES (?, null, null, null, NOW())";
-        return executeUpdate(createStatement(sql), args);
+        return executeUpdate(createStatement(sql), fullname);
     }
+
 
     public int updateInfo(int member_id, int updateAttribute, String... args) {
         StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
@@ -95,7 +96,7 @@ public class MemberRepository extends GenericRepository {
                 sql.append(", ");
             }
         }
-        sql.append(" WHERE member_id = ?");
+        sql.append(" WHERE member_id = ").append(member_id);
         return executeUpdate(createStatement(sql.toString()), args);
     }
 }

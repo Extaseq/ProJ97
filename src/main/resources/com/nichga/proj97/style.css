@@ -81,3 +81,10 @@
     -fx-pref-height: 50px;
     -fx-cell-size: 50px;
 }
+
+.table-view .scroll-bar {
+    -fx-opacity: 0;
+    -fx-pref-width: 0;
+    -fx-pref-height: 0;
+}
+

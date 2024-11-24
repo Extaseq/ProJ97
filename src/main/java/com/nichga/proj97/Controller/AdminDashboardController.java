@@ -1,8 +1,16 @@
 package com.nichga.proj97.Controller;
 
 import com.nichga.proj97.Database.DatabaseConnector;
+import com.nichga.proj97.Database.UserRepository;
+import com.nichga.proj97.Model.User;
+import com.nichga.proj97.Util.TableViewHelper;
+
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -54,8 +62,8 @@ public class AdminDashboardController {
     @FXML
     private Text total_users;
 
-//    @FXML
-//    TableView<User> small_user_table;
+    @FXML
+    TableView<User> small_user_table;
 //
 //    @FXML
 //    TableView<Documents> small_document_table;
@@ -63,6 +71,8 @@ public class AdminDashboardController {
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy | EEEE, hh:mm a");
 
     private final DatabaseConnector dbConnector = DatabaseConnector.getInstance();
+
+    private final UserRepository userRepo = new UserRepository();
 
     private void initializeTextFields() {
         Text text1 = new Text("Hello, ");
@@ -106,38 +116,38 @@ public class AdminDashboardController {
 
     // Test
     public void testComboBoxEvent() {
-        timeBox.setOnAction(event -> {
+        timeBox.setOnAction(_ -> {
             String value = timeBox.getValue();
-            if ("Overall".equals(value)) {
-                updateUsername("Faker!");
-            } else {
-                updateUsername("KinasTomes!");
-            }
+            small_user_table.setItems(
+                userRepo.getLatestUserByTime(value)
+            );
         });
     }
 
 
     // Test
     public void prepareUserTableView() {
-//        small_user_table.getColumns().clear();
-//
-//        TableColumn<User, Integer> UserID = new TableColumn<>("User ID");
-//        UserID.setCellValueFactory(new PropertyValueFactory<>("UserID"));
-//        UserID.setPrefWidth(150);
-//        TableColumn<User, String> UserName = new TableColumn<>("User Name");
-//        UserName.setCellValueFactory(new PropertyValueFactory<>("UserName"));
-//        UserName.setPrefWidth(200);
-//        TableColumn<User, Integer> BookBorrowed = new TableColumn<>("Book Borrowed");
-//        BookBorrowed.setCellValueFactory(new PropertyValueFactory<>("BorrowedBook"));
-//        BookBorrowed.setPrefWidth(150);
-//        TableColumn<User, Integer> BookOverdue = new TableColumn<>("Book Overdue");
-//        BookOverdue.setCellValueFactory(new PropertyValueFactory<>("OverdueBook"));
-//        BookOverdue.setPrefWidth(150);
-//
-//        small_user_table.getColumns().add(UserID);
-//        small_user_table.getColumns().add(UserName);
-//        small_user_table.getColumns().add(BookBorrowed);
-//        small_user_table.getColumns().add(BookOverdue);
+        small_user_table.getColumns().clear();
+
+        TableColumn<User, Integer> UserID = new TableColumn<>("User ID");
+        UserID.setCellValueFactory(new PropertyValueFactory<>("AccountID"));
+        UserID.setPrefWidth(150);
+        TableColumn<User, String> UserName = new TableColumn<>("User Name");
+        UserName.setCellValueFactory(new PropertyValueFactory<>("Username"));
+        UserName.setPrefWidth(200);
+        TableColumn<User, Integer> BookBorrowed = new TableColumn<>("Book Borrowed");
+        BookBorrowed.setCellValueFactory(new PropertyValueFactory<>("BorrowedBook"));
+        BookBorrowed.setPrefWidth(150);
+        TableColumn<User, Integer> BookOverdue = new TableColumn<>("Book Overdue");
+        BookOverdue.setCellValueFactory(new PropertyValueFactory<>("OverdueBook"));
+        BookOverdue.setPrefWidth(150);
+        small_user_table.getColumns().add(UserID);
+        small_user_table.getColumns().add(UserName);
+        small_user_table.getColumns().add(BookBorrowed);
+        small_user_table.getColumns().add(BookOverdue);
+        ObservableList<User> users = userRepo.getLatestUserByTime("Today");
+        small_user_table.setItems(users);
+        TableViewHelper.disableScrollBars(small_user_table);
     }
 
     @FXML

@@ -1,5 +1,9 @@
 package com.nichga.proj97.Database;
 
+import com.nichga.proj97.Model.User;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -15,6 +19,12 @@ public class UserRepository extends GenericRepository {
     public UserRepository() {
         super("UserAccounts");
     }
+
+    private final String TODAY = "DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+
+    private final String THIS_WEEK = "DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)";
+
+    private final String THIS_MONTH = "DATE_FORMAT(CURDATE(), '%Y-%m-01');";
 
     public static class Column extends GenericColumn {
         public static final List<Column> columns = new ArrayList<>();
@@ -60,11 +70,47 @@ public class UserRepository extends GenericRepository {
     public ResultSet getUserInfoBy(long findAttribute, long resultAttribute, String... args) {
         StringBuilder sql = new StringBuilder("SELECT ");
         sql.append(String.join(", ", Column.getAttributes(Column.columns, resultAttribute)));
-        sql.append(" FROM ").append(tableName).append(" WHERE ");
-        String[] findColumns = Column.getAttributes(Column.columns, findAttribute).toArray(new String[0]);
-        sql.append(String.join(" = ? AND ", findColumns)).append(" = ?");
+        sql.append(" FROM ").append(tableName);
+        if (findAttribute > 0) {
+            sql.append(" WHERE ");
+            String[] findColumns = Column.getAttributes(Column.columns, findAttribute).toArray(new String[0]);
+            sql.append(String.join(" = ? AND ", findColumns)).append(" = ?");
+        }
+        sql.append(" ORDER BY ").append(Column.ACCOUNT_ID.getName());
         return executeQuery(createStatement(sql.toString()), args);
     }
+
+    public ObservableList<User> getLatestUserByTime(String time) {
+        String sql = "SELECT account_id, username FROM UserAccounts "
+            + "WHERE created_time >= ";
+        switch (time) {
+            case "Today":
+                sql += TODAY;
+                break;
+            case "This Week":
+                sql += THIS_WEEK;
+                break;
+            case "This Month":
+                sql += THIS_MONTH;
+                break;
+            default:
+                sql += "0";
+        }
+
+        ObservableList<User> users = FXCollections.observableArrayList();
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            while (rs.next()) {
+                users.add(new User(
+                    rs.getInt("account_id"),
+                    rs.getString("username")
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return users;
+    }
+
 
     /**
      * Adds a new user to the user table.

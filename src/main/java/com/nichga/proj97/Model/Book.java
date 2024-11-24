@@ -1,6 +1,6 @@
 package com.nichga.proj97.Model;
 
-public class Books {
+public class Book {
     String kind;
     String id;
     String etag;

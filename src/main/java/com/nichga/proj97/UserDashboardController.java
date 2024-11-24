@@ -3,7 +3,6 @@ package com.nichga.proj97;
 import com.google.zxing.WriterException;
 import com.nichga.proj97.Database.BookRepository;
 import com.nichga.proj97.Database.BorrowRepository;
-import com.nichga.proj97.Database.QRCodeTokenService;
 import com.nichga.proj97.Services.TokenProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -483,19 +482,19 @@ public class UserDashboardController extends StageController {
     }
 
     public void borrow() throws WriterException {
-        BookRepository bookRepo = new BookRepository();
-        BorrowRepository borrowRepo = new BorrowRepository();
-        if(bookRepo.adjustInfoAfterBorrow(currentBooksId)) {
-            borrowRepo.createBorrowRequest(userId,currentBooksId);
-            String token = TokenProvider.generateToken();
-            BufferedImage img = TokenProvider.generateQRCode(token);
-            //Display qrCode.
-        }
-        else {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("This books is currently not available in our library");
-            alert.showAndWait();
-        }
+//        BookRepository bookRepo = new BookRepository();
+//        BorrowRepository borrowRepo = new BorrowRepository();
+//        if(bookRepo.adjustInfoAfterBorrow(currentBooksId)) {
+//            borrowRepo.createBorrowRequest(userId,currentBooksId);
+//            String token = TokenProvider.generateToken();
+//            BufferedImage img = TokenProvider.generateQRCode(token);
+//            //Display qrCode.
+//        }
+//        else {
+//            Alert alert = new Alert(Alert.AlertType.ERROR);
+//            alert.setContentText("This books is currently not available in our library");
+//            alert.showAndWait();
+//        }
     }
 
     public void signOut() throws IOException {

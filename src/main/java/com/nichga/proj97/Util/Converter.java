@@ -8,7 +8,7 @@ import com.fasterxml.jackson.databind.Module;
 import com.fasterxml.jackson.databind.module.SimpleModule;
 import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.JsonProcessingException;
-import com.nichga.proj97.Model.Books;
+import com.nichga.proj97.Model.Book;
 
 import java.time.OffsetDateTime;
 import java.time.OffsetTime;
@@ -46,11 +46,11 @@ public class Converter extends Module {
         return ZonedDateTime.from(Converter.TIME_FORMATTER.parse(str)).toOffsetDateTime().toOffsetTime();
     }
 
-    public static Books fromJsonString(String json) throws IOException {
+    public static Book fromJsonString(String json) throws IOException {
         return getObjectReader().readValue(json);
     }
 
-    public static String toJsonString(Books obj) throws JsonProcessingException {
+    public static String toJsonString(Book obj) throws JsonProcessingException {
         return getObjectWriter().writeValueAsString(obj);
     }
 
@@ -71,8 +71,8 @@ public class Converter extends Module {
             }
         });
         mapper.registerModule(module);
-        reader = mapper.readerFor(Books.class);
-        writer = mapper.writerFor(Books.class);
+        reader = mapper.readerFor(Book.class);
+        writer = mapper.writerFor(Book.class);
     }
 
     private static ObjectReader getObjectReader() {

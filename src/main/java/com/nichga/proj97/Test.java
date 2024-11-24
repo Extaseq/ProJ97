@@ -1,7 +1,7 @@
 package com.nichga.proj97;
 
-import com.nichga.proj97.Model.Books;
-import com.nichga.proj97.Model.BooksResponse;
+import com.nichga.proj97.Model.Book;
+import com.nichga.proj97.Model.BookResponses;
 import com.nichga.proj97.Util.JsonParser;
 
 import java.io.BufferedReader;
@@ -42,11 +42,11 @@ public class Test {
 
                 // Parse the JSON response
                 String json = response.toString();
-                BooksResponse responseObj = JsonParser.ParseJson(json);
+                BookResponses responseObj = JsonParser.ParseJson(json);
 
                 // Print the book details
                 if (responseObj != null && !responseObj.getItems().isEmpty()) {
-                    for (Books book : responseObj.getItems()) {
+                    for (Book book : responseObj.getItems()) {
                         System.out.println("Book Details: ");
                         System.out.println(book);
                     }

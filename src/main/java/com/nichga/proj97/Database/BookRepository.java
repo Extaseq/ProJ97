@@ -1,5 +1,7 @@
 package com.nichga.proj97.Database;
 
+import com.nichga.proj97.Model.Book;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -13,18 +15,28 @@ public class BookRepository extends GenericRepository {
 
     public static class Column extends GenericColumn {
         public static final List<Column> columns = new ArrayList<>();
-        public static final Column AUTHOR_ID = new Column(1,  "author_id");
-        public static final Column BOOK_ID   = new Column(2,  "book_id");
-        public static final Column COPY_AVA  = new Column(4,  "copies_available");
-        public static final Column ISBN      = new Column(8,  "isbn");
-        public static final Column PUB_YEAR  = new Column(16, "published_year");
-        public static final Column PUB_ID    = new Column(32, "published_id");
-        public static final Column TITLE     = new Column(64, "title");
+
+        public static final Column BOOK_ID          = new Column(1,   "book_id");
+        public static final Column TITLE            = new Column(2,   "title");
+        public static final Column AUTHOR           = new Column(4,   "author");
+        public static final Column PUBLISHER        = new Column(8,   "publisher");
+        public static final Column GENRE            = new Column(16,  "genre");
+        public static final Column PUBLISHED_YEAR   = new Column(32,  "published_year");
+        public static final Column ISBN             = new Column(64,  "isbn");
+        public static final Column COPIES_AVAILABLE = new Column(128, "copies_available");
+
         private Column(int idx, String name) {
             super(idx, name);
             columns.add(this);
         }
     }
+
+    /**
+     * Creates a PreparedStatement for the given SQL query.
+     *
+     * @param sql The SQL query string.
+     * @return the prepared statement, or null if an error occurs.
+     */
     private PreparedStatement createStatement(String sql) {
         try {
             return connection.prepareStatement(sql);
@@ -34,31 +46,16 @@ public class BookRepository extends GenericRepository {
         return null;
     }
 
-    public boolean adjustInfoAfterBorrow(String bookId) {
-        String sql = "SELECT copies_available FROM " + tableName + " WHERE book_id = ?";
-        try (PreparedStatement stmt = createStatement(sql)) {
-            stmt.setString(1, bookId);
-            ResultSet rs = stmt.executeQuery();
-            if (rs.next()) {
-                int availableCopies = rs.getInt("copies_available");
-                if (availableCopies > 0) {
-                    String updateSql = "UPDATE " + tableName + " SET copies_available = ? WHERE book_id = ?";
-                    try (PreparedStatement updateStmt = createStatement(updateSql)) {
-                        updateStmt.setInt(1, availableCopies - 1);
-                        updateStmt.setString(2, bookId);
-                        updateStmt.executeUpdate();
-                        return true;
-                    }
-                }
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return false;
-    }
-    public ResultSet getBookById(String bookId) {
-        String sql = "SELECT * FROM " + tableName + " WHERE book_id = ?";
-        PreparedStatement stmt = createStatement(sql);
-        return executeQuery(stmt, bookId);
+    public boolean insertBook(Book book) {
+        String book_id = book.getId();
+        String title = book.getVolumeInfo().getTitle();
+        String author = book.getVolumeInfo().getAuthors().toString();
+        String publisher = book.getVolumeInfo().getPublisher();
+        String genre = book.getVolumeInfo().getCategories().toString();
+        String published_year = String.valueOf(book.getVolumeInfo().getPublishedDate().getYear());
+        String isbn = book.getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier();
+        String sql = "INSERT INTO books (book_id, title, author, publisher, genre, published_year, isbn, copies_available) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, 100)";
+        return executeUpdate(createStatement(sql), book_id, title, author, publisher, genre, published_year, isbn) > 0;
     }
 }
