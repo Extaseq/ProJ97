@@ -1,5 +1,7 @@
 package com.nichga.proj97.Model;
 
+import java.util.List;
+
 public class Books {
     String kind;
     String id;
@@ -36,11 +38,29 @@ public class Books {
 
     @Override
     public String toString() {
+        // Đảm bảo rằng volumeInfo, authors, và publisher không phải null
+        String authors = (getVolumeInfo().getAuthors() != null && !getVolumeInfo().getAuthors().isEmpty())
+                ? String.join(", ", getVolumeInfo().getAuthors())
+                : "Unknown Author";
+
+        // ISBN-10 xử lý nếu không có dữ liệu
+        String isbn = "Unknown ISBN";
+        List<IndustryIdentifier> industryIdentifiers = getVolumeInfo().getIndustryIdentifiers();
+        if (industryIdentifiers != null && !industryIdentifiers.isEmpty()) {
+            isbn = industryIdentifiers.get(0).getIdentifier(); // Lấy ISBN đầu tiên
+        }
+
+        // Lấy năm xuất bản
+        String publishedYear = "Unknown Year";
+        if (getVolumeInfo().getPublishedDate() != null && getVolumeInfo().getPublishedDate().length() >= 4) {
+            publishedYear = getVolumeInfo().getPublishedDate().substring(0, 4);
+        }
+
         return "ID: " + getId() + "\n"
-            + "Title: " + getVolumeInfo().getTitle() + "\n"
-            + "Authors: " + getVolumeInfo().getAuthors() + "\n"
-            + "Publisher: " + getVolumeInfo().getPublisher() + "\n"
-            + "ISBN-10: " + getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier() + "\n"
-            + "Thumbnail: " + getVolumeInfo().getImageLinks().getThumbnail() + "\n";
+                + "Title: " + getVolumeInfo().getTitle() + "\n"
+                + "Authors: " + authors + "\n"
+                + "Publisher: " + (getVolumeInfo().getPublisher() != null ? getVolumeInfo().getPublisher() : "Unknown Publisher") + "\n"
+                + "ISBN-10: " + isbn + "\n"
+                + "PublishedYear: " + publishedYear + "\n";
     }
 }

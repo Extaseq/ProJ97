@@ -50,11 +50,19 @@ public class GenericRepository {
      * @param args  The arguments to be set in the prepared statement.
      * @return The number of rows affected by the query.
      */
-    protected int executeUpdate(PreparedStatement stmt, String... args) {
+    protected int executeUpdate(PreparedStatement stmt, Object... params) {
         int rowAffected = 0;
         try {
-            for (int i = 0; i < args.length; i++) {
-                stmt.setString(i + 1, args[i]);
+            for (int i = 0; i < params.length; i++) {
+                if (params[i] instanceof String) {
+                    stmt.setString(i + 1, (String) params[i]);
+                } else if (params[i] instanceof Integer) {
+                    stmt.setInt(i + 1, (Integer) params[i]);
+                } else if (params[i] instanceof Double) {
+                    stmt.setDouble(i + 1, (Double) params[i]);
+                } else {
+                    stmt.setObject(i + 1, params[i]); // Phòng trường hợp kiểu khác
+                }
             }
             rowAffected = stmt.executeUpdate();
         } catch (SQLException e) {
@@ -62,4 +70,5 @@ public class GenericRepository {
         }
         return rowAffected;
     }
+
 }

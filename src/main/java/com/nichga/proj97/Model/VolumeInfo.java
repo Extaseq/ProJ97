@@ -7,7 +7,7 @@ public class VolumeInfo {
     String title;
     List<String> authors;
     String publisher;
-    LocalDate publishedDate;
+    String publishedDate;
     String description;
     List<IndustryIdentifier> industryIdentifiers;
     ReadingModes readingModes;
@@ -16,7 +16,7 @@ public class VolumeInfo {
     Dimensions dimensions;
     String printType;
     List<String> categories;
-    long averageRating;
+    double averageRating;
     long ratingsCount;
     String maturityRating;
     boolean allowAnonLogging;
@@ -37,8 +37,8 @@ public class VolumeInfo {
     public String getPublisher() { return publisher; }
     public void setPublisher(String value) { this.publisher = value; }
 
-    public LocalDate getPublishedDate() { return publishedDate; }
-    public void setPublishedDate(LocalDate value) { this.publishedDate = value; }
+    public String getPublishedDate() { return publishedDate; }
+    public void setPublishedDate(String value) { this.publishedDate = value; }
 
     public String getDescription() { return description; }
     public void setDescription(String value) { this.description = value; }
@@ -64,8 +64,8 @@ public class VolumeInfo {
     public List<String> getCategories() { return categories; }
     public void setCategories(List<String> value) { this.categories = value; }
 
-    public long getAverageRating() { return averageRating; }
-    public void setAverageRating(long value) { this.averageRating = value; }
+    public double getAverageRating() { return averageRating; }
+    public void setAverageRating(double value) { this.averageRating = value; }
 
     public long getRatingsCount() { return ratingsCount; }
     public void setRatingsCount(long value) { this.ratingsCount = value; }
