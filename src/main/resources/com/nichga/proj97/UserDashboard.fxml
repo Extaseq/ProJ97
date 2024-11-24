@@ -607,16 +607,16 @@
                                         <Image url="@image/IconUser.png" />
                                     </image>
                                 </ImageView>
-                                <TextField layoutX="495.0" layoutY="317.0" promptText="Name" />
-                        <TextField layoutX="495.0" layoutY="364.0" promptText="ID" />
-                        <TextField layoutX="495.0" layoutY="406.0" promptText="Email" />
-                        <TextField layoutX="495.0" layoutY="448.0" promptText="Address" />
+                                <TextField fx:id="accountName" layoutX="495.0" layoutY="317.0" promptText="Name" />
+                        <TextField fx:id="accountID" layoutX="495.0" layoutY="364.0" promptText="ID" />
+                        <TextField fx:id="accountEmail" layoutX="495.0" layoutY="406.0" promptText="Email" />
+                        <TextField fx:id="accountAddress" layoutX="495.0" layoutY="448.0" promptText="Address" />
                                 <Button fx:id="signOut" layoutX="484.0" layoutY="713.0" mnemonicParsing="false" onAction="#signOut" text="Sign Out">
                                     <graphic>
                                         <FontAwesomeIcon glyphName="SIGN_OUT" />
                                     </graphic>
                                 </Button>
-                        <Button layoutX="582.0" layoutY="713.0" mnemonicParsing="false" text="Change Password">
+                        <Button fx:id="ChangePasswordButton" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" text="Change Password">
                            <graphic>
                               <FontAwesomeIcon glyphName="KEY" />
                            </graphic>
@@ -625,12 +625,12 @@
                         <Label layoutX="444.0" layoutY="368.0" text="ID:" />
                         <Label layoutX="444.0" layoutY="410.0" text="Email:" />
                         <Label layoutX="444.0" layoutY="452.0" text="Address:" />
-                        <ToggleButton layoutX="479.0" layoutY="492.0" mnemonicParsing="false" text="Change Info">
+                        <ToggleButton fx:id="ChangeInfoButton" layoutX="479.0" layoutY="492.0" mnemonicParsing="false" text="Change Info">
                            <toggleGroup>
                               <ToggleGroup fx:id="account" />
                            </toggleGroup>
                         </ToggleButton>
-                        <ToggleButton layoutX="562.0" layoutY="492.0" mnemonicParsing="false" text="Save" toggleGroup="$account" />
+                        <ToggleButton fx:id="SaveButton" layoutX="562.0" layoutY="492.0" mnemonicParsing="false" text="Save" toggleGroup="$account" />
                             </children></AnchorPane>
                         <Line id="separator3" fx:id="separator3" endY="852.0" />
                         <Line id="separator2" fx:id="separator4" endX="7.0" endY="852.0" startX="7.0" stroke="WHITE" />
