@@ -32,11 +32,8 @@ public class UserDashboardController extends StageController {
     //SortedList<Documents> sortedData;
     private boolean isTagButtonPressed = false;
 
-
-
     @FXML
     private TabPane tabpaneLibrary;
-
     @FXML
     private ToggleButton buttonLibrary, buttonAccount;
     @FXML
@@ -53,28 +50,28 @@ public class UserDashboardController extends StageController {
     @FXML
     private ImageView documentimage1, documentimage11, documentimage3;
     @FXML
-    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3 ;
+    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3;
     @FXML
     private TextField search1, search12;
     @FXML
-    private MenuButton menuButton1;
-    private MenuButton menuButton12;
-
+    private MenuButton menuButton1, menuButton12;
     @FXML
     private MenuItem sorttitle1, sortauthor1, sortview1;
     @FXML
     private MenuItem sorttitle12, sortauthor12, sortview12;
-
     @FXML
     private FlowPane tagsfield1, tagsfield11;
-
     @FXML
     private HBox currentList, recommendList, finishedList, favouriteAuthorList, mostPopularList;
-
+    @FXML
+    private VBox continueReadDoc;
+    //Account
     @FXML
     private Button signOut, returnbutton1;
     @FXML
-    private VBox continueReadDoc;
+    private TextField accountName, accountID, accountEmail, accountAddress;
+    @FXML
+    private ToggleButton ChangeInfoButton, SaveButton;
 
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
 
@@ -116,7 +113,6 @@ public class UserDashboardController extends StageController {
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
         );
     }
-
     private ObservableList<Documents> getMostPopularDoc() {
         return FXCollections.observableArrayList(
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
@@ -145,7 +141,6 @@ public class UserDashboardController extends StageController {
         initContinueReadDoc();
 
     }
-
 
     @FXML
     public void returnDoc() {
@@ -208,7 +203,6 @@ public class UserDashboardController extends StageController {
         }
 
     }
-
 
     //Sua mac dinh anh
     public void initLibrary(FlowPane tagsfield, TableColumn<Documents, String> imagecolumn,
@@ -354,7 +348,6 @@ public class UserDashboardController extends StageController {
 
     }
 
-
     private void sortTable(Comparator<Documents> comparator, TableView<Documents> table) {
         // Tạo danh sách sắp xếp
 
@@ -477,7 +470,7 @@ public class UserDashboardController extends StageController {
         });
     }
 
-
+    //Account
     public void signOut() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to logout?");
@@ -487,4 +480,37 @@ public class UserDashboardController extends StageController {
         }
 
     }
+
+    public void initAccount() {
+        ChangeInfoButton.setVisible(true);
+        SaveButton.setVisible(false);
+        accountName.setEditable(false);
+        accountEmail.setEditable(false);
+        accountID.setEditable(false);
+        accountAddress.setEditable(false);
+
+    }
+
+    private void EditInfo() {
+        if (ChangeInfoButton.isSelected()) {
+            ChangeInfoButton.setVisible(false);
+            SaveButton.setVisible(true);
+            accountName.setEditable(true);
+            accountEmail.setEditable(true);
+            accountID.setEditable(true);
+            accountAddress.setEditable(true);
+        }
+        if (SaveButton.isSelected()) {
+            SaveButton.setVisible(false);
+            ChangeInfoButton.setVisible(true);
+            accountName.setEditable(false);
+            accountEmail.setEditable(false);
+            accountID.setEditable(false);
+            accountAddress.setEditable(false);
+
+            //Thao tac cap nhat Info duoi nay
+
+        }
+    }
+
 }

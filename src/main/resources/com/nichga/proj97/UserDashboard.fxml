@@ -612,6 +612,24 @@
                                         <FontAwesomeIcon glyphName="SIGN_OUT" />
                                     </graphic>
                                 </Button>
+<<<<<<< Updated upstream
+=======
+                        <Button fx:id="ChangePasswordButton" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" text="Change Password">
+                           <graphic>
+                              <FontAwesomeIcon glyphName="KEY" />
+                           </graphic>
+                        </Button>
+                        <Label layoutX="444.0" layoutY="321.0" text="Name:" />
+                        <Label layoutX="444.0" layoutY="368.0" text="ID:" />
+                        <Label layoutX="444.0" layoutY="410.0" text="Email:" />
+                        <Label layoutX="444.0" layoutY="452.0" text="Address:" />
+                        <ToggleButton fx:id="ChangeInfoButton" layoutX="479.0" layoutY="492.0" mnemonicParsing="false" text="Change Info">
+                           <toggleGroup>
+                              <ToggleGroup fx:id="account" />
+                           </toggleGroup>
+                        </ToggleButton>
+                        <ToggleButton fx:id="SaveButton" layoutX="562.0" layoutY="492.0" mnemonicParsing="false" text="Save" toggleGroup="$account" />
+>>>>>>> Stashed changes
                             </children></AnchorPane>
                         <Line id="separator3" fx:id="separator3" endY="852.0" />
                         <Line id="separator2" fx:id="separator4" endX="7.0" endY="852.0" startX="7.0" stroke="WHITE" />
