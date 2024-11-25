@@ -73,15 +73,14 @@ public class MemberRepository extends GenericRepository {
      * @return The number of rows affected (1 if the member was added successfully, 0 otherwise).
      */
     public int addNewMember(String... args) {
-        if (args == null || args.length != 3) {
+        if (args == null || args.length != 2) {
             return 0;
         }
         String sql = "INSERT INTO " + tableName + " (" +
                 Column.columns.stream()
-                        .filter(column -> column != Column.MEMBER_ID)
                         .map(GenericColumn::getName)
                         .collect(Collectors.joining(", ")) +
-                ") VALUES (?, NULL, ?, ?, NOW())";
+                ") VALUES (?, ?, null, null, null, NOW())";
         return executeUpdate(createStatement(sql), args);
     }
 

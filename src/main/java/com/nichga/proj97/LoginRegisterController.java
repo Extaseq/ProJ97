@@ -103,7 +103,7 @@ public class LoginRegisterController extends StageController {
             alert.showAndWait();
         } else {
 
-            if (!auth.register(userName, passWord)) {
+            if (!auth.register(userName, passWord, name.getText())) {
                 alert.setContentText("Username is already exist!");
                 alert.showAndWait();
 
