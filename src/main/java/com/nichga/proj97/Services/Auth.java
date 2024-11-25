@@ -2,6 +2,8 @@ package com.nichga.proj97.Services;
 
 import com.nichga.proj97.Database.MemberRepository;
 import com.nichga.proj97.Database.UserRepository;
+import com.nichga.proj97.Users;
+import javafx.scene.control.Alert;
 
 /**
  * The Auth class provides authentication and user registration functionalities.
@@ -48,5 +50,22 @@ public class Auth {
         String lastMemberAdded = String.valueOf(userRepo.getLastUserId() + 1);
         return userRepo.addNewUser(lastMemberAdded, username, hashedPassword, generatedSalt) > 0
                 && memberRepo.addNewMember(lastMemberAdded, fullname) > 0;
+    }
+
+    public boolean changePassword(Users user, String oldPass, String newPass) {
+        String[] AuthInfo = userRepo.getAuthInformation(user.getUsername());
+        System.out.println(user.getUsername());
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        if(PasswordUtil.verifyPassword(oldPass, AuthInfo[0], AuthInfo[1])) {
+            String newPasswordHash = PasswordUtil.hashPassword(newPass, AuthInfo[1]);
+            userRepo.changePassword(newPasswordHash, user.getUsername());
+            alert.setContentText("Change Password Success!");
+            alert.showAndWait();
+            return true;
+        } else {
+            alert.setContentText("Wrong Password!");
+            alert.showAndWait();
+            return false;
+        }
     }
 }

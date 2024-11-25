@@ -616,7 +616,7 @@
                                         <FontAwesomeIcon glyphName="SIGN_OUT" />
                                     </graphic>
                                 </Button>
-                                <Button fx:id="ChangePasswordButton" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" text="Change Password">
+                                <Button fx:id="ChangePasswordButton" layoutX="582.0" layoutY="713.0" mnemonicParsing="false" onAction="#changePassword" text="Change Password">
                                     <graphic>
                                         <FontAwesomeIcon glyphName="KEY" />
                                     </graphic>

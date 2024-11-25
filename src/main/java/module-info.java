@@ -15,6 +15,7 @@ module com.nichga.proj97 {
     requires com.fasterxml.jackson.databind;
     requires java.sql;
     requires com.google.protobuf;
+    requires fontawesomefx;
 
     opens com.nichga.proj97 to javafx.fxml;
     opens com.nichga.proj97.Application to javafx.fxml;

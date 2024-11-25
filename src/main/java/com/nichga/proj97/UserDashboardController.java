@@ -68,7 +68,7 @@ public class UserDashboardController extends StageController {
     private VBox continueReadDoc;
     //Account
     @FXML
-    private Button signOut, returnbutton1;
+    private Button signOut, returnbutton1, ChangePasswordButton;
     @FXML
     private TextField accountName, accountID, accountEmail, accountAddress, accountPhone;
     @FXML
@@ -544,6 +544,11 @@ public class UserDashboardController extends StageController {
             //Thao tac cap nhat Info duoi nay
 
         }
+    }
+
+    @FXML
+    public void changePassword() throws IOException {
+        openNewStage("/com/nichga/proj97/ChangePassword.fxml", ChangePasswordButton, user);
     }
 
 }

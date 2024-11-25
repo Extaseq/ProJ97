@@ -110,7 +110,7 @@ public class UserRepository extends GenericRepository {
      * @param newPasswordHash The new hashed password to set for the user.
      * @return {@code true} if the password was successfully changed, {@code false} otherwise.
      */
-    public boolean changePassword(String username, String newPasswordHash) {
+    public boolean changePassword(String newPasswordHash, String username) {
         String sql = "UPDATE " + tableName + " SET password_hash = ? WHERE username = ?";
         return executeUpdate(createStatement(sql), newPasswordHash, username) > 0;
     }
