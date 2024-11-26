@@ -73,6 +73,11 @@ public class UserDashboardController extends StageController {
     private TextField accountName, accountID, accountEmail, accountAddress, accountPhone;
     @FXML
     private ToggleButton ChangeInfoButton, SaveButton;
+    @FXML
+    private Button borrowbutton1, borrowbutton2;
+
+    @FXML
+    private Tab tabShelve, tabAllBooks;
 
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
 
@@ -87,7 +92,7 @@ public class UserDashboardController extends StageController {
                 new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
                 new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
                 new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+                new Documents("Duy deptrai", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
         );
     }
     private ObservableList<Documents> getRecommendedDoc() {
@@ -221,6 +226,7 @@ public class UserDashboardController extends StageController {
     }
 
     public void initShelve() {
+        borrowbutton1.setVisible(false);
         addDocToShelve(getCurrentDoc(), currentList);
         addDocToShelve(getRecommendedDoc(), recommendList);
         addDocToShelve(getFinishedDoc(), finishedList);
@@ -238,10 +244,14 @@ public class UserDashboardController extends StageController {
             TextField title = (TextField) vBox.getChildren().get(1);
             title.setText(docList.get(i).getTitle());
             vBox.setOnMouseClicked(event -> {
+                borrowbutton1.setVisible(true);
                 documentimage3.setImage(image.getImage());
                 namedocument3.setText(title.getText());
                 descripe3.setText("Author: " + doc.getAuthor() + "\nDescripe: " + "\nType: " + doc.getType()
                         + "\n" + doc.getTagsString()+ "\nAvailable: " + "\nView: ");
+                borrowbutton1.setOnMouseClicked(e -> {
+                    borrowDocument(doc);
+                });
             });
         }
 
@@ -368,8 +378,8 @@ public class UserDashboardController extends StageController {
                 new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
                 new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
+                new Documents("Tran Binh", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Dat fit", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
         );
     }
 
@@ -551,4 +561,31 @@ public class UserDashboardController extends StageController {
         openNewStage("/com/nichga/proj97/ChangePassword.fxml", ChangePasswordButton, user);
     }
 
+    public void borrowDocument(Documents doc) {
+        if (false) { // Kiểm tra xem đã có document này trong myDoc chưa.
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("You already have this document");
+            alert.showAndWait();
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure you want to borrow?");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            userDocuments.add(doc);
+            tabpaneLibrary.getSelectionModel().select(2);
+            tableView12.refresh();
+            tableView12.getSelectionModel().select(doc);
+        }
+    }
+
+    @FXML
+    public void borrowDocFromAllBooks() {
+        Documents doc = tableView1.getSelectionModel().getSelectedItem();
+        if (doc != null) {
+            borrowDocument(doc);
+        } else {
+            System.out.println("No doc selected");
+        }
+    }
 }
