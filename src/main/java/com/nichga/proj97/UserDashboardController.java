@@ -121,9 +121,9 @@ public class UserDashboardController extends StageController {
         return FXCollections.observableArrayList(
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
                 new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150)
+                //new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
+                //new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
         );
     }
 
@@ -231,7 +231,7 @@ public class UserDashboardController extends StageController {
 
     public void addDocToShelve(ObservableList<Documents> docList, HBox hBox) {
 
-        for (int i = 0; i < hBox.getChildren().size(); i++) {
+        for (int i = 0; i < docList.size(); i++) {
             Documents doc = docList.get(i);
             VBox vBox = (VBox) hBox.getChildren().get(i);
             ImageView image = (ImageView) vBox.getChildren().get(0);
