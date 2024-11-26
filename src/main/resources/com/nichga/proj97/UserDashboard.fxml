@@ -81,7 +81,7 @@
                             <children>
                                 <TabPane id="tabpaneLibrary" fx:id="tabpaneLibrary" layoutX="25.0" layoutY="25.0" prefHeight="762.0" prefWidth="1065.0" tabClosingPolicy="UNAVAILABLE">
                                     <tabs>
-                                        <Tab text="Shelve">
+                                        <Tab fx:id="tabShelve" text="Shelve">
                                             <content>
                                                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                                                     <children>
@@ -517,7 +517,7 @@
                                                                     </font>
                                                                 </TextArea>
                                                                 <TextArea id="descripe" fx:id="descripe1" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="153.0" prefWidth="250.0" promptText="descripe" wrapText="true" />
-                                                                <Button id="actionbutton" fx:id="borrowbutton2" layoutX="25.0" layoutY="658.0" mnemonicParsing="false" text="Borrow">
+                                                                <Button id="actionbutton" fx:id="borrowbutton2" layoutX="25.0" layoutY="658.0" mnemonicParsing="false" onAction="#borrowDocFromAllBooks" text="Borrow">
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
