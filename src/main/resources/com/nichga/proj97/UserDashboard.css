@@ -330,3 +330,6 @@
 #labelAccount {
     -fx-alignment: CENTER_RIGHT;
 }
+#accountTextfield {
+    -fx-background-color: transparent;
+}
