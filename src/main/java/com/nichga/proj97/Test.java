@@ -16,7 +16,7 @@ public class Test {
     public static void main(String[] args) {
         try {
             // Define the query and encode it
-            String query = "";
+            String query = "magazine";
             String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
             String apiKey = "AIzaSyA5B1G2E0gdk-1vag_sJTrsPKOlh7O2y_Y";
             String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + encodedQuery + "&key=" + apiKey + "&maxResults=15";
