@@ -16,7 +16,7 @@ public class VolumeInfo {
     Dimensions dimensions;
     String printType;
     List<String> categories;
-    long averageRating;
+    double averageRating;
     long ratingsCount;
     String maturityRating;
     boolean allowAnonLogging;
@@ -64,8 +64,8 @@ public class VolumeInfo {
     public List<String> getCategories() { return categories; }
     public void setCategories(List<String> value) { this.categories = value; }
 
-    public long getAverageRating() { return averageRating; }
-    public void setAverageRating(long value) { this.averageRating = value; }
+    public double getAverageRating() { return averageRating; }
+    public void setAverageRating(double value) { this.averageRating = value; }
 
     public long getRatingsCount() { return ratingsCount; }
     public void setRatingsCount(long value) { this.ratingsCount = value; }

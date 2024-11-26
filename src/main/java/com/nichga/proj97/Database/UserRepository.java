@@ -80,6 +80,18 @@ public class UserRepository extends GenericRepository {
         return executeQuery(createStatement(sql.toString()), args);
     }
 
+    public int getTotalUsers() {
+        String sql = "SELECT COUNT(*) FROM " + tableName;
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
     public ObservableList<User> getLatestUserByTime(String time) {
         String sql = "SELECT account_id, username FROM UserAccounts "
             + "WHERE created_time >= ";

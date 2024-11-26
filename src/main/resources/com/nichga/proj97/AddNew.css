@@ -1,0 +1,15 @@
+.wrapper {
+    -fx-background-color: #201c1d;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px;
+}
+
+.inner {
+    -fx-background-color: #353334;
+    -fx-background-radius: 20px;
+    -fx-padding: 10px;  
+}
+
+.input_text_field {
+    -fx-background-color: WHITE;
+}

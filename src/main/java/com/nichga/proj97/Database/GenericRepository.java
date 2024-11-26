@@ -16,7 +16,7 @@ public class GenericRepository {
      *
      * @param tableName The name of the table this repository will interact with.
      */
-    public GenericRepository(String tableName) {
+    protected GenericRepository(String tableName) {
         this.connection = DatabaseConnector.getInstance().getConnection();
         this.tableName = tableName;
     }

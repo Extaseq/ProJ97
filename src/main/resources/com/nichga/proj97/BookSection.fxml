@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.text.Text?>
+
+<VBox id="inner_pane" prefHeight="780.0" prefWidth="1480.0" styleClass="bg_layer" stylesheets="@style.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nichga.proj97.Controller.BookSectionController">
+   <children>
+      <ScrollPane fx:id="scrollPane" prefHeight="780.0" prefWidth="1480.0" stylesheets="@style.css">
+         <content>
+            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="1000.0" prefWidth="1466.0" styleClass="scroll-pane" stylesheets="@style.css">
+               <children>
+                  <HBox layoutY="135.0" prefHeight="290.0" prefWidth="1470.0" AnchorPane.topAnchor="135.0">
+                     <children>
+                        <AnchorPane prefHeight="250.0" prefWidth="245.0">
+                           <children>
+                              <ImageView fx:id="book_cover_1" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fx:id="book_title_1" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <Text fx:id="book_author_1" fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="12.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="250.0" prefWidth="245.0">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="12.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="250.0" prefWidth="245.0">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="12.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="250.0" prefWidth="245.0">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="12.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="250.0" prefWidth="245.0">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="12.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane prefHeight="250.0" prefWidth="245.0">
+                           <children>
+                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="15.0" />
+                                 </font>
+                              </Text>
+                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                                 <font>
+                                    <Font name="☞Eina03-SemiBold" size="12.0" />
+                                 </font>
+                              </Text>
+                           </children>
+                        </AnchorPane>
+                     </children>
+                  </HBox>
+                  <Text fill="#e4e4e4" layoutX="43.0" layoutY="67.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Top Choices" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="50.0">
+                     <font>
+                        <Font name="☞Eina03-SemiBold" size="30.0" />
+                     </font>
+                  </Text>
+                  <AnchorPane layoutX="5.0" layoutY="425.0" styleClass="small-info-pane" stylesheets="@style.css" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="430.0">
+                     <children>
+                        <Text fill="#e4e4e4" layoutX="40.0" layoutY="79.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Books Status List" wrappingWidth="348.30999755859375" AnchorPane.leftAnchor="30.0" AnchorPane.topAnchor="40.0">
+                           <font>
+                              <Font name="☞Eina03-SemiBold" size="30.0" />
+                           </font>
+                        </Text>
+                        <TableView fx:id="book_status" layoutX="50.0" layoutY="150.0" prefHeight="350.0" prefWidth="1234.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0">
+                           <columns>
+                              <TableColumn prefWidth="100.0" text="User ID" />
+                              <TableColumn prefWidth="150.0" text="Username" />
+                              <TableColumn prefWidth="150.0" text="Book ID" />
+                              <TableColumn prefWidth="300.0" text="Title" />
+                              <TableColumn prefWidth="200.0" text="Author" />
+                              <TableColumn prefWidth="200.0" text="Overdue" />
+                              <TableColumn prefWidth="150.0" text="Status" />
+                              <TableColumn prefWidth="127.0" text="Fine" />
+                           </columns>
+                        </TableView>
+                        <Button id="button" layoutX="649.0" layoutY="35.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="173.0" stylesheets="@style.css" text="Create Borrow Request" textAlignment="CENTER" textFill="#807e7e" AnchorPane.rightAnchor="60.0">
+                           <font>
+                              <Font name="☞Eina03-SemiBold" size="12.0" />
+                           </font>
+                        </Button>
+                     </children>
+                  </AnchorPane>
+               </children>
+            </AnchorPane>
+         </content>
+      </ScrollPane>
+   </children>
+</VBox>

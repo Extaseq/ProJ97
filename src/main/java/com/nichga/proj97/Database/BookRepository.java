@@ -53,9 +53,25 @@ public class BookRepository extends GenericRepository {
         String publisher = book.getVolumeInfo().getPublisher();
         String genre = book.getVolumeInfo().getCategories().toString();
         String published_year = String.valueOf(book.getVolumeInfo().getPublishedDate().getYear());
-        String isbn = book.getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier();
-        String sql = "INSERT INTO books (book_id, title, author, publisher, genre, published_year, isbn, copies_available) " +
-                "VALUES (?, ?, ?, ?, ?, ?, ?, 100)";
-        return executeUpdate(createStatement(sql), book_id, title, author, publisher, genre, published_year, isbn) > 0;
+        String isbn = "null";
+        if (book.getVolumeInfo().getIndustryIdentifiers() != null) {
+            isbn = book.getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier();
+        }
+        String cover_url = book.getVolumeInfo().getImageLinks().getThumbnail();
+        String sql = "INSERT INTO books (book_id, title, author, publisher, genre, published_year, isbn, copies_available, cover_url) " +
+                "VALUES (?, ?, ?, ?, ?, ?, ?, 100, ?)";
+        return executeUpdate(createStatement(sql), book_id, title, author, publisher, genre, published_year, isbn, cover_url) > 0;
+    }
+
+    public int getTotalBooks() {
+        String sql = "SELECT COUNT(*) FROM books";
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
     }
 }

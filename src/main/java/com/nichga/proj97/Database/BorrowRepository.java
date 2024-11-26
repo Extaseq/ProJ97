@@ -1,6 +1,7 @@
 package com.nichga.proj97.Database;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -42,6 +43,18 @@ public class BorrowRepository extends GenericRepository {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public int getTotalBorrows() {
+        String sql = "SELECT COUNT(*) FROM " + tableName;
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
     }
 
     public boolean createBorrowRequest(String memberID, String bookID) {

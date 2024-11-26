@@ -1,24 +1,34 @@
 package com.nichga.proj97.Controller;
 
-import com.nichga.proj97.Database.DatabaseConnector;
-import com.nichga.proj97.Database.UserRepository;
 import com.nichga.proj97.Model.User;
+import com.nichga.proj97.Services.DatabaseService;
+import com.nichga.proj97.Util.Animation;
 import com.nichga.proj97.Util.TableViewHelper;
 
+import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.EventType;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
+import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Objects;
 
 import com.nichga.proj97.Util.ImageHelper;
 
@@ -36,6 +46,9 @@ public class AdminDashboardController {
     private ComboBox<String> timeBox;
 
     @FXML
+    private VBox inner_pane;
+
+    @FXML
     private ImageView total_book_icon;
 
     @FXML
@@ -51,6 +64,21 @@ public class AdminDashboardController {
     private ImageView home_button;
 
     @FXML
+    private ImageView refresh_button;
+
+    @FXML
+    private ImageView book_section;
+
+    @FXML
+    private ImageView book_cover_1;
+
+    @FXML
+    private Text book_title_1;
+
+    @FXML
+    private Text book_author_1;
+
+    @FXML
     private Text total_book;
 
     @FXML
@@ -63,16 +91,17 @@ public class AdminDashboardController {
     private Text total_users;
 
     @FXML
+    private ScrollPane scrollPane;
+
+    @FXML
     TableView<User> small_user_table;
-//
+
 //    @FXML
 //    TableView<Documents> small_document_table;
 
     DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy | EEEE, hh:mm a");
 
-    private final DatabaseConnector dbConnector = DatabaseConnector.getInstance();
-
-    private final UserRepository userRepo = new UserRepository();
+    private final DatabaseService dbs = new DatabaseService();
 
     private void initializeTextFields() {
         Text text1 = new Text("Hello, ");
@@ -90,6 +119,10 @@ public class AdminDashboardController {
 
         information.getChildren().addAll(text1, username_text);
         current_time.getChildren().addAll(dateTime);
+
+        total_book.setText(String.valueOf(dbs.getBookRepo().getTotalBooks()));
+        total_users.setText(String.valueOf(dbs.getUserRepo().getTotalUsers()));
+        total_borrowed.setText(String.valueOf(dbs.getBorrowRepo().getTotalBorrows()));
     }
 
     private void initializeComboBoxes() {
@@ -104,28 +137,38 @@ public class AdminDashboardController {
         ImageHelper.roundImage(borrowed_book_icon, -1);
         ImageHelper.roundImage(overdue_book_icon, -1);
         ImageHelper.roundImage(home_button, -1);
+        onRefreshButtonClicked();
     }
 
-    private void initializeTable() {
-
+    private void onRefreshButtonClicked() {
+        refresh_button.setOnMousePressed(_ -> {
+            Animation.glowAndRotate(refresh_button).play();
+            new Thread(this::refreshData).start();
+        });
     }
 
-    public void updateUsername(String username) {
-        this.username_text.setText(username);
+    private void refreshData() {
+        Platform.runLater(() -> {
+            updateText(total_book, String.valueOf(dbs.getBookRepo().getTotalBooks()));
+            updateText(total_users, String.valueOf(dbs.getUserRepo().getTotalUsers()));
+            updateText(total_borrowed, String.valueOf(dbs.getBorrowRepo().getTotalBorrows()));
+            System.out.println("Updated!");
+        });
     }
 
-    // Test
-    public void testComboBoxEvent() {
+    public void updateText(Text text, String content) {
+        text.setText(content);
+    }
+
+    public void onComboBoxEvent() {
         timeBox.setOnAction(_ -> {
             String value = timeBox.getValue();
             small_user_table.setItems(
-                userRepo.getLatestUserByTime(value)
+                dbs.getUserRepo().getLatestUserByTime(value)
             );
         });
     }
 
-
-    // Test
     public void prepareUserTableView() {
         small_user_table.getColumns().clear();
 
@@ -145,19 +188,50 @@ public class AdminDashboardController {
         small_user_table.getColumns().add(UserName);
         small_user_table.getColumns().add(BookBorrowed);
         small_user_table.getColumns().add(BookOverdue);
-        ObservableList<User> users = userRepo.getLatestUserByTime("Today");
+        ObservableList<User> users = dbs.getUserRepo().getLatestUserByTime("Today");
         small_user_table.setItems(users);
         TableViewHelper.disableScrollBars(small_user_table);
     }
+
+    public void initSwitchMenu() {
+        ObservableList<Node> originalContent = FXCollections.observableArrayList(inner_pane.getChildren());
+
+        home_button.setOnMouseClicked(_ -> {
+            if (!inner_pane.getChildren().equals(originalContent)) {
+                inner_pane.getChildren().clear();
+                inner_pane.getChildren().addAll(originalContent);
+            }
+        });
+
+        Node bookSection = null;
+        try {
+            bookSection = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nichga/proj97/BookSection.fxml")));
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+        }
+
+        if (bookSection != null) {
+            Node finalBookSection = bookSection;
+            book_section.setOnMouseClicked(_ -> {
+                if (!inner_pane.getChildren().contains(finalBookSection)) {
+                    inner_pane.getChildren().clear();
+                    inner_pane.getChildren().add(finalBookSection);
+                }
+            });
+        } else {
+            System.out.println("Failed to load BookSection");
+        }
+    }
+
+
 
     @FXML
     private void initialize() {
         initializeTextFields();
         initializeComboBoxes();
         initializeImage();
-
         prepareUserTableView();
-
-        testComboBoxEvent();
+        initSwitchMenu();
+        onComboBoxEvent();
     }
 }

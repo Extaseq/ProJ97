@@ -15,17 +15,6 @@ public class AdminDashboard extends Application {
 
     private final DatabaseConnector dbConnector = DatabaseConnector.getInstance();
 
-
-
-
-
-
-
-
-
-
-
-
     public static void main(String[] args) {
         launch(args);
     }
@@ -38,8 +27,6 @@ public class AdminDashboard extends Application {
             )
         );
         loader.setController(controller);
-
-
 
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(new Scene(loader.load()));

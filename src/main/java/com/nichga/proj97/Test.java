@@ -1,5 +1,6 @@
 package com.nichga.proj97;
 
+import com.nichga.proj97.Database.BookRepository;
 import com.nichga.proj97.Model.Book;
 import com.nichga.proj97.Model.BookResponses;
 import com.nichga.proj97.Util.JsonParser;
@@ -12,10 +13,12 @@ import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 
 public class Test {
+    private final static BookRepository bookRepo = new BookRepository();
+
     public static void main(String[] args) {
         try {
             // Define the query and encode it
-            String query = "java programming";
+            String query = "Marvel";
             String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
             String apiKey = "AIzaSyA5B1G2E0gdk-1vag_sJTrsPKOlh7O2y_Y";
             String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + encodedQuery + "&key=" + apiKey + "&maxResults=15";
@@ -40,7 +43,6 @@ public class Test {
                 }
                 in.close();
 
-                // Parse the JSON response
                 String json = response.toString();
                 BookResponses responseObj = JsonParser.ParseJson(json);
 
@@ -48,7 +50,12 @@ public class Test {
                 if (responseObj != null && !responseObj.getItems().isEmpty()) {
                     for (Book book : responseObj.getItems()) {
                         System.out.println("Book Details: ");
-                        System.out.println(book);
+//                        System.out.println(book);
+                        if (bookRepo.insertBook(book)) {
+                            System.out.println("Book added!");
+                        } else {
+                            System.out.println("Book not added!");
+                        }
                     }
                 } else {
                     System.out.println("No books found.");
