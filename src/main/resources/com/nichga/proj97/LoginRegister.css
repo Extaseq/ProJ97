@@ -28,12 +28,21 @@
     -fx-text-fill: rgba(125,67,0,1);
     -fx-underline: true;
 }
+#selectButton:hover {
+    -fx-background-color: rgba(255,248,243,0.3);
+}
 #button {
     -fx-background-color: #E1DACA;
     -fx-background-radius: 5px;
     -fx-font-size: 15;
     -fx-font-weight: bold;
     -fx-text-fill: rgba(125,67,0,1);
+}
+#button:pressed {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.7), 5, 0.3, 2, 2);
+}
+#button:hover {
+    -fx-background-color: #CCC6B7;
 }
 #textField {
     -fx-background-color: rgba(255, 255, 255, 0.8);
