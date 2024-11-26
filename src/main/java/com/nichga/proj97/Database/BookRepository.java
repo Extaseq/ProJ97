@@ -51,7 +51,7 @@ public class BookRepository extends GenericRepository {
         String title = book.getVolumeInfo().getTitle();
         String author = book.getVolumeInfo().getAuthors().toString();
         String publisher = book.getVolumeInfo().getPublisher();
-        String genre = book.getVolumeInfo().getCategories().toString();
+        String genre = (book.getVolumeInfo().getCategories() != null)?book.getVolumeInfo().getCategories().toString() : "Unknown Genre";
         String published_year = String.valueOf(book.getVolumeInfo().getPublishedDate().getYear());
         String isbn = book.getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier();
         String sql = "INSERT INTO books (book_id, title, author, publisher, genre, published_year, isbn, copies_available) " +
