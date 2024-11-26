@@ -1,5 +1,11 @@
 package com.nichga.proj97;
 
+import com.google.zxing.WriterException;
+import com.nichga.proj97.Database.BookRepository;
+import com.nichga.proj97.Services.DatabaseService;
+import com.nichga.proj97.Services.TokenProvider;
+
+import java.awt.image.BufferedImage;
 import java.util.*;
 
 public class Users {
@@ -173,5 +179,23 @@ public class Users {
             }
         }
         update();
+    }
+
+    public BufferedImage borrow(String bookId) {
+        DatabaseService ds = new DatabaseService();
+        TokenProvider tp = new TokenProvider();
+        BookRepository br = ds.getBookRepo();
+        String token = tp.generateToken();
+        try {
+            BufferedImage qrCode = tp.generateQRCode(token);
+            br.adjustAfterBorrow(bookId);
+            return qrCode;
+
+        } catch (WriterException e) {
+            System.out.println("Cannot generate QR Code: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while processing borrow: " + e.getMessage());
+        }
+        return null;
     }
 }

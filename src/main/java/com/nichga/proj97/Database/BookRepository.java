@@ -75,9 +75,8 @@ public class BookRepository extends GenericRepository {
         return 0;
     }
 
-    protected boolean adjustAfterBorrow(Book book) {
+    public boolean adjustAfterBorrow(String bookId) {
         String subquerry = "SELECT copies_available FROM books WHERE book_id = ?";
-        String bookId = book.getId();
         int available = 0;
         try (ResultSet rs = executeQuery(createStatement(subquerry),bookId)) {
             if (rs.next()) {
