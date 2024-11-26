@@ -45,16 +45,17 @@ public class Test {
 
                 String json = response.toString();
                 BookResponses responseObj = JsonParser.ParseJson(json);
-
+                BookRepository br = new BookRepository();
                 // Print the book details
                 if (responseObj != null && !responseObj.getItems().isEmpty()) {
                     for (Book book : responseObj.getItems()) {
                         System.out.println("Book Details: ");
-//                        System.out.println(book);
-                        if (bookRepo.insertBook(book)) {
-                            System.out.println("Book added!");
-                        } else {
-                            System.out.println("Book not added!");
+                        System.out.println(book);
+                        if(br.insertBook(book)) {
+                            System.out.println("Book Inserted");
+                        }
+                        else {
+                            System.out.println("Book Insertion Failed");
                         }
                     }
                 } else {
