@@ -23,7 +23,7 @@ public final class DatabaseConnector {
         config.setJdbcUrl("jdbc:mysql://nichga.mysql.database.azure.com/library");
         config.setUsername("kinastomes");
         config.setPassword("TestNigga12!");
-        config.setMaximumPoolSize(10);
+        config.setMaximumPoolSize(100);
         config.setMinimumIdle(2);
         config.setIdleTimeout(30000);
         config.setMaxLifetime(1800000);
