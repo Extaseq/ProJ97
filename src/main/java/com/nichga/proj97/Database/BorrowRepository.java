@@ -45,6 +45,19 @@ public final class BorrowRepository extends GenericRepository {
         return null;
     }
 
+    public boolean existBorrow(String memberID, String bookID) {
+        String sql = "SELECT COUNT(*) FROM " + tableName
+            + " WHERE member_id = ? AND book_id = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), memberID, bookID)) {
+            if (rs.next()) {
+                return true;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
     public int getTotalBorrows() {
         String sql = "SELECT COUNT(*) FROM " + tableName;
         try (ResultSet rs = executeQuery(createStatement(sql))) {
@@ -71,6 +84,9 @@ public final class BorrowRepository extends GenericRepository {
     }
 
     public String createBorrowRequest(String memberID, String bookID) {
+        if (existBorrow(memberID, bookID)) {
+            return null;
+        }
         return TokenProvider.generateToken(memberID, bookID);
     }
 

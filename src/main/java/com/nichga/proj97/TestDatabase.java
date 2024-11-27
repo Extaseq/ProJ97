@@ -7,7 +7,7 @@ import com.nichga.proj97.Services.TokenProvider;
 public class TestDatabase {
     public static void main(String[] args) {
         DatabaseService dbs = new DatabaseService();
-        String newToken = dbs.getBorrowRepo().createBorrowRequest("1", "ipb8RLh9JIAC");
+        String newToken = dbs.getBorrowRepo().createBorrowRequest("3", "ipb8RLh9JIAC");
         if (newToken != null) {
             System.out.println("Borrowed token: " + newToken);
         } else {

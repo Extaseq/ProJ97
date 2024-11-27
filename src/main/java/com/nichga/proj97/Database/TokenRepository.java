@@ -62,7 +62,7 @@ public final class TokenRepository extends GenericRepository {
     }
 
     public boolean deleteToken(String token) {
-        String sql = "DELETE FROM" + tableName + " WHERE token = ?";
+        String sql = "DELETE FROM " + tableName + " WHERE token = ?";
         return executeUpdate(createStatement(sql), token) > 0;
     }
 }
