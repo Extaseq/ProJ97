@@ -14,10 +14,10 @@ module com.nichga.proj97 {
     requires com.google.gson;
     requires com.fasterxml.jackson.databind;
     requires java.sql;
-    requires java.desktop;
     requires com.google.zxing;
     requires com.google.protobuf;
     requires fontawesomefx;
+    requires javafx.swing;
 
     opens com.nichga.proj97 to javafx.fxml, com.google.gson;
     opens com.nichga.proj97.Application to javafx.fxml;

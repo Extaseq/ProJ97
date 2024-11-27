@@ -5,20 +5,27 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
 import javafx.collections.transformation.SortedList;
+import javafx.embed.swing.SwingFXUtils;
 import javafx.fxml.FXML;
+import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Stage;
 
+import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
+import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
@@ -85,9 +92,7 @@ public class UserDashboardController extends StageController {
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
 
     private ToggleGroup toggleGroup;
-    private MemberRepository memberRepository; {
-        memberRepository = new MemberRepository();
-    }
+    private final MemberRepository memberRepository = new MemberRepository();
 
     private ObservableList<Documents> getCurrentDoc() {
         return FXCollections.observableArrayList(
@@ -167,9 +172,6 @@ public class UserDashboardController extends StageController {
     }
 
     public void initAccount() {
-        ToggleGroup group = new ToggleGroup();
-        ChangeInfoButton.setToggleGroup(group);
-        SaveButton.setToggleGroup(group);
 
         ChangeInfoButton.setVisible(true);
         SaveButton.setVisible(false);
@@ -183,26 +185,7 @@ public class UserDashboardController extends StageController {
         accountAddress.setEditable(false);
         accountPhone.setText(user.getPhone());
         accountPhone.setEditable(false);
-
-
-        group.selectedToggleProperty().addListener((_, _, newValue) -> {
-            if (newValue.equals(ChangeInfoButton)) {
-                SaveButton.setVisible(true);
-                ChangeInfoButton.setVisible(false);
-                accountName.setEditable(true);
-                accountEmail.setEditable(true);
-                accountAddress.setEditable(true);
-                accountPhone.setEditable(true);
-            } else if (newValue.equals(SaveButton)) {
-                SaveButton.setVisible(false);
-                ChangeInfoButton.setVisible(true);
-                accountName.setEditable(false);
-                accountEmail.setEditable(false);
-                accountAddress.setEditable(false);
-                accountPhone.setEditable(false);
-                memberRepository.updateInfo(user.getId(), accountName.getText(), accountAddress.getText(), accountEmail.getText(), accountPhone.getText());
-            }
-        });
+        EditInfo();
 
     }
 
@@ -536,25 +519,31 @@ public class UserDashboardController extends StageController {
     }
 
     private void EditInfo() {
-        if (ChangeInfoButton.isSelected()) {
-            ChangeInfoButton.setVisible(false);
-            SaveButton.setVisible(true);
-            accountName.setEditable(true);
-            accountEmail.setEditable(true);
-            accountID.setEditable(true);
-            accountAddress.setEditable(true);
-        }
-        if (SaveButton.isSelected()) {
-            SaveButton.setVisible(false);
-            ChangeInfoButton.setVisible(true);
-            accountName.setEditable(false);
-            accountEmail.setEditable(false);
-            accountID.setEditable(false);
-            accountAddress.setEditable(false);
+        ToggleGroup group = new ToggleGroup();
+        ChangeInfoButton.setToggleGroup(group);
+        SaveButton.setToggleGroup(group);
 
-            //Thao tac cap nhat Info duoi nay
+        group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(ChangeInfoButton)) {
 
-        }
+                SaveButton.setVisible(true);
+                ChangeInfoButton.setVisible(false);
+                accountName.setEditable(true);
+                accountEmail.setEditable(true);
+                accountAddress.setEditable(true);
+                accountPhone.setEditable(true);
+
+            } else if (newValue.equals(SaveButton)) {
+                SaveButton.setVisible(false);
+                ChangeInfoButton.setVisible(true);
+                accountName.setEditable(false);
+                accountEmail.setEditable(false);
+                accountAddress.setEditable(false);
+                accountPhone.setEditable(false);
+
+                memberRepository.updateInfo(user.getId(), accountName.getText(), accountAddress.getText(), accountEmail.getText(), accountPhone.getText());
+            }
+        });
     }
 
     @FXML
@@ -577,6 +566,7 @@ public class UserDashboardController extends StageController {
             tabpaneLibrary.getSelectionModel().select(2);
             tableView12.refresh();
             tableView12.getSelectionModel().select(doc);
+            tableView12.scrollTo(doc);
         }
     }
 
@@ -589,4 +579,26 @@ public class UserDashboardController extends StageController {
             System.out.println("No doc selected");
         }
     }
+
+    @FXML
+    public void showQr() {
+        String bookId = "-k6Nfqud-kIC";
+
+        BufferedImage qr = user.borrow(bookId);
+        WritableImage qrImage = SwingFXUtils.toFXImage(qr, null);
+        ImageView imageView = new ImageView(qrImage);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(600);
+
+        // Đưa ImageView vào StackPane
+        StackPane newRoot = new StackPane(imageView);
+        Scene scene = new Scene(newRoot);
+
+        // Configure a new Stage
+        Stage stage = new Stage();
+        stage.setScene(scene);
+        stage.setResizable(false);
+        stage.show();
+    }
+
 }
