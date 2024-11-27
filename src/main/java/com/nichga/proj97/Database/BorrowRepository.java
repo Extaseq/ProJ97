@@ -57,7 +57,7 @@ public final class BorrowRepository extends GenericRepository {
 
     public int getTotalOverdue() {
         String sql = "SELECT COUNT(*) FROM " + tableName
-            + "WHERE return_date IS NULL OR return_date > due_date";
+            + " WHERE return_date IS NULL OR return_date > due_date";
         try (ResultSet rs = executeQuery(createStatement(sql))) {
             if (rs.next()) {
                 return rs.getInt(1);

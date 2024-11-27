@@ -13,8 +13,6 @@ public class Auth {
     private final UserRepository userRepo;
     private final MemberRepository memberRepo;
 
-    private final MemberRepository memberRepo;
-
     public Auth() {
         this.userRepo = new UserRepository();
         this.memberRepo = new MemberRepository();

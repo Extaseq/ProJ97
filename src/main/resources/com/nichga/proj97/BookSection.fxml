@@ -36,8 +36,8 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <ImageView fx:id="book_cover_2" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fx:id="book_title_2" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
@@ -51,8 +51,8 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <ImageView fx:id="book_cover_3" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fx:id="book_title_3" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
@@ -66,8 +66,8 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <ImageView fx:id="book_cover_4" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fx:id="book_title_4" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
@@ -81,8 +81,8 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <ImageView fx:id="book_cover_5" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fx:id="book_title_5" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
@@ -96,8 +96,8 @@
                         </AnchorPane>
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
-                              <ImageView fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <ImageView fx:id="book_cover_6" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
+                              <Text fx:id="book_title_6" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>

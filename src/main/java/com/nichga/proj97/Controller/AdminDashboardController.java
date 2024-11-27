@@ -26,7 +26,6 @@ import javafx.scene.text.TextFlow;
 import java.io.IOException;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.Objects;
 
 import com.nichga.proj97.Util.ImageHelper;
 
@@ -97,8 +96,6 @@ public class AdminDashboardController {
 //    @FXML
 //    TableView<Documents> small_document_table;
 
-    DateTimeFormatter dtf = DateTimeFormatter.ofPattern("MMM dd, yyyy | EEEE, hh:mm a");
-
     private final DatabaseService dbs = new DatabaseService();
 
     private void initializeTextFields() {
@@ -106,12 +103,14 @@ public class AdminDashboardController {
         text1.setFill(Color.web("#e5e5e5"));
         text1.setFont(Font.font("Eina03-Bold", 35));
 
-        username_text.setText("Admin!");
+        username_text = new Text("Admin!");
         username_text.setFill(Color.web("#f65867"));
         username_text.setFont(Font.font("Eina03-Bold", 35));
 
         LocalDateTime now = LocalDateTime.now();
-        Text dateTime = new Text(now.format(dtf));
+        Text dateTime = new Text(now.format(
+            DateTimeFormatter.ofPattern("MMM dd, yyyy | EEEE, hh:mm a")
+        ));
         dateTime.setFill(Color.web("#e5e5e5"));
         dateTime.setFont(Font.font("Eina03-SemiBold", 20));
 
@@ -205,9 +204,10 @@ public class AdminDashboardController {
 
         Node bookSection = null;
         try {
-            bookSection = FXMLLoader.load(Objects.requireNonNull(getClass().getResource("/com/nichga/proj97/BookSection.fxml")));
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nichga/proj97/BookSection.fxml"));
+            bookSection = loader.load();
         } catch (IOException e) {
-            System.out.println(e.getMessage());
+            System.out.println("Error loading BookSection: " + e.getMessage());
         }
 
         if (bookSection != null) {
@@ -222,6 +222,7 @@ public class AdminDashboardController {
             System.out.println("Failed to load BookSection");
         }
     }
+
 
 
 
