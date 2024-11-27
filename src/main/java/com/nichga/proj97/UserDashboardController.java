@@ -580,25 +580,25 @@ public class UserDashboardController extends StageController {
         }
     }
 
-    @FXML
-    public void showQr() {
-        String bookId = "-k6Nfqud-kIC";
-
-        BufferedImage qr = user.borrow(bookId);
-        WritableImage qrImage = SwingFXUtils.toFXImage(qr, null);
-        ImageView imageView = new ImageView(qrImage);
-        imageView.setPreserveRatio(true);
-        imageView.setFitWidth(600);
-
-        // Đưa ImageView vào StackPane
-        StackPane newRoot = new StackPane(imageView);
-        Scene scene = new Scene(newRoot);
-
-        // Configure a new Stage
-        Stage stage = new Stage();
-        stage.setScene(scene);
-        stage.setResizable(false);
-        stage.show();
-    }
+//    @FXML
+//    public void showQr() {
+//        String bookId = "-k6Nfqud-kIC";
+//
+//        BufferedImage qr = user.borrow(bookId);
+//        WritableImage qrImage = SwingFXUtils.toFXImage(qr, null);
+//        ImageView imageView = new ImageView(qrImage);
+//        imageView.setPreserveRatio(true);
+//        imageView.setFitWidth(600);
+//
+//        // Đưa ImageView vào StackPane
+//        StackPane newRoot = new StackPane(imageView);
+//        Scene scene = new Scene(newRoot);
+//
+//        // Configure a new Stage
+//        Stage stage = new Stage();
+//        stage.setScene(scene);
+//        stage.setResizable(false);
+//        stage.show();
+//    }
 
 }
