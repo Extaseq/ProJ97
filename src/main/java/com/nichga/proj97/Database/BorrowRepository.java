@@ -51,7 +51,9 @@ public final class BorrowRepository extends GenericRepository {
             + " WHERE member_id = ? AND book_id = ?";
         try (ResultSet rs = executeQuery(createStatement(sql), memberID, bookID)) {
             if (rs.next()) {
-                return true;
+                if(rs.getInt(1) > 0) {
+                    return true;
+                }
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());

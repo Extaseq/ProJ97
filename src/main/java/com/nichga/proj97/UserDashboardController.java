@@ -580,25 +580,27 @@ public class UserDashboardController extends StageController {
         }
     }
 
-//    @FXML
-//    public void showQr() {
-//        String bookId = "-k6Nfqud-kIC";
-//
-//        BufferedImage qr = user.borrow(bookId);
-//        WritableImage qrImage = SwingFXUtils.toFXImage(qr, null);
-//        ImageView imageView = new ImageView(qrImage);
-//        imageView.setPreserveRatio(true);
-//        imageView.setFitWidth(600);
-//
-//        // Đưa ImageView vào StackPane
-//        StackPane newRoot = new StackPane(imageView);
-//        Scene scene = new Scene(newRoot);
-//
-//        // Configure a new Stage
-//        Stage stage = new Stage();
-//        stage.setScene(scene);
-//        stage.setResizable(false);
-//        stage.show();
-//    }
+    @FXML
+    public void showQr() {
+        String bookId = "ipb8RLh9JIAC";
+        Users u = new Users();
+        u.setId(user.getId());
+        BufferedImage bf = u.borrow("ipb8RLh9JIAC");
+        if (bf != null) {
+            Image fxImage = SwingFXUtils.toFXImage(bf, null);
+            ImageView imageView = new ImageView(fxImage);
+            imageView.setPreserveRatio(true);
+            imageView.setFitWidth(400);
+            imageView.setFitHeight(400);
+            StackPane root = new StackPane(imageView);
+            Scene scene = new Scene(root, 500, 500);
+            Stage stage = new Stage();
+            stage.setTitle("QR Code Display");
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            System.out.println("BufferedImage is null!");
+        }
+    }
 
 }

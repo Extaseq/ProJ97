@@ -14,7 +14,7 @@ public class TestBorrow extends Application {
     @Override
     public void start(Stage primaryStage) {
         Users test = new Users();
-        test.setId(19);
+        test.setId(8);
         BufferedImage bf = test.borrow("-k6Nfqud-kIC");
         if (bf != null) {
             Image fxImage = SwingFXUtils.toFXImage(bf, null);
@@ -24,9 +24,10 @@ public class TestBorrow extends Application {
             imageView.setFitHeight(400);
             StackPane root = new StackPane(imageView);
             Scene scene = new Scene(root, 500, 500);
-            primaryStage.setTitle("QR Code Display");
-            primaryStage.setScene(scene);
-            primaryStage.show();
+            Stage stage = new Stage();
+            stage.setTitle("QR Code Display");
+            stage.setScene(scene);
+            stage.show();
         } else {
             System.out.println("BufferedImage is null!");
         }
