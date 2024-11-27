@@ -1,6 +1,11 @@
 package com.nichga.proj97;
 
-import com.nichga.proj97.Database.MemberRepository;
+import com.google.zxing.WriterException;
+import com.nichga.proj97.Model.DisplayBook;
+import com.nichga.proj97.Model.Book;
+
+import com.nichga.proj97.Services.DatabaseService;
+import com.nichga.proj97.Services.TokenProvider;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -12,7 +17,6 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.image.WritableImage;
 import javafx.scene.layout.*;
 import javafx.scene.shape.Line;
 import javafx.scene.text.Font;
@@ -21,24 +25,20 @@ import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
-import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
 import java.util.*;
-import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserDashboardController extends StageController {
     private Users user;
     protected void setUser(Users user) {
         this.user = user;
     }
-    ObservableList<Documents> mainData;
-    SortedList<Documents> searchData;
+    ObservableList<DisplayBook> mainData;
+    SortedList<DisplayBook> searchData;
     Set<String> tagList; {tagList = new HashSet<>();}
     Set<String> tagList2; {tagList2 = new HashSet<>();}
-    //SortedList<Documents> sortedData;
+
     private boolean isTagButtonPressed = false;
 
     private String userId;
@@ -55,9 +55,9 @@ public class UserDashboardController extends StageController {
     private Line separator1, separator3;
     //Library
     @FXML
-    private TableColumn<Documents, String> imagecolumn1, detailcolumn1, imagecolumn12, detailcolumn12;
+    private TableColumn<DisplayBook, Image> imagecolumn1, detailcolumn1, imagecolumn12, detailcolumn12;
     @FXML
-    private TableView<Documents> tableView1, tableView12;
+    private TableView<DisplayBook> tableView1, tableView12;
     @FXML
     private ImageView documentimage1, documentimage11, documentimage3;
     @FXML
@@ -89,55 +89,26 @@ public class UserDashboardController extends StageController {
     @FXML
     private Tab tabShelve, tabAllBooks;
 
-    private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
+    private ObservableList<DisplayBook> userDocuments;
 
     private ToggleGroup toggleGroup;
-    private final MemberRepository memberRepository = new MemberRepository();
+    private final DatabaseService dbs = new DatabaseService();
+    private final TokenProvider tp = new TokenProvider();
 
-    private ObservableList<Documents> getCurrentDoc() {
-        return FXCollections.observableArrayList(
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("Duy deptrai", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
-        );
+    private ObservableList<DisplayBook> getCurrentDoc() {
+        return FXCollections.observableArrayList();
     }
-    private ObservableList<Documents> getRecommendedDoc() {
-        return FXCollections.observableArrayList(
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
-        );
+    private ObservableList<DisplayBook> getRecommendedDoc() {
+        return FXCollections.observableArrayList();
     }
-    private ObservableList<Documents> getFinishedDoc() {
-        return FXCollections.observableArrayList(
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
-        );
+    private ObservableList<DisplayBook> getFinishedDoc() {
+        return FXCollections.observableArrayList();
     }
-    private ObservableList<Documents> getFavouriteAuthorDoc() {
-        return FXCollections.observableArrayList(
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
-        );
+    private ObservableList<DisplayBook> getFavouriteAuthorDoc() {
+        return FXCollections.observableArrayList();
     }
-    private ObservableList<Documents> getMostPopularDoc() {
-        return FXCollections.observableArrayList(
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150)
-                //new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                //new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
-        );
+    private ObservableList<DisplayBook> getMostPopularDoc() {
+        return FXCollections.observableArrayList();
     }
 
     public void initialize() {
@@ -148,6 +119,7 @@ public class UserDashboardController extends StageController {
         SetButton();
         LockColumn();
         mainData = getAllDocuments();
+        userDocuments = getUserDocuments();
         buttonLibrary.setSelected(true);
         tableView1.setItems(mainData);
         tableView12.setItems(userDocuments);
@@ -160,7 +132,7 @@ public class UserDashboardController extends StageController {
 
     @FXML
     public void returnDoc() {
-        Documents doc = tableView12.getSelectionModel().getSelectedItem();
+        DisplayBook doc = tableView12.getSelectionModel().getSelectedItem();
         if (doc != null) {
             System.out.println("remove " + doc.getTitle());
             userDocuments.remove(doc);
@@ -190,7 +162,9 @@ public class UserDashboardController extends StageController {
     }
 
     public void initContinueReadDoc() {
-        Documents doc = getCurrentDoc().getFirst();
+        ObservableList<DisplayBook> currentDoc = getCurrentDoc();
+        if(currentDoc == null || currentDoc.isEmpty()) return;
+        DisplayBook doc = getCurrentDoc().getFirst();
         TextField title = (TextField) continueReadDoc.getChildren().get(2);
         title.setText(doc.getTitle());
         continueReadDoc.setOnMouseClicked(event -> {
@@ -205,7 +179,7 @@ public class UserDashboardController extends StageController {
         });
     }
 
-    public void setContinueReadDoc(Documents doc) {
+    public void setContinueReadDoc(DisplayBook doc) {
         TextField title = (TextField) continueReadDoc.getChildren().get(2);
         title.setText(doc.getTitle());
     }
@@ -220,10 +194,10 @@ public class UserDashboardController extends StageController {
 
     }
 
-    public void addDocToShelve(ObservableList<Documents> docList, HBox hBox) {
+    public void addDocToShelve(ObservableList<DisplayBook> docList, HBox hBox) {
 
         for (int i = 0; i < docList.size(); i++) {
-            Documents doc = docList.get(i);
+            DisplayBook doc = docList.get(i);
             VBox vBox = (VBox) hBox.getChildren().get(i);
             ImageView image = (ImageView) vBox.getChildren().get(0);
             TextField title = (TextField) vBox.getChildren().get(1);
@@ -232,8 +206,8 @@ public class UserDashboardController extends StageController {
                 borrowbutton1.setVisible(true);
                 documentimage3.setImage(image.getImage());
                 namedocument3.setText(title.getText());
-                descripe3.setText("Author: " + doc.getAuthor() + "\nDescripe: " + "\nType: " + doc.getType()
-                        + "\n" + doc.getTagsString()+ "\nAvailable: " + "\nView: ");
+                descripe3.setText("Author: " + doc.getAuthor() + "\nPublisher: " + doc.getPublisher() + "\nPublished year: " + doc.getPublishedYear()
+                        + "\n" + doc.getGenre()+ "\nAvailable: " + doc.getCopiesAvailable());
                 borrowbutton1.setOnMouseClicked(e -> {
                     borrowDocument(doc);
                 });
@@ -243,49 +217,48 @@ public class UserDashboardController extends StageController {
     }
 
     //Sua mac dinh anh
-    public void initLibrary(FlowPane tagsfield, TableColumn<Documents, String> imagecolumn,
-                            TableColumn<Documents, String> detailcolumn, ObservableList<Documents> data,
-                            ImageView documentImage, TextArea namedocument, TextArea descripe, TableView<Documents> tableView) {
+    public void initLibrary(FlowPane tagsfield, TableColumn<DisplayBook, Image> imagecolumn,
+                            TableColumn<DisplayBook, Image> detailcolumn, ObservableList<DisplayBook> data,
+                            ImageView documentImage, TextArea namedocument, TextArea descripe, TableView<DisplayBook> tableView) {
         tagsfield.setHgap(10);
         tagsfield.setVgap(10);
 
-        imagecolumn.setCellValueFactory(new PropertyValueFactory<>("imageLink"));
+        imagecolumn.setCellValueFactory(new PropertyValueFactory<>("image")); // "image" là thuộc tính kiểu Image trong model
+
         imagecolumn.setCellFactory(_ -> new TableCell<>() {
             private final ImageView imageView = new ImageView();
+
             @Override
-            protected void updateItem(String imageLink, boolean empty) {
-                super.updateItem(imageLink, empty);
-                if (empty || imageLink == null) {
-                    setGraphic(null);
+            protected void updateItem(Image image, boolean empty) {
+                super.updateItem(image, empty);
+                if (empty || image == null) {
+                    setGraphic(null); // Nếu không có hình ảnh thì xóa giao diện
                 } else {
-                    try {
-                        imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imageLink))));
-                        imageView.setFitWidth(80);
-                        imageView.setFitHeight(120);
-                        imageView.setPreserveRatio(false);
-                        setGraphic(imageView);
-                        setStyle("-fx-alignment: CENTER;");
-                    } catch (Exception e) {
-                        setGraphic(null);
-                        System.err.println("Error loading image: " + imageLink);
-                    }
+                    imageView.setImage(image); // Đặt trực tiếp hình ảnh
+                    imageView.setFitWidth(80); // Đặt chiều rộng cho hình ảnh
+                    imageView.setFitHeight(120); // Đặt chiều cao cho hình ảnh
+                    imageView.setPreserveRatio(true); // Bảo toàn tỷ lệ ảnh
+                    setGraphic(imageView); // Hiển thị ImageView trong cell
+                    setStyle("-fx-alignment: CENTER;"); // Căn giữa cell
                 }
             }
         });
 
+
         detailcolumn.setCellFactory(_ -> new TableCell<>() {
             @Override
-            protected void updateItem(String item, boolean empty) {
+            protected void updateItem(Image item, boolean empty) {
                 super.updateItem(item, empty);
                 if (empty || getTableRow() == null) {
                     setText(null);
                     setGraphic(null);
                 } else {
-                    Documents doc = getTableRow().getItem();
+                    DisplayBook doc = getTableRow().getItem();
                     if (doc != null) {
                         Text title = new Text(doc.getTitle() + "\n");
                         title.setFont(Font.font("System", FontWeight.BOLD, 16));
-                        Text detail = new Text("Author: " + doc.getAuthor() + "\nType: " + doc.getType() + "\n" + doc.getTagsString() + "\nAvailable: " + "\nView: ");
+                        Text detail = new Text("Author: " + doc.getAuthor() + "\nPublisher: " + doc.getPublisher() + "\nPublished year: " + doc.getPublishedYear()
+                                + "\n" + doc.getGenre()+ "\nAvailable: " + doc.getCopiesAvailable());
                         TextFlow flow = new TextFlow(title, detail);
                         flow.setPrefHeight(100);
                         setPrefHeight(100);
@@ -310,10 +283,10 @@ public class UserDashboardController extends StageController {
         tableView.getSelectionModel().selectedItemProperty().addListener((_, oldValue, newValue) -> {
 
             if (newValue != null && !newValue.equals(oldValue)) {
-                documentImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(newValue.getImageLink()))));
+                documentImage.setImage(newValue.getImage());
                 namedocument.setText(newValue.getTitle());
-                descripe.setText("Author: " + newValue.getAuthor() + "\nDescripe: " + "\nType: " + newValue.getType()
-                        + "\n" + newValue.getTagsString()+ "\nAvailable: " + "\nView: ");
+                descripe.setText("Author: " + newValue.getAuthor() + "\nPublisher: " + newValue.getPublisher() + "\nPublished year: " + newValue.getPublishedYear()
+                        + "\n" + newValue.getGenre()+ "\nAvailable: " + newValue.getCopiesAvailable());
 
                 if (!isTagButtonPressed) {
                     displayTags(newValue, tagsfield, tableView);
@@ -350,45 +323,20 @@ public class UserDashboardController extends StageController {
         });
     }
 
-    private ObservableList<Documents> getAllDocuments() {
-        return FXCollections.observableArrayList(
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("Tran Binh", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Dat fit", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
-        );
+    private ObservableList<DisplayBook> getAllDocuments() {
+        ObservableList<com.nichga.proj97.Model.DisplayBook> books = dbs.getBookRepo().getAllBook();
+        return books;
     }
 
-    private ObservableList<Documents> getUserDocuments() {
-        return FXCollections.observableArrayList(
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
-        );
+    private ObservableList<DisplayBook> getUserDocuments() {
+        return FXCollections.observableArrayList();
 
     }
 
-    private void sortTable(Comparator<Documents> comparator, TableView<Documents> table) {
+    private void sortTable(Comparator<DisplayBook> comparator, TableView<DisplayBook> table) {
         // Tạo danh sách sắp xếp
 
-        SortedList<Documents> sortedData = new SortedList<>(table.getItems(), comparator);
+        SortedList<DisplayBook> sortedData = new SortedList<>(table.getItems(), comparator);
         table.setItems(sortedData);
     }
     private void Sort() {
@@ -399,7 +347,7 @@ public class UserDashboardController extends StageController {
         //sortViewDesc.setOnAction(event -> sortTable((o1, o2) -> Integer.compare(o2.getViewCount(), o1.getViewCount())), tableView1);
     }
 
-    private void displayTags(Documents doc, FlowPane tagsfield, TableView<Documents> table) {
+    private void displayTags(DisplayBook doc, FlowPane tagsfield, TableView<DisplayBook> table) {
 
         tagsfield.getChildren().clear();
         if (table == tableView1) {
@@ -411,8 +359,8 @@ public class UserDashboardController extends StageController {
         }
 
         isTagButtonPressed = false;
-
-        for(String tags : doc.tag) {
+        List<String> tagList = doc.getTags();
+        for(String tags : tagList) {
             Button tag = new Button(tags);
             tag.getStyleClass().setAll("default-button");
             tag.setMaxWidth(1000);
@@ -445,15 +393,15 @@ public class UserDashboardController extends StageController {
 
     }
 
-    private void showDocumentsWithTag(TableView<Documents> tableView, ObservableList<Documents> data) {
-        ObservableList<Documents> filteredDocuments = FXCollections.observableArrayList();
+    private void showDocumentsWithTag(TableView<DisplayBook> tableView, ObservableList<DisplayBook> data) {
+        ObservableList<DisplayBook> filteredDocuments = FXCollections.observableArrayList();
         Set<String> tags;
         if (tableView == tableView1) {
             tags = tagList;
         } else {
             tags = tagList2;
         }
-        for (Documents document : data) {
+        for (DisplayBook document : data) {
             boolean hasAllTags = true;
             for (String tag : tags) {
                 if (!document.hasTag(tag)) {
@@ -472,7 +420,7 @@ public class UserDashboardController extends StageController {
             search(filteredDocuments, tableView, search12);
         }
     }
-    private void showDocumentsWithTag(String tag, TableView<Documents> tableView, ObservableList<Documents> data) {
+    private void showDocumentsWithTag(String tag, TableView<DisplayBook> tableView, ObservableList<DisplayBook> data) {
         if (tableView == tableView1)
             tagList.add(tag);
         else {
@@ -481,22 +429,22 @@ public class UserDashboardController extends StageController {
         showDocumentsWithTag(tableView, data);
     }
 
-    public void search(ObservableList<Documents> data, TableView<Documents> table, TextField search) {
+    public void search(ObservableList<DisplayBook> data, TableView<DisplayBook> table, TextField search) {
 
-        FilteredList<Documents> filteredData = new FilteredList<>(data, p -> true);
+        FilteredList<DisplayBook> filteredData = new FilteredList<>(data, p -> true);
         search.textProperty().addListener((_, _, _) -> {
             applyFilter(filteredData, search.getText());
         });
 
         applyFilter(filteredData, search.getText());
 
-        SortedList<Documents> sortedData = new SortedList<>(filteredData);
+        SortedList<DisplayBook> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
         table.refresh();
         table.setItems(sortedData);
 
     }
-    private void applyFilter(FilteredList<Documents> filteredData, String filterText) {
+    private void applyFilter(FilteredList<DisplayBook> filteredData, String filterText) {
         filteredData.setPredicate(item -> {
             if (filterText == null || filterText.isEmpty()) {
                 return true;
@@ -541,7 +489,7 @@ public class UserDashboardController extends StageController {
                 accountAddress.setEditable(false);
                 accountPhone.setEditable(false);
 
-                memberRepository.updateInfo(user.getId(), accountName.getText(), accountAddress.getText(), accountEmail.getText(), accountPhone.getText());
+                dbs.getMemberRepo().updateInfo(user.getId(), accountName.getText(), accountAddress.getText(), accountEmail.getText(), accountPhone.getText());
             }
         });
     }
@@ -551,28 +499,28 @@ public class UserDashboardController extends StageController {
         openNewStage("/com/nichga/proj97/ChangePassword.fxml", ChangePasswordButton, user);
     }
 
-    public void borrowDocument(Documents doc) {
-        if (false) { // Kiểm tra xem đã có document này trong myDoc chưa.
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
-            alert.setContentText("You already have this document");
-            alert.showAndWait();
-            return;
-        }
+    public void borrowDocument(DisplayBook doc) {
+
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to borrow?");
         alert.showAndWait();
+
         if (alert.getResult() == ButtonType.OK) {
-            userDocuments.add(doc);
-            tabpaneLibrary.getSelectionModel().select(2);
-            tableView12.refresh();
-            tableView12.getSelectionModel().select(doc);
-            tableView12.scrollTo(doc);
+            BufferedImage qr = user.borrow(doc.getBookId());
+            if (qr != null) {
+                userDocuments.add(doc);
+                tabpaneLibrary.getSelectionModel().select(2);
+                tableView12.refresh();
+                tableView12.getSelectionModel().select(doc);
+                tableView12.scrollTo(doc);
+                showQr(qr);
+            }
         }
     }
 
     @FXML
     public void borrowDocFromAllBooks() {
-        Documents doc = tableView1.getSelectionModel().getSelectedItem();
+        DisplayBook doc = tableView1.getSelectionModel().getSelectedItem();
         if (doc != null) {
             borrowDocument(doc);
         } else {
@@ -580,27 +528,49 @@ public class UserDashboardController extends StageController {
         }
     }
 
+    public void showQr(BufferedImage qr) {
+        Image fxImage = SwingFXUtils.toFXImage(qr, null);
+        ImageView imageView = new ImageView(fxImage);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(400);
+        imageView.setFitHeight(400);
+        StackPane root = new StackPane(imageView);
+        Scene scene = new Scene(root, 500, 500);
+        Stage stage = new Stage();
+        stage.setTitle("QR Code Display");
+        stage.setScene(scene);
+        stage.show();
+    }
+
     @FXML
-    public void showQr() {
-        String bookId = "ipb8RLh9JIAC";
-        Users u = new Users();
-        u.setId(user.getId());
-        BufferedImage bf = u.borrow("ipb8RLh9JIAC");
-        if (bf != null) {
-            Image fxImage = SwingFXUtils.toFXImage(bf, null);
-            ImageView imageView = new ImageView(fxImage);
-            imageView.setPreserveRatio(true);
-            imageView.setFitWidth(400);
-            imageView.setFitHeight(400);
-            StackPane root = new StackPane(imageView);
-            Scene scene = new Scene(root, 500, 500);
-            Stage stage = new Stage();
-            stage.setTitle("QR Code Display");
-            stage.setScene(scene);
-            stage.show();
-        } else {
-            System.out.println("BufferedImage is null!");
+    public void showQr() throws WriterException {
+        DisplayBook doc = tableView12.getSelectionModel().getSelectedItem();
+        if (doc == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("No doc selected");
+            alert.showAndWait();
+            return;
         }
+        String token = dbs.getTokenRepo().getToken(String.valueOf(user.getId()), doc.getBookId());
+        if (token == null) {
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("You borrowed this book!");
+            alert.showAndWait();
+            return;
+        }
+        System.out.println(token);
+        BufferedImage qr = tp.generateQRCode(token);
+        Image fxImage = SwingFXUtils.toFXImage(qr, null);
+        ImageView imageView = new ImageView(fxImage);
+        imageView.setPreserveRatio(true);
+        imageView.setFitWidth(400);
+        imageView.setFitHeight(400);
+        StackPane root = new StackPane(imageView);
+        Scene scene = new Scene(root, 500, 500);
+        Stage stage = new Stage();
+        stage.setTitle("QR Code Display");
+        stage.setScene(scene);
+        stage.show();
     }
 
 }

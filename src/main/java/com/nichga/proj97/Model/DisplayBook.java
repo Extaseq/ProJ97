@@ -2,6 +2,10 @@ package com.nichga.proj97.Model;
 
 import javafx.scene.image.Image;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public final class DisplayBook {
     private final String bookId;
     private final String title;
@@ -12,6 +16,7 @@ public final class DisplayBook {
     private final String isbn;
     private final int copies_available;
     private final Image image;
+    private final List<String> tags = new ArrayList<>();
 
 
     public DisplayBook(String bookId, String title, String author,
@@ -29,6 +34,9 @@ public final class DisplayBook {
             this.image = new Image(cover_url);
         } else {
             this.image = new Image("https://i.imgur.com/VwiPLSU.png");
+        }
+        if (genre != null) {
+            this.tags.addAll(Arrays.asList(genre.replaceAll("[\\[\\]\"]", "").split("&")));
         }
     }
 
@@ -66,5 +74,13 @@ public final class DisplayBook {
 
     public Image getImage() {
         return image;
+    }
+
+    public List<String> getTags() {
+        return tags;
+    }
+
+    public boolean hasTag(String tag) {
+        return tags.contains(tag);
     }
 }

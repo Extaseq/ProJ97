@@ -5,6 +5,7 @@ import com.nichga.proj97.Database.BookRepository;
 import com.nichga.proj97.Database.BorrowRepository;
 import com.nichga.proj97.Services.DatabaseService;
 import com.nichga.proj97.Services.TokenProvider;
+import javafx.scene.control.Alert;
 
 import java.awt.image.BufferedImage;
 import java.util.*;
@@ -226,10 +227,16 @@ public class Users {
         BookRepository br = ds.getBookRepo();
         BorrowRepository bre = ds.getBorrowRepo();
         String token = bre.createBorrowRequest(String.valueOf(id),bookId);
+        if (token == null) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setContentText("You already have this book");
+            alert.showAndWait();
+            return null;
+        }
         try {
             BufferedImage qrCode = tp.generateQRCode(token);
             br.adjustAfterBorrow(bookId);
-            bre.applyBorrowRequest(token);
+
             return qrCode;
         } catch (WriterException e) {
             System.out.println("Cannot generate QR Code: " + e.getMessage());

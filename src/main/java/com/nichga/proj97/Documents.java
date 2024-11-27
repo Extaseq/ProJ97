@@ -37,7 +37,7 @@ public class Documents {
         this.author = author;
         this.type = type;
     }
-    Documents(String title, String author, String type,String[] tags, int numberOfCopies, int timesBorrowed) {
+    Documents(String title, String author, String type, String[] tags, int numberOfCopies, int timesBorrowed) {
         this.title = title;
         this.author = author;
         this.type = type;
