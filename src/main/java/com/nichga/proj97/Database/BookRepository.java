@@ -1,7 +1,11 @@
 package com.nichga.proj97.Database;
 
 import com.nichga.proj97.Model.Book;
+import com.nichga.proj97.Model.DisplayBook;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 
+import javax.xml.transform.Result;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -68,7 +72,28 @@ public final class BookRepository extends GenericRepository {
         return executeUpdate(createStatement(sql), book_id, title, author, publisher, genre, published_year, isbn, cover_url) > 0;
     }
 
-
+    public ObservableList<DisplayBook> getAllBook() {
+        String sql = "SELECT * FROM " + tableName;
+        ObservableList<DisplayBook> result = FXCollections.observableArrayList();
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            while (rs.next()) {
+                result.add(new DisplayBook(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getString(9)
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 
     public int getTotalBooks() {
         String sql = "SELECT COUNT(*) FROM books";
@@ -83,9 +108,9 @@ public final class BookRepository extends GenericRepository {
     }
 
     public boolean adjustAfterBorrow(String bookId) {
-        String subquerry = "SELECT copies_available FROM books WHERE book_id = ?";
+        String subquery = "SELECT copies_available FROM books WHERE book_id = ?";
         int available = 0;
-        try (ResultSet rs = executeQuery(createStatement(subquerry),bookId)) {
+        try (ResultSet rs = executeQuery(createStatement(subquery),bookId)) {
             if (rs.next()) {
                 available = rs.getInt(1);
             }

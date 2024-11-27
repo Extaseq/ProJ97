@@ -1,5 +1,6 @@
 package com.nichga.proj97.Controller;
 
+import com.nichga.proj97.Model.DisplayBook;
 import com.nichga.proj97.Model.User;
 import com.nichga.proj97.Services.DatabaseService;
 import com.nichga.proj97.Util.Animation;
@@ -93,8 +94,8 @@ public class AdminDashboardController {
     @FXML
     private TableView<User> small_user_table;
 
-//    @FXML
-//    TableView<Documents> small_document_table;
+    @FXML
+    TableView<DisplayBook> small_document_table;
 
     private final DatabaseService dbs = new DatabaseService();
 
@@ -168,6 +169,11 @@ public class AdminDashboardController {
         });
     }
 
+    private void initBookTable() {
+        ObservableList<DisplayBook> db = dbs.getBookRepo().getAllBook();
+        System.out.println(db.size());
+    }
+
     public void prepareUserTableView() {
         small_user_table.getColumns().clear();
 
@@ -228,6 +234,7 @@ public class AdminDashboardController {
 
     @FXML
     private void initialize() {
+        initBookTable();
         initializeTextFields();
         initializeComboBoxes();
         initializeImage();

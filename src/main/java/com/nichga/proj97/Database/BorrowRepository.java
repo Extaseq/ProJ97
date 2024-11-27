@@ -88,9 +88,6 @@ public final class BorrowRepository extends GenericRepository {
 
     public String createBorrowRequest(String memberID, String bookID) {
         if (existBorrow(memberID, bookID)) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You have borrow this book");
-            alert.showAndWait();
             return null;
         }
         return TokenProvider.generateToken(memberID, bookID);

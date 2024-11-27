@@ -26,9 +26,6 @@ import java.util.Objects;
 
 public class BookSectionController {
     @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
     private ImageView book_cover_1;
 
     @FXML
