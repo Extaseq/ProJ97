@@ -189,6 +189,7 @@ public class Users {
         try {
             BufferedImage qrCode = tp.generateQRCode(token);
             br.adjustAfterBorrow(bookId);
+            ds.getBorrowRepo().createBorrowRequest(memberId,bookId);
             return qrCode;
 
         } catch (WriterException e) {
