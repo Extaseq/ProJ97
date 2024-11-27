@@ -16,7 +16,7 @@ public class Users {
 
     private String password;
 
-    private int id;
+    private int userId;
 
     private List<Documents> userDocuments;
 
