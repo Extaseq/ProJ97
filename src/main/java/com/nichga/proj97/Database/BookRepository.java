@@ -74,4 +74,19 @@ public final class BookRepository extends GenericRepository {
         }
         return 0;
     }
+
+    public boolean adjustAfterBorrow(String bookId) {
+        String subquerry = "SELECT copies_available FROM books WHERE book_id = ?";
+        int available = 0;
+        try (ResultSet rs = executeQuery(createStatement(subquerry),bookId)) {
+            if (rs.next()) {
+                available = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Borrow book error at get number of copies");
+        }
+        String new_available = String.valueOf(available);
+        String sql = "UPDATE books SET copies_available = ? WHERE book_id = ?";
+        return executeUpdate(createStatement(sql), new_available, bookId) > 0;
+    }
 }
