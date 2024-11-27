@@ -16,7 +16,13 @@ public class Users {
 
     private String password;
 
-    private int userId;
+    private String email;
+
+    private String phone;
+
+    private String address;
+
+    private int id;
 
     private List<Documents> userDocuments;
 
@@ -48,7 +54,7 @@ public class Users {
     /**
      * Default Constructor
      */
-    Users() {
+    public Users() {
         name = "Unknown";
     }
 
@@ -71,11 +77,11 @@ public class Users {
         userDocuments = doc;
     }
 
-    String getName() {
+    public String getName() {
         return name;
     }
 
-    void setName(String name) {
+    public void setName(String name) {
         this.name = name;
     }
 
@@ -181,22 +187,35 @@ public class Users {
         update();
     }
 
-    public BufferedImage borrow(String bookId) {
-        DatabaseService ds = new DatabaseService();
-        TokenProvider tp = new TokenProvider();
-        BookRepository br = ds.getBookRepo();
-        String token = tp.generateToken();
-        try {
-            BufferedImage qrCode = tp.generateQRCode(token);
-            br.adjustAfterBorrow(bookId);
-            ds.getBorrowRepo().createBorrowRequest(memberId,bookId);
-            return qrCode;
+    public int getId() {
+        return id;
+    }
 
-        } catch (WriterException e) {
-            System.out.println("Cannot generate QR Code: " + e.getMessage());
-        } catch (Exception e) {
-            System.out.println("An error occurred while processing borrow: " + e.getMessage());
-        }
-        return null;
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
     }
 }

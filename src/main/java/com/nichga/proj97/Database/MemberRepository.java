@@ -1,5 +1,7 @@
 package com.nichga.proj97.Database;
 
+import com.nichga.proj97.Users;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -70,33 +72,84 @@ public final class MemberRepository extends GenericRepository {
      * @param fullname The member name to insert into the table.
      * @return The number of rows affected (1 if the member was added successfully, 0 otherwise).
      */
-    public int addNewMember(String fullname) {
-        if (fullname == null || fullname.trim().isEmpty()) {
+    public int addNewMember(String... args) {
+        if (args == null || args.length != 2) {
             return 0;
         }
         String sql = "INSERT INTO " + tableName + " (" +
                 Column.columns.stream()
-                        .filter(column -> column != Column.MEMBER_ID)
                         .map(GenericColumn::getName)
                         .collect(Collectors.joining(", ")) +
-                ") VALUES (?, null, null, null, NOW())";
-        return executeUpdate(createStatement(sql), fullname);
+                ") VALUES (?, ?, null, null, null, NOW())";
+        return executeUpdate(createStatement(sql), args);
     }
 
-
-    public int updateInfo(int member_id, int updateAttribute, String... args) {
+    public int updateInfo(int member_id, long updateAttribute, String... args) {
         StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
         List<String> colToUpdate = Column.getAttributes(Column.columns, updateAttribute);
         if (colToUpdate.size() != args.length) {
             return 0;
         }
-        for (int i = 0; i < colToUpdate.size(); i++) {
+        for (int i = 0; i < colToUpdate.size() ; i++) {
             sql.append(colToUpdate.get(i)).append(" = ?");
             if (i < colToUpdate.size() - 1) {
                 sql.append(", ");
             }
         }
-        sql.append(" WHERE member_id = ").append(member_id);
+        sql.append(" WHERE member_id =" + String.valueOf(member_id));
         return executeUpdate(createStatement(sql.toString()), args);
+    }
+
+    public void updateInfo(int member_id, String... args) {
+        long updateAttr = Column.getNumberRepresentation(Column.columns, "fullname", "address", "email", "phone");
+        updateInfo(member_id, updateAttr, args);
+    }
+
+    /**
+     * Retrieves the ID of the last member added to the database.
+     *
+     * @return The ID of the last member, or 0 if no user exists.
+     */
+    public int getLastMemberId() {
+        String sql = "SELECT MAX(member_id) FROM " + tableName;
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
+    public Users getUserByUsername(String username) {
+        UserRepository userRepository = new UserRepository();
+        int memberId = userRepository.getMemberId(username);
+        Users user = new Users();
+        user.setUsername(username);
+        long findAttr = Column.getNumberRepresentation(Column.columns, "member_id");
+        long resAttr = Column.getNumberRepresentation(Column.columns,
+                "member_id", "fullname", "address", "email", "phone");
+        try (ResultSet rs = getMemberInfoBy(findAttr, resAttr, String.valueOf(memberId))) {
+            if (rs.next()) {
+                user.setId(rs.getInt("member_id"));
+
+                user.setName(rs.getString("fullname"));
+
+                user.setAddress(rs.getString("address"));
+
+                user.setEmail(rs.getString("email"));
+
+                user.setPhone(rs.getString("phone"));
+
+                return user;
+            } else {
+                System.out.println("No user found with member ID: " + memberId);
+            }
+        } catch (SQLException e) {
+            System.out.println("SQL Exception: " + e.getMessage());
+            e.printStackTrace();
+        }
+        return null;
     }
 }

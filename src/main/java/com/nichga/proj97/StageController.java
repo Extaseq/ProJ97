@@ -62,9 +62,16 @@ public abstract class StageController {
             ((StageController) controller).setPreviousStage(currentStage);
         }
 
-        if (controller instanceof UserDashboardController && user!=null) {
-            ((UserDashboardController) controller).setUser(user);
+        if (controller instanceof UserDashboardController) {
+            if (user != null) {
+
+                ((UserDashboardController) controller).setUser(user);
+                ((UserDashboardController) controller).initAccount();
+            } else {
+                System.out.println("Warning: Users object is null, skipping setUser.");
+            }
         }
+
 
         // Hiển thị Stage mới
         Stage stage = new Stage();
@@ -93,4 +100,34 @@ public abstract class StageController {
 
     private double x = 0;
     private double y = 0;
+
+    public void openNewStage(String s, Button b, Users user) throws IOException {
+
+        FXMLLoader loader = new FXMLLoader(getClass().getResource(s));
+        Parent root = loader.load();
+
+        // Kiểm tra controller là instance của StageController
+        Object controller = loader.getController();
+
+        if (controller instanceof ChangePasswordController) {
+            if (user != null) {
+                ((ChangePasswordController) controller).setUser(user);
+                ((ChangePasswordController) controller).initialize();
+
+            } else {
+                System.out.println("Warning: Users object is null, skipping setUser.");
+            }
+        }
+        // Hiển thị Stage mới
+        Stage stage = new Stage();
+        stage.setScene(new Scene(root));
+        stage.setResizable(false);
+        setUpMouseEvents(root, stage);
+        stage.show();
+    }
+
+    public void closeCurrentStage(Button b) {
+        Stage currentStage = (Stage) b.getScene().getWindow();
+        currentStage.close();
+    }
 }

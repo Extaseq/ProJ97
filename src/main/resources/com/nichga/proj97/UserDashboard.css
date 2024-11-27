@@ -39,6 +39,9 @@
     -fx-text-fill: rgba(125,67,0,1);
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
 }
+#buttonLibrary:hover {
+    -fx-background-color: rgba(242,236,229,0.4);
+}
 #buttonAccount {
     -fx-background-color: white;
     -fx-translate-y: 25px;
@@ -55,6 +58,9 @@
     -fx-background-color: rgba(242,236,229,1);
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
     -fx-text-fill: rgba(125,67,0,1);
+}
+#buttonAccount:hover {
+    -fx-background-color: rgba(242,236,229,0.4);
 }
 #vboxButton1 {
     -fx-translate-y: 265px;
@@ -211,7 +217,11 @@
 }
 #tableView1 .table-row-cell:selected {
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.7), 15, 0.0, 0, 0);
-    -fx-background-color: red;
+    -fx-background-color: rgba(211,211,211,1);
+}
+#tableView1 .table-row-cell:hover {
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.7), 15, 0.0, 0, 0);
+    -fx-background-color: rgba(211,211,211,1);
 }
 #imagecolumn1 {
     -fx-background-color: transparent;
@@ -227,22 +237,22 @@
     -fx-background-radius: 15px 0 0 15px;
     -fx-alignment: center;
 }
-#menuItem {
-    -fx-background-color: white;
-    -fx-pref-width: 70;
-    -fx-text-fill: black;
-}
-#menuItem:hover {
-    -fx-background-color: rgba(240,240,240,1);
-    -fx-text-fill: red;
-}
+/*#menuItem {*/
+/*    -fx-background-color: white;*/
+/*    -fx-pref-width: 70;*/
+/*    -fx-text-fill: black;*/
+/*}*/
+/*#menuItem {*/
+/*    -fx-background-color: lightgray;*/
+/*    -fx-text-fill: black;*/
+/*}*/
 #search1 {
     -fx-background-color: rgba(240,240,240,1);
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 6, 0.0, 0, 5);
     -fx-background-radius: 0 15px 15px 0;
 }
 #actionbutton {
-    -fx-background-color: lightblue;
+    -fx-background-color: #E1DACA;
     -fx-background-radius: 7px;
     -fx-alignment: center;
     -fx-pref-width: 77;
@@ -253,6 +263,9 @@
 }
 #actionbutton:pressed {
     -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0.0, 0, 5);
+}
+#actionbutton:hover {
+    -fx-background-color: #CCC6B7;
 }
 #paneShelve {
     -fx-background-color: rgba(255,248,243,1);
@@ -273,16 +286,50 @@
     -fx-opacity: 0; /* Ẩn các nút cuộn */
 }
 .scroll-bar .thumb {
-    -fx-background-color: linear-gradient(to right, #ff9a9e, #fad0c4); /* Màu chính của thanh trượt */
+    -fx-background-color: linear-gradient(to right, rgba(213,200,183,1), #E1DACA); /* Màu chính của thanh trượt */
     -fx-background-radius: 5px; /* Bo góc thanh trượt */
 }
-
+/*tags*/
 .default-button {
-    -fx-background-color: lightgray;
+    -fx-background-color: white;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-pref-height: 15;
+    -fx-padding: 0 5px 0 5px;
+    -fx-alignment: center;
     -fx-text-fill: black;
 }
-
 .highlighted-button {
-    -fx-background-color: linear-gradient(to bottom right,#46589a,#4278a7);
+    -fx-background-color: linear-gradient(to bottom right,rgba(213,200,183,1),#E1DACA);
     -fx-text-fill: black;
+    -fx-background-radius: 4px;
+    -fx-border-radius: 4px;
+    -fx-pref-height: 15;
+    -fx-padding: 0 5px 0 5px;
+    -fx-alignment: center;
+}
+/*Account*/
+#accountButton {
+    -fx-background-color: #E1DACA;
+    -fx-background-radius: 7px;
+    -fx-alignment: center;
+    -fx-font-weight: bold;
+    -fx-font-size: 16;
+    -fx-pref-height: 36;
+    -fx-text-fill: rgba(125,67,0,1);
+}
+#accountButton:pressed {
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.5), 4, 0.0, 0, 5);
+}
+#accountButton:hover {
+    -fx-background-color: #CCC6B7;
+}
+#accountFontIcon {
+    -fx-fill: rgba(125,67,0,1);
+}
+#labelAccount {
+    -fx-alignment: CENTER_RIGHT;
+}
+#accountTextfield {
+    -fx-background-color: transparent;
 }

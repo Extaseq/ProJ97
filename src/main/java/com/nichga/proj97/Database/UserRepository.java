@@ -168,7 +168,7 @@ public final class UserRepository extends GenericRepository {
      * @param newPasswordHash The new hashed password to set for the user.
      * @return {@code true} if the password was successfully changed, {@code false} otherwise.
      */
-    public boolean changePassword(String username, String newPasswordHash) {
+    public boolean changePassword(String newPasswordHash, String username) {
         String sql = "UPDATE " + tableName + " SET password_hash = ? WHERE username = ?";
         return executeUpdate(createStatement(sql), newPasswordHash, username) > 0;
     }
@@ -193,6 +193,19 @@ public final class UserRepository extends GenericRepository {
             System.out.println(e.getMessage());
         }
         return null;
+    }
+
+    public int getMemberId(String username) {
+        long findAttr = Column.getNumberRepresentation(Column.columns, "username");
+        long resAttr = Column.getNumberRepresentation(Column.columns, "member_id");
+        try (ResultSet rs = getUserInfoBy(findAttr, resAttr, username)) {
+            if (rs.next()) {
+                return rs.getInt("member_id");
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
     }
 
     /**

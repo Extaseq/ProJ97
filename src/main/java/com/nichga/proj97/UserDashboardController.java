@@ -1,9 +1,6 @@
 package com.nichga.proj97;
 
-import com.google.zxing.WriterException;
-import com.nichga.proj97.Database.BookRepository;
-import com.nichga.proj97.Database.BorrowRepository;
-import com.nichga.proj97.Services.TokenProvider;
+import com.nichga.proj97.Database.MemberRepository;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -26,7 +23,7 @@ import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
 
 public class UserDashboardController extends StageController {
-    Users user;
+    private Users user;
     protected void setUser(Users user) {
         this.user = user;
     }
@@ -41,7 +38,6 @@ public class UserDashboardController extends StageController {
 
     @FXML
     private TabPane tabpaneLibrary;
-
     @FXML
     private ToggleButton buttonLibrary, buttonAccount;
     @FXML
@@ -58,40 +54,48 @@ public class UserDashboardController extends StageController {
     @FXML
     private ImageView documentimage1, documentimage11, documentimage3;
     @FXML
-    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3 ;
+    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3;
     @FXML
     private TextField search1, search12;
     @FXML
-    private MenuButton menuButton1;
-    private MenuButton menuButton12;
-
+    private MenuButton menuButton1, menuButton12;
     @FXML
     private MenuItem sorttitle1, sortauthor1, sortview1;
     @FXML
     private MenuItem sorttitle12, sortauthor12, sortview12;
-
     @FXML
     private FlowPane tagsfield1, tagsfield11;
-
     @FXML
     private HBox currentList, recommendList, finishedList, favouriteAuthorList, mostPopularList;
-
-    @FXML
-    private Button signOut, returnbutton1;
     @FXML
     private VBox continueReadDoc;
+    //Account
+    @FXML
+    private Button signOut, returnbutton1, ChangePasswordButton;
+    @FXML
+    private TextField accountName, accountID, accountEmail, accountAddress, accountPhone;
+    @FXML
+    private ToggleButton ChangeInfoButton, SaveButton;
+    @FXML
+    private Button borrowbutton1, borrowbutton2;
+
+    @FXML
+    private Tab tabShelve, tabAllBooks;
 
     private ObservableList<Documents> userDocuments; {userDocuments = getUserDocuments();}
 
     private ToggleGroup toggleGroup;
-    private String currentBooksId = null;
+    private MemberRepository memberRepository; {
+        memberRepository = new MemberRepository();
+    }
+
     private ObservableList<Documents> getCurrentDoc() {
         return FXCollections.observableArrayList(
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
                 new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
                 new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
                 new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+                new Documents("Duy deptrai", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
         );
     }
     private ObservableList<Documents> getRecommendedDoc() {
@@ -121,14 +125,13 @@ public class UserDashboardController extends StageController {
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
         );
     }
-
     private ObservableList<Documents> getMostPopularDoc() {
         return FXCollections.observableArrayList(
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
                 new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
+                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150)
+                //new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
+                //new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100)
         );
     }
 
@@ -150,7 +153,6 @@ public class UserDashboardController extends StageController {
         initContinueReadDoc();
     }
 
-
     @FXML
     public void returnDoc() {
         Documents doc = tableView12.getSelectionModel().getSelectedItem();
@@ -161,6 +163,46 @@ public class UserDashboardController extends StageController {
             tableView12.setItems(userDocuments);
             setContinueReadDoc(userDocuments.get(0));
         }
+
+    }
+
+    public void initAccount() {
+        ToggleGroup group = new ToggleGroup();
+        ChangeInfoButton.setToggleGroup(group);
+        SaveButton.setToggleGroup(group);
+
+        ChangeInfoButton.setVisible(true);
+        SaveButton.setVisible(false);
+        accountName.setText(user.getName());
+        accountName.setEditable(false);
+        accountEmail.setText(user.getEmail());
+        accountEmail.setEditable(false);
+        accountID.setText(String.valueOf(user.getId()));
+        accountID.setEditable(false);
+        accountAddress.setText(user.getAddress());
+        accountAddress.setEditable(false);
+        accountPhone.setText(user.getPhone());
+        accountPhone.setEditable(false);
+
+
+        group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+            if (newValue.equals(ChangeInfoButton)) {
+                SaveButton.setVisible(true);
+                ChangeInfoButton.setVisible(false);
+                accountName.setEditable(true);
+                accountEmail.setEditable(true);
+                accountAddress.setEditable(true);
+                accountPhone.setEditable(true);
+            } else if (newValue.equals(SaveButton)) {
+                SaveButton.setVisible(false);
+                ChangeInfoButton.setVisible(true);
+                accountName.setEditable(false);
+                accountEmail.setEditable(false);
+                accountAddress.setEditable(false);
+                accountPhone.setEditable(false);
+                memberRepository.updateInfo(user.getId(), accountName.getText(), accountAddress.getText(), accountEmail.getText(), accountPhone.getText());
+            }
+        });
 
     }
 
@@ -187,6 +229,7 @@ public class UserDashboardController extends StageController {
     }
 
     public void initShelve() {
+        borrowbutton1.setVisible(false);
         addDocToShelve(getCurrentDoc(), currentList);
         addDocToShelve(getRecommendedDoc(), recommendList);
         addDocToShelve(getFinishedDoc(), finishedList);
@@ -197,22 +240,25 @@ public class UserDashboardController extends StageController {
 
     public void addDocToShelve(ObservableList<Documents> docList, HBox hBox) {
 
-        for (int i = 0; i < hBox.getChildren().size(); i++) {
+        for (int i = 0; i < docList.size(); i++) {
             Documents doc = docList.get(i);
             VBox vBox = (VBox) hBox.getChildren().get(i);
             ImageView image = (ImageView) vBox.getChildren().get(0);
             TextField title = (TextField) vBox.getChildren().get(1);
             title.setText(docList.get(i).getTitle());
             vBox.setOnMouseClicked(event -> {
+                borrowbutton1.setVisible(true);
                 documentimage3.setImage(image.getImage());
                 namedocument3.setText(title.getText());
                 descripe3.setText("Author: " + doc.getAuthor() + "\nDescripe: " + "\nType: " + doc.getType()
                         + "\n" + doc.getTagsString()+ "\nAvailable: " + "\nView: ");
+                borrowbutton1.setOnMouseClicked(e -> {
+                    borrowDocument(doc);
+                });
             });
         }
 
     }
-
 
     //Sua mac dinh anh
     public void initLibrary(FlowPane tagsfield, TableColumn<Documents, String> imagecolumn,
@@ -335,8 +381,8 @@ public class UserDashboardController extends StageController {
                 new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
                 new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
+                new Documents("Tran Binh", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Dat fit", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
         );
     }
 
@@ -357,7 +403,6 @@ public class UserDashboardController extends StageController {
         );
 
     }
-
 
     private void sortTable(Comparator<Documents> comparator, TableView<Documents> table) {
         // Tạo danh sách sắp xếp
@@ -481,22 +526,7 @@ public class UserDashboardController extends StageController {
         });
     }
 
-    public void borrow() throws WriterException {
-//        BookRepository bookRepo = new BookRepository();
-//        BorrowRepository borrowRepo = new BorrowRepository();
-//        if(bookRepo.adjustInfoAfterBorrow(currentBooksId)) {
-//            borrowRepo.createBorrowRequest(userId,currentBooksId);
-//            String token = TokenProvider.generateToken();
-//            BufferedImage img = TokenProvider.generateQRCode(token);
-//            //Display qrCode.
-//        }
-//        else {
-//            Alert alert = new Alert(Alert.AlertType.ERROR);
-//            alert.setContentText("This books is currently not available in our library");
-//            alert.showAndWait();
-//        }
-    }
-
+    //Account
     public void signOut() throws IOException {
         Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
         alert.setContentText("Are you sure you want to logout?");
@@ -505,5 +535,60 @@ public class UserDashboardController extends StageController {
             goToNextStage("/com/nichga/proj97/LoginRegister.fxml", signOut, null);
         }
 
+    }
+
+    private void EditInfo() {
+        if (ChangeInfoButton.isSelected()) {
+            ChangeInfoButton.setVisible(false);
+            SaveButton.setVisible(true);
+            accountName.setEditable(true);
+            accountEmail.setEditable(true);
+            accountID.setEditable(true);
+            accountAddress.setEditable(true);
+        }
+        if (SaveButton.isSelected()) {
+            SaveButton.setVisible(false);
+            ChangeInfoButton.setVisible(true);
+            accountName.setEditable(false);
+            accountEmail.setEditable(false);
+            accountID.setEditable(false);
+            accountAddress.setEditable(false);
+
+            //Thao tac cap nhat Info duoi nay
+
+        }
+    }
+
+    @FXML
+    public void changePassword() throws IOException {
+        openNewStage("/com/nichga/proj97/ChangePassword.fxml", ChangePasswordButton, user);
+    }
+
+    public void borrowDocument(Documents doc) {
+        if (false) { // Kiểm tra xem đã có document này trong myDoc chưa.
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setContentText("You already have this document");
+            alert.showAndWait();
+            return;
+        }
+        Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+        alert.setContentText("Are you sure you want to borrow?");
+        alert.showAndWait();
+        if (alert.getResult() == ButtonType.OK) {
+            userDocuments.add(doc);
+            tabpaneLibrary.getSelectionModel().select(2);
+            tableView12.refresh();
+            tableView12.getSelectionModel().select(doc);
+        }
+    }
+
+    @FXML
+    public void borrowDocFromAllBooks() {
+        Documents doc = tableView1.getSelectionModel().getSelectedItem();
+        if (doc != null) {
+            borrowDocument(doc);
+        } else {
+            System.out.println("No doc selected");
+        }
     }
 }
