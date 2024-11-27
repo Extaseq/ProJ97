@@ -187,7 +187,7 @@ public class BookSectionController {
         try {
             for (int i = 0; i < data.size(); i++) {
                 String cover_url = data.get(i).getUrl() == null ?
-                        "https://i.imgur.com/TdjlLIX.jpeg" : data.get(i).getUrl();
+                        "https://i.imgur.com/VwiPLSU.png" : data.get(i).getUrl();
                 String book_title = data.get(i).getTitle() == null ?
                         "Unknown" : data.get(i).getTitle().split(",")[0].replaceAll("[\\[\\]\"]", "");
                 String book_author = data.get(i).getAuthor() == null ?

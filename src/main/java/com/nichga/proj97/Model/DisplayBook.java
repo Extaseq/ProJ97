@@ -28,7 +28,7 @@ public final class DisplayBook {
         if (cover_url != null) {
             this.image = new Image(cover_url);
         } else {
-            this.image = null;
+            this.image = new Image("https://i.imgur.com/VwiPLSU.png");
         }
     }
 
