@@ -8,7 +8,6 @@ import com.nichga.proj97.Util.TableViewHelper;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.EventType;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -18,7 +17,6 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
@@ -108,7 +106,7 @@ public class AdminDashboardController {
         text1.setFill(Color.web("#e5e5e5"));
         text1.setFont(Font.font("Eina03-Bold", 35));
 
-        username_text = new Text("Admin!");
+        username_text.setText("Admin!");
         username_text.setFill(Color.web("#f65867"));
         username_text.setFont(Font.font("Eina03-Bold", 35));
 
@@ -123,6 +121,7 @@ public class AdminDashboardController {
         total_book.setText(String.valueOf(dbs.getBookRepo().getTotalBooks()));
         total_users.setText(String.valueOf(dbs.getUserRepo().getTotalUsers()));
         total_borrowed.setText(String.valueOf(dbs.getBorrowRepo().getTotalBorrows()));
+        total_overdue.setText(String.valueOf(dbs.getBorrowRepo().getTotalOverdue()));
     }
 
     private void initializeComboBoxes() {
@@ -152,6 +151,7 @@ public class AdminDashboardController {
             updateText(total_book, String.valueOf(dbs.getBookRepo().getTotalBooks()));
             updateText(total_users, String.valueOf(dbs.getUserRepo().getTotalUsers()));
             updateText(total_borrowed, String.valueOf(dbs.getBorrowRepo().getTotalBorrows()));
+            updateText(total_overdue, String.valueOf(dbs.getBorrowRepo().getTotalOverdue()));
             System.out.println("Updated!");
         });
     }

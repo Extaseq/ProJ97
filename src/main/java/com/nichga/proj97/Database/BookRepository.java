@@ -8,7 +8,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BookRepository extends GenericRepository {
+public final class BookRepository extends GenericRepository {
     public BookRepository() {
         super("books");
     }

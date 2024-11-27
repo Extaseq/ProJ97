@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  * This class is responsible for interacting with the Users table in the database.
  * It provides methods for querying, updating, and managing user-related data.
  */
-public class UserRepository extends GenericRepository {
+public final class UserRepository extends GenericRepository {
     public UserRepository() {
         super("UserAccounts");
     }

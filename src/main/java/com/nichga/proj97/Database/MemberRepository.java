@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
  * This class is responsible for interacting with the Members table in the database.
  * It provides methods for querying, updating, and managing user-related data.
  */
-public class MemberRepository extends GenericRepository {
+public final class MemberRepository extends GenericRepository {
     public MemberRepository() {
         super("Members");
     }

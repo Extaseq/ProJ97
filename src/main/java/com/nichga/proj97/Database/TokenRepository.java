@@ -5,7 +5,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TokenRepository extends GenericRepository {
+public final class TokenRepository extends GenericRepository {
     public TokenRepository() {
         super("Tokens");
     }

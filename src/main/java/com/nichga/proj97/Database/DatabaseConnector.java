@@ -10,7 +10,7 @@ import java.sql.SQLException;
  * Singleton class that manages the connection to the database using HikariCP.
  * It provides a connection pool to manage database connections efficiently.
  */
-public class DatabaseConnector {
+public final class DatabaseConnector {
     private static DatabaseConnector instance = null;
     private final HikariDataSource dataSource;
 

@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class BorrowRepository extends GenericRepository {
+public final class BorrowRepository extends GenericRepository {
     public BorrowRepository() {
         super("borrow");
     }
@@ -21,8 +21,6 @@ public class BorrowRepository extends GenericRepository {
         public static final Column BORROW_DATE = new Column(8,   "borrow_date");
         public static final Column DUE_DATE    = new Column(16,  "due_date");
         public static final Column RETURN_DATE = new Column(32,  "return_date");
-        public static final Column RATING      = new Column(64,  "rating");
-        public static final Column REVIEW_TEXT = new Column(128, "review_text");
 
         private Column(int index, String name) {
             super(index, name);
@@ -57,6 +55,19 @@ public class BorrowRepository extends GenericRepository {
         return 0;
     }
 
+    public int getTotalOverdue() {
+        String sql = "SELECT COUNT(*) FROM " + tableName
+            + "WHERE return_date IS NULL OR return_date > due_date";
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            if (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return 0;
+    }
+
     public boolean createBorrowRequest(String memberID, String bookID) {
         if (memberID == null || bookID == null) {
             return false;
@@ -66,7 +77,7 @@ public class BorrowRepository extends GenericRepository {
                 .filter(column -> column != Column.BORROW_ID)
                 .map(GenericColumn::getName)
                 .collect(Collectors.joining(", "))
-            + ") VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY), NULL, NULL, NULL)";
+            + ") VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY), null)";
         return executeUpdate(createStatement(sql), memberID, bookID) > 0;
     }
 }
