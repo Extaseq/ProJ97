@@ -218,4 +218,22 @@ public class Users {
     public void setAddress(String address) {
         this.address = address;
     }
+
+    public BufferedImage borrow(String bookId) {
+        DatabaseService ds = new DatabaseService();
+        TokenProvider tp = new TokenProvider();
+        BookRepository br = ds.getBookRepo();
+        String token = tp.generateToken();
+        try {
+            BufferedImage qrCode = tp.generateQRCode(token);
+            br.adjustAfterBorrow(bookId);
+            return qrCode;
+
+        } catch (WriterException e) {
+            System.out.println("Cannot generate QR Code: " + e.getMessage());
+        } catch (Exception e) {
+            System.out.println("An error occurred while processing borrow: " + e.getMessage());
+        }
+        return null;
+    }
 }

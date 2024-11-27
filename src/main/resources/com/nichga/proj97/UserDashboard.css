@@ -333,3 +333,6 @@
 #accountTextfield {
     -fx-background-color: transparent;
 }
+.text-field {
+    -fx-background-color: white; /* Màu nền */
+}
