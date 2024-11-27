@@ -2,6 +2,7 @@ package com.nichga.proj97;
 
 import com.google.zxing.WriterException;
 import com.nichga.proj97.Database.BookRepository;
+import com.nichga.proj97.Database.BorrowRepository;
 import com.nichga.proj97.Services.DatabaseService;
 import com.nichga.proj97.Services.TokenProvider;
 
@@ -223,12 +224,13 @@ public class Users {
         DatabaseService ds = new DatabaseService();
         TokenProvider tp = new TokenProvider();
         BookRepository br = ds.getBookRepo();
-        String token = tp.generateToken(String.valueOf(id),bookId);
+        BorrowRepository bre = ds.getBorrowRepo();
+        String token = bre.createBorrowRequest(String.valueOf(id),bookId);
         try {
             BufferedImage qrCode = tp.generateQRCode(token);
             br.adjustAfterBorrow(bookId);
+            bre.applyBorrowRequest(token);
             return qrCode;
-
         } catch (WriterException e) {
             System.out.println("Cannot generate QR Code: " + e.getMessage());
         } catch (Exception e) {
