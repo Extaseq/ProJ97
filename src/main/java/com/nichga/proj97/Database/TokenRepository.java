@@ -1,6 +1,7 @@
 package com.nichga.proj97.Database;
 
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
@@ -38,10 +39,26 @@ public final class TokenRepository extends GenericRepository {
         return null;
     }
 
-    public boolean pushToken(String generatedToken) {
-        String sql = "INSERT INTO" + tableName
-            + " (token) VALUES (?)";
-        return executeUpdate(createStatement(sql), generatedToken) > 0;
+    public boolean pushToken(String generatedToken, String memberID, String bookID) {
+        String sql = "INSERT INTO " + tableName
+            + " (token, member_id, book_id) VALUES (?, ?, ?)";
+        return executeUpdate(createStatement(sql), generatedToken, memberID, bookID) > 0;
+    }
+
+    public String[] getTokenInfo(String token) {
+        String sql = "SELECT member_id, book_id FROM "
+                + tableName + " WHERE token = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), token)) {
+            if (rs.next()) {
+                String[] tokenInfo = new String[2];
+                tokenInfo[0] = rs.getString(1);
+                tokenInfo[1] = rs.getString(2);
+                return tokenInfo;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
     }
 
     public boolean deleteToken(String token) {

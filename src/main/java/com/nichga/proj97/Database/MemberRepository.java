@@ -69,7 +69,7 @@ public final class MemberRepository extends GenericRepository {
     /**
      * Adds a new member to the user table.
      *
-     * @param fullname The member name to insert into the table.
+     * @param args The member name to insert into the table.
      * @return The number of rows affected (1 if the member was added successfully, 0 otherwise).
      */
     public int addNewMember(String... args) {
@@ -88,7 +88,7 @@ public final class MemberRepository extends GenericRepository {
         StringBuilder sql = new StringBuilder("UPDATE " + tableName + " SET ");
         List<String> colToUpdate = Column.getAttributes(Column.columns, updateAttribute);
         if (colToUpdate.size() != args.length) {
-            return 0;
+            return -1;
         }
         for (int i = 0; i < colToUpdate.size() ; i++) {
             sql.append(colToUpdate.get(i)).append(" = ?");
@@ -96,13 +96,13 @@ public final class MemberRepository extends GenericRepository {
                 sql.append(", ");
             }
         }
-        sql.append(" WHERE member_id =" + String.valueOf(member_id));
+        sql.append(" WHERE member_id =").append(member_id);
         return executeUpdate(createStatement(sql.toString()), args);
     }
 
-    public void updateInfo(int member_id, String... args) {
+    public boolean updateInfo(int member_id, String... args) {
         long updateAttr = Column.getNumberRepresentation(Column.columns, "fullname", "address", "email", "phone");
-        updateInfo(member_id, updateAttr, args);
+        return updateInfo(member_id, updateAttr, args) > 0;
     }
 
     /**
@@ -148,7 +148,6 @@ public final class MemberRepository extends GenericRepository {
             }
         } catch (SQLException e) {
             System.out.println("SQL Exception: " + e.getMessage());
-            e.printStackTrace();
         }
         return null;
     }

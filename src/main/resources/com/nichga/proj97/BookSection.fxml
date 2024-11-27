@@ -22,12 +22,12 @@
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
                               <ImageView fx:id="book_cover_1" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fx:id="book_title_1" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <Text fx:id="book_title_1" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fx:id="book_author_1" fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                              <Text fx:id="book_author_1" fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="12.0" />
                                  </font>
@@ -37,12 +37,12 @@
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
                               <ImageView fx:id="book_cover_2" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fx:id="book_title_2" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <Text fx:id="book_title_2" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                              <Text fx:id="book_author_2" fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="12.0" />
                                  </font>
@@ -52,12 +52,12 @@
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
                               <ImageView fx:id="book_cover_3" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fx:id="book_title_3" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <Text fx:id="book_title_3" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                              <Text fx:id="book_author_3" fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="12.0" />
                                  </font>
@@ -67,12 +67,12 @@
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
                               <ImageView fx:id="book_cover_4" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fx:id="book_title_4" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <Text fx:id="book_title_4" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                              <Text fx:id="book_author_4" fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="12.0" />
                                  </font>
@@ -82,12 +82,12 @@
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
                               <ImageView fx:id="book_cover_5" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fx:id="book_title_5" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <Text fx:id="book_title_5" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                              <Text fx:id="book_author_5" fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="12.0" />
                                  </font>
@@ -97,12 +97,12 @@
                         <AnchorPane prefHeight="250.0" prefWidth="245.0">
                            <children>
                               <ImageView fx:id="book_cover_6" fitHeight="200.0" fitWidth="170.0" layoutX="21.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="15.0" />
-                              <Text fx:id="book_title_6" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Title" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
+                              <Text fx:id="book_title_6" fill="#e4e4e4" layoutX="48.0" layoutY="256.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Infomation" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="235.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="15.0" />
                                  </font>
                               </Text>
-                              <Text fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Book Author List" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
+                              <Text fx:id="book_author_6" fill="#e4e4e4" fontSmoothingType="LCD" layoutX="40.0" layoutY="268.0" strokeType="OUTSIDE" strokeWidth="0.0" text="No Information" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="260.0">
                                  <font>
                                     <Font name="☞Eina03-SemiBold" size="12.0" />
                                  </font>
@@ -125,8 +125,8 @@
                         </Text>
                         <TableView fx:id="book_status" layoutX="50.0" layoutY="150.0" prefHeight="350.0" prefWidth="1234.0" AnchorPane.bottomAnchor="60.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="140.0">
                            <columns>
-                              <TableColumn prefWidth="100.0" text="User ID" />
-                              <TableColumn prefWidth="150.0" text="Username" />
+                              <TableColumn prefWidth="100.0" text="Member ID" />
+                              <TableColumn prefWidth="150.0" text="Full name" />
                               <TableColumn prefWidth="150.0" text="Book ID" />
                               <TableColumn prefWidth="300.0" text="Title" />
                               <TableColumn prefWidth="200.0" text="Author" />

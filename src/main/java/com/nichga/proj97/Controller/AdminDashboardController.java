@@ -91,7 +91,7 @@ public class AdminDashboardController {
     private ScrollPane scrollPane;
 
     @FXML
-    TableView<User> small_user_table;
+    private TableView<User> small_user_table;
 
 //    @FXML
 //    TableView<Documents> small_document_table;

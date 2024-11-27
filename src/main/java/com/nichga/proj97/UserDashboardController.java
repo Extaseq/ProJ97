@@ -185,7 +185,7 @@ public class UserDashboardController extends StageController {
         accountPhone.setEditable(false);
 
 
-        group.selectedToggleProperty().addListener((observable, oldValue, newValue) -> {
+        group.selectedToggleProperty().addListener((_, _, newValue) -> {
             if (newValue.equals(ChangeInfoButton)) {
                 SaveButton.setVisible(true);
                 ChangeInfoButton.setVisible(false);
@@ -207,8 +207,7 @@ public class UserDashboardController extends StageController {
     }
 
     public void initContinueReadDoc() {
-
-        Documents doc = getCurrentDoc().get(0);
+        Documents doc = getCurrentDoc().getFirst();
         TextField title = (TextField) continueReadDoc.getChildren().get(2);
         title.setText(doc.getTitle());
         continueReadDoc.setOnMouseClicked(event -> {
@@ -268,7 +267,7 @@ public class UserDashboardController extends StageController {
         tagsfield.setVgap(10);
 
         imagecolumn.setCellValueFactory(new PropertyValueFactory<>("imageLink"));
-        imagecolumn.setCellFactory(column -> new TableCell<Documents, String>() {
+        imagecolumn.setCellFactory(_ -> new TableCell<>() {
             private final ImageView imageView = new ImageView();
             @Override
             protected void updateItem(String imageLink, boolean empty) {
@@ -277,7 +276,7 @@ public class UserDashboardController extends StageController {
                     setGraphic(null);
                 } else {
                     try {
-                        imageView.setImage(new Image(getClass().getResourceAsStream(imageLink)));
+                        imageView.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(imageLink))));
                         imageView.setFitWidth(80);
                         imageView.setFitHeight(120);
                         imageView.setPreserveRatio(false);
@@ -291,7 +290,7 @@ public class UserDashboardController extends StageController {
             }
         });
 
-        detailcolumn.setCellFactory(column -> new TableCell<Documents, String>() {
+        detailcolumn.setCellFactory(_ -> new TableCell<>() {
             @Override
             protected void updateItem(String item, boolean empty) {
                 super.updateItem(item, empty);
@@ -325,15 +324,15 @@ public class UserDashboardController extends StageController {
         } else {
             search(data, tableView, search12);
         }
-        tableView.getSelectionModel().selectedItemProperty().addListener((observable, oldValue, newValue) -> {
+        tableView.getSelectionModel().selectedItemProperty().addListener((_, oldValue, newValue) -> {
 
             if (newValue != null && !newValue.equals(oldValue)) {
-                documentImage.setImage(new Image(getClass().getResourceAsStream(newValue.getImageLink())));
+                documentImage.setImage(new Image(Objects.requireNonNull(getClass().getResourceAsStream(newValue.getImageLink()))));
                 namedocument.setText(newValue.getTitle());
                 descripe.setText("Author: " + newValue.getAuthor() + "\nDescripe: " + "\nType: " + newValue.getType()
                         + "\n" + newValue.getTagsString()+ "\nAvailable: " + "\nView: ");
 
-                if (isTagButtonPressed == false) {
+                if (!isTagButtonPressed) {
                     displayTags(newValue, tagsfield, tableView);
                 }
 
@@ -369,7 +368,6 @@ public class UserDashboardController extends StageController {
     }
 
     private ObservableList<Documents> getAllDocuments() {
-        // Khởi tạo danh sách tài liệu
         return FXCollections.observableArrayList(
                 new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
                 new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
@@ -435,7 +433,7 @@ public class UserDashboardController extends StageController {
             Button tag = new Button(tags);
             tag.getStyleClass().setAll("default-button");
             tag.setMaxWidth(1000);
-            tag.setOnAction(actionEvent -> {
+            tag.setOnAction(_ -> {
                 isTagButtonPressed = true;
                 if (tag.getStyleClass().contains("highlighted-button")) {
 
@@ -466,7 +464,7 @@ public class UserDashboardController extends StageController {
 
     private void showDocumentsWithTag(TableView<Documents> tableView, ObservableList<Documents> data) {
         ObservableList<Documents> filteredDocuments = FXCollections.observableArrayList();
-        Set<String> tags = new HashSet<>();
+        Set<String> tags;
         if (tableView == tableView1) {
             tags = tagList;
         } else {
@@ -503,7 +501,7 @@ public class UserDashboardController extends StageController {
     public void search(ObservableList<Documents> data, TableView<Documents> table, TextField search) {
 
         FilteredList<Documents> filteredData = new FilteredList<>(data, p -> true);
-        search.textProperty().addListener((observable, oldValue, newValue) -> {
+        search.textProperty().addListener((_, _, _) -> {
             applyFilter(filteredData, search.getText());
         });
 

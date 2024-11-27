@@ -35,9 +35,19 @@ public class TokenProvider {
         return image;
     }
 
-    public static String generateToken() {
+    public static String generateToken(String memberID, String bookID) {
         String token = UUID.randomUUID().toString();
-        tokenRepo.pushToken(token);
-        return token;
+        if (tokenRepo.pushToken(token, memberID, bookID)) {
+            return token;
+        }
+        return null;
+    }
+
+    public static String[] getTokenInfo(String token) {
+        return tokenRepo.getTokenInfo(token);
+    }
+
+    public static boolean deleteToken(String token) {
+        return tokenRepo.deleteToken(token);
     }
 }

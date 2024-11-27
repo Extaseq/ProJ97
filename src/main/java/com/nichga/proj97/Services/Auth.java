@@ -30,6 +30,7 @@ public class Auth {
             return false;
         }
         String[] AuthInfo = userRepo.getAuthInformation(username);
+        assert AuthInfo != null;
         return PasswordUtil.verifyPassword(password, AuthInfo[0], AuthInfo[1]);
     }
 
@@ -56,6 +57,7 @@ public class Auth {
         String[] AuthInfo = userRepo.getAuthInformation(user.getUsername());
         System.out.println(user.getUsername());
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        assert AuthInfo != null;
         if(PasswordUtil.verifyPassword(oldPass, AuthInfo[0], AuthInfo[1])) {
             String newPasswordHash = PasswordUtil.hashPassword(newPass, AuthInfo[1]);
             userRepo.changePassword(newPasswordHash, user.getUsername());

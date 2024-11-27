@@ -48,20 +48,27 @@ public final class BookRepository extends GenericRepository {
 
     public boolean insertBook(Book book) {
         String book_id = book.getId();
+
         String title = book.getVolumeInfo().getTitle();
-        String author = book.getVolumeInfo().getAuthors().toString();
+        String author = book.getVolumeInfo().getAuthors() != null ? book.getVolumeInfo().getAuthors().toString() : null;
         String publisher = book.getVolumeInfo().getPublisher();
-        String genre = (book.getVolumeInfo().getCategories() != null)?book.getVolumeInfo().getCategories().toString() : "Unknown Genre";
-        String published_year = String.valueOf(book.getVolumeInfo().getPublishedDate().getYear());
-        String isbn = "null";
-        if (book.getVolumeInfo().getIndustryIdentifiers() != null) {
+        String genre = book.getVolumeInfo().getCategories() != null ? book.getVolumeInfo().getCategories().toString() : null;
+        String published_year = book.getVolumeInfo().getPublishedDate() != null ? String.valueOf(book.getVolumeInfo().getPublishedDate().getYear()) : null;
+
+        String isbn = null;
+        if (book.getVolumeInfo().getIndustryIdentifiers() != null && !book.getVolumeInfo().getIndustryIdentifiers().isEmpty()) {
             isbn = book.getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier();
         }
-        String cover_url = book.getVolumeInfo().getImageLinks().getThumbnail();
+
+        String cover_url = book.getVolumeInfo().getImageLinks() != null ? book.getVolumeInfo().getImageLinks().getThumbnail() : null;
+
         String sql = "INSERT INTO books (book_id, title, author, publisher, genre, published_year, isbn, copies_available, cover_url) " +
                 "VALUES (?, ?, ?, ?, ?, ?, ?, 100, ?)";
+
         return executeUpdate(createStatement(sql), book_id, title, author, publisher, genre, published_year, isbn, cover_url) > 0;
     }
+
+
 
     public int getTotalBooks() {
         String sql = "SELECT COUNT(*) FROM books";

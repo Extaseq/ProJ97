@@ -1,5 +1,7 @@
 package com.nichga.proj97.Database;
 
+import com.nichga.proj97.Services.TokenProvider;
+
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -57,7 +59,7 @@ public final class BorrowRepository extends GenericRepository {
 
     public int getTotalOverdue() {
         String sql = "SELECT COUNT(*) FROM " + tableName
-            + " WHERE return_date IS NULL OR return_date > due_date";
+            + " WHERE (return_date IS NULL AND NOW() > due_date) OR (return_date > due_date)";
         try (ResultSet rs = executeQuery(createStatement(sql))) {
             if (rs.next()) {
                 return rs.getInt(1);
@@ -68,16 +70,23 @@ public final class BorrowRepository extends GenericRepository {
         return 0;
     }
 
-    public boolean createBorrowRequest(String memberID, String bookID) {
-        if (memberID == null || bookID == null) {
+    public String createBorrowRequest(String memberID, String bookID) {
+        return TokenProvider.generateToken(memberID, bookID);
+    }
+
+    public boolean applyBorrowRequest(String token) {
+        if (token == null) {
             return false;
         }
+        String[] tokenInfo = TokenProvider.getTokenInfo(token);
+        if (tokenInfo == null) return false;
+        TokenProvider.deleteToken(token);
         String sql = "INSERT INTO " + tableName + "( "
             + Column.columns.stream()
                 .filter(column -> column != Column.BORROW_ID)
                 .map(GenericColumn::getName)
                 .collect(Collectors.joining(", "))
             + ") VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY), null)";
-        return executeUpdate(createStatement(sql), memberID, bookID) > 0;
+        return executeUpdate(createStatement(sql), tokenInfo) > 0;
     }
 }
