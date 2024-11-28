@@ -109,7 +109,6 @@ public class UserDashboardController extends StageController {
     }
 
     public void init() {
-        System.out.println(user.getId());
         userDocuments = getUserDocuments();
 
         toggleGroup = new ToggleGroup();
@@ -234,16 +233,17 @@ public class UserDashboardController extends StageController {
             protected void updateItem(Image image, boolean empty) {
                 super.updateItem(image, empty);
                 if (empty || image == null) {
-                    setGraphic(null); // Nếu không có hình ảnh thì xóa giao diện
+                    setGraphic(null);
                 } else {
-                    imageView.setImage(image); // Đặt trực tiếp hình ảnh
-                    imageView.setFitWidth(80); // Đặt chiều rộng cho hình ảnh
-                    imageView.setFitHeight(120); // Đặt chiều cao cho hình ảnh
-                    imageView.setPreserveRatio(true); // Bảo toàn tỷ lệ ảnh
-                    setGraphic(imageView); // Hiển thị ImageView trong cell
-                    setStyle("-fx-alignment: CENTER;"); // Căn giữa cell
+                    imageView.setImage(image);
+                    imageView.setFitWidth(80);
+                    imageView.setFitHeight(120);
+                    imageView.setPreserveRatio(true);
+                    setGraphic(imageView);
+                    setStyle("-fx-alignment: CENTER;");
                 }
             }
+
         });
 
 
@@ -353,10 +353,8 @@ public class UserDashboardController extends StageController {
         tagsfield.getChildren().clear();
         if (table == tableView1) {
             tagList.clear();
-            System.out.println("re display table 1");
         } else {
             tagList2.clear();
-            System.out.println("re display table 2");
         }
 
         isTagButtonPressed = false;
@@ -559,7 +557,6 @@ public class UserDashboardController extends StageController {
             alert.showAndWait();
             return;
         }
-        System.out.println(token);
         BufferedImage qr = tp.generateQRCode(token);
         Image fxImage = SwingFXUtils.toFXImage(qr, null);
         ImageView imageView = new ImageView(fxImage);

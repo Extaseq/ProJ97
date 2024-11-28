@@ -30,10 +30,10 @@ public final class DisplayBook {
         this.publishedYear = publishedYear;
         this.isbn = isbn;
         this.copies_available = copies_available;
-        if (cover_url != null) {
+        if (cover_url != null && !cover_url.isEmpty()) {
             this.image = new Image(cover_url);
         } else {
-            this.image = new Image("https://i.imgur.com/VwiPLSU.png");
+            this.image = new Image("https://imgur.com/VwiPLSU.png");
         }
         if (genre != null) {
             this.tags.addAll(Arrays.asList(genre.replaceAll("[\\[\\]\"]", "").split("&")));
