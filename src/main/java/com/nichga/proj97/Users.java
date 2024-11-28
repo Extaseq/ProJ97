@@ -244,7 +244,7 @@ public class Users {
         try {
             BufferedImage qrCode = tp.generateQRCode(token);
             br.adjustAfterBorrow(bookId);
-
+            bre.applyBorrowRequest(token);
             return qrCode;
         } catch (WriterException e) {
             System.out.println("Cannot generate QR Code: " + e.getMessage());

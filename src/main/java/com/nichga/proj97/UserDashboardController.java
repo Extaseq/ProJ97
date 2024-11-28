@@ -363,8 +363,8 @@ public class UserDashboardController extends StageController {
         }
 
         isTagButtonPressed = false;
-        List<String> tagList = doc.getTags();
-        for(String tags : tagList) {
+        Set<String> tagSet = doc.getTags();
+        for(String tags : tagSet) {
             Button tag = new Button(tags);
             tag.getStyleClass().setAll("default-button");
             tag.setMaxWidth(1000);
@@ -405,7 +405,12 @@ public class UserDashboardController extends StageController {
         } else {
             tags = tagList2;
         }
+
         for (DisplayBook document : data) {
+            if (tags.isEmpty()) {
+                filteredDocuments.addAll(data);
+                break;
+            }
             boolean hasAllTags = true;
             for (String tag : tags) {
                 if (!document.hasTag(tag)) {
