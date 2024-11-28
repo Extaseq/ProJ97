@@ -47,6 +47,9 @@ public final class DisplayBook {
     }
 
     public String getAuthor() {
+        if (author == null) {
+            return "No Author Information";
+        }
         return author;
     }
 
