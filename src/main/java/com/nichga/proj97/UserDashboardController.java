@@ -46,11 +46,11 @@ public class UserDashboardController extends StageController {
     @FXML
     private TabPane tabpaneLibrary;
     @FXML
-    private ToggleButton buttonLibrary, buttonAccount;
+    private ToggleButton buttonLibrary, buttonAccount, rattingButton;
     @FXML
     private StackPane stackPane;
     @FXML
-    private AnchorPane libraryPane, accountPane;
+    private AnchorPane libraryPane, accountPane, ratingPane;
     @FXML
     private Line separator1, separator3;
     //Library
@@ -86,6 +86,16 @@ public class UserDashboardController extends StageController {
     @FXML
     private Button borrowbutton1, borrowbutton2;
 
+    //Rating
+    @FXML
+    private TextField  comment;
+    @FXML
+    private TextArea otherComment, bookDetail;
+    @FXML
+    private Button commentButton;
+    @FXML
+    private ImageView star1, star2, star3, star4, star5, imageRattingBook;
+
     private ObservableList<DisplayBook> userDocuments;
 
     private ToggleGroup toggleGroup;
@@ -110,7 +120,7 @@ public class UserDashboardController extends StageController {
         return FXCollections.observableArrayList();
     }
     private ObservableList<DisplayBook> getMostPopularDoc() {
-        return FXCollections.observableArrayList();
+        return dbs.getBookRepo().getMostPopularBooks();
     }
 
     public void init() {
@@ -119,6 +129,7 @@ public class UserDashboardController extends StageController {
         toggleGroup = new ToggleGroup();
         buttonLibrary.setToggleGroup(toggleGroup);
         buttonAccount.setToggleGroup(toggleGroup);
+        rattingButton.setToggleGroup(toggleGroup);
         StrokeLine();
         SetButton();
         LockColumn();
@@ -136,18 +147,7 @@ public class UserDashboardController extends StageController {
 
     }
 
-    @FXML
-    public void returnDoc() {
-        DisplayBook doc = tableView12.getSelectionModel().getSelectedItem();
-        if (doc != null) {
-            System.out.println("remove " + doc.getTitle());
-            userDocuments.remove(doc);
-            tableView12.refresh();
-            tableView12.setItems(userDocuments);
-            setContinueReadDoc(userDocuments.get(0));
-        }
 
-    }
 
     public void initAccount() {
 
@@ -330,6 +330,22 @@ public class UserDashboardController extends StageController {
         buttonAccount.setOnAction(event -> {
             stackPane.getChildren().clear();
             stackPane.getChildren().add(accountPane);
+        });
+        rattingButton.setOnAction(event -> {
+            stackPane.getChildren().clear();
+            stackPane.getChildren().add(ratingPane);
+
+            DisplayBook book = tableView12.getSelectionModel().getSelectedItem();
+            imageRattingBook.setImage(book.getImage());
+            otherComment.setText("");
+            commentButton.setOnMouseClicked(e -> {
+                String str = comment.getText();
+                if (dbs.getBorrowRepo().addNewComment(str, String.valueOf(user.getId()), book.getBookId())){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("You comment have been saved");
+                    alert.showAndWait();
+                }
+            });
         });
     }
 
@@ -583,5 +599,6 @@ public class UserDashboardController extends StageController {
         stage.setScene(scene);
         stage.show();
     }
+
 
 }

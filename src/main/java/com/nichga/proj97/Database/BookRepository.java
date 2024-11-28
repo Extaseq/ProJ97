@@ -249,4 +249,28 @@ public final class BookRepository extends GenericRepository {
         } catch (SQLException e) {System.out.println("Error in recommend doc");}
         return null;
     }
+
+    public ObservableList<DisplayBook> getMostPopularBooks() {
+        ObservableList<DisplayBook> result = FXCollections.observableArrayList();
+        String sql = "SELECT * FROM " + tableName + " JOIN ( SELECT book_id, COUNT(*) AS totalview FROM borrow GROUP BY book_id " +
+                "ORDER BY totalview DESC LIMIT 5 ) AS temp on temp.book_id = " + tableName+ ".book_id";
+        try (ResultSet rs = executeQuery(createStatement(sql))) {
+            while (rs.next()) {
+                result.add(new DisplayBook(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getString(9)
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
 }
