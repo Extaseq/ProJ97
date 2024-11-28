@@ -171,5 +171,52 @@ public final class BookRepository extends GenericRepository {
         String sql = "UPDATE books SET copies_available = ? WHERE book_id = ?";
         return executeUpdate(createStatement(sql), new_available, bookId) > 0;
     }
+    public ResultSet recommendDocument(String userId) {
+        String subquery = "WITH RecentBooks AS ("
+                + "    SELECT "
+                + "        b.book_id AS book_id, "
+                + "        b.genre AS genre "
+                + "    FROM "
+                + "        books b "
+                + "    INNER JOIN "
+                + "        borrow bo ON bo.book_id = b.book_id "
+                + "    WHERE "
+                + "        bo.member_id = ? "  // Sử dụng parameterized query để thay thế userId
+                + "    ORDER BY "
+                + "        bo.borrow_date DESC "
+                + "    LIMIT 5 "
+                + "), "
+                + "SplitTags AS ("
+                + "    SELECT "
+                + "        b.book_id, "
+                + "        SUBSTRING_INDEX(SUBSTRING_INDEX(b.genre, '&', n.n), '&', -1) AS tag "
+                + "    FROM "
+                + "        RecentBooks b "
+                + "    CROSS JOIN "
+                + "        (SELECT 1 AS n UNION ALL SELECT 2 UNION ALL SELECT 3 UNION ALL SELECT 4 UNION ALL SELECT 5) n "
+                + "    WHERE "
+                + "        n.n <= 1 + (LENGTH(b.genre) - LENGTH(REPLACE(b.genre, '&', '')))"
+                + ") "
+                + "SELECT "
+                + "    tag, "
+                + "    COUNT(*) AS tag_count "
+                + "FROM "
+                + "    SplitTags "
+                + "GROUP BY "
+                + "    tag "
+                + "ORDER BY "
+                + "    tag_count DESC, "
+                + "    tag "
+                + "LIMIT 5;";
+        ArrayList<String> tags = new ArrayList<>();
+        try (ResultSet rs = executeQuery(createStatement(subquery),userId)) {
+            while (rs.next()) {
+                String tag = rs.getString("tag");
+                tags.add(tag);
+            }
+        } catch (SQLException e) {
+            System.out.println("Can not generate recommend tags");
+        }
 
+    }
 }

@@ -173,6 +173,8 @@ public class UserDashboardController extends StageController {
         DisplayBook doc = getCurrentDoc().getFirst();
         TextField title = (TextField) continueReadDoc.getChildren().get(2);
         title.setText(doc.getTitle());
+        ImageView image = (ImageView) continueReadDoc.getChildren().get(1);
+        image.setImage(doc.getImage());
         continueReadDoc.setOnMouseClicked(event -> {
             if (buttonAccount.isSelected()) {
                 toggleGroup.selectToggle(buttonLibrary);
@@ -206,6 +208,7 @@ public class UserDashboardController extends StageController {
             DisplayBook doc = docList.get(i);
             VBox vBox = (VBox) hBox.getChildren().get(i);
             ImageView image = (ImageView) vBox.getChildren().get(0);
+            image.setImage(doc.getImage());
             TextField title = (TextField) vBox.getChildren().get(1);
             title.setText(docList.get(i).getTitle());
             vBox.setOnMouseClicked(event -> {
