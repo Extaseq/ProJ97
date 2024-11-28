@@ -1,10 +1,12 @@
 package com.nichga.proj97;
 
 import com.google.zxing.WriterException;
+import com.nichga.proj97.Model.Book;
 import com.nichga.proj97.Model.DisplayBook;
 
 import com.nichga.proj97.Services.DatabaseService;
 import com.nichga.proj97.Services.TokenProvider;
+import com.nichga.proj97.Util.JsonParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -25,7 +27,11 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -52,7 +58,7 @@ public class UserDashboardController extends StageController {
     @FXML
     private AnchorPane libraryPane, accountPane, ratingPane;
     @FXML
-    private Line separator1, separator3;
+    private Line separator1, separator3, separator5;
     //Library
     @FXML
     private TableColumn<DisplayBook, Image> imagecolumn1, detailcolumn1, imagecolumn12, detailcolumn12;
@@ -61,11 +67,11 @@ public class UserDashboardController extends StageController {
     @FXML
     private ImageView documentimage1, documentimage11, documentimage3;
     @FXML
-    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3;
+    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3, detail1, detail2, detail3;
     @FXML
     private TextField search1, search12;
     @FXML
-    private MenuButton menuButton1, menuButton12;
+    private ToggleButton detailbutton1, detailbutton2, detailbutton3;
     @FXML
     private MenuItem sorttitle1, sortauthor1, sortview1;
     @FXML
@@ -150,10 +156,11 @@ public class UserDashboardController extends StageController {
         pane1.setVisible(false);
         pane2.setVisible(false);
         pane3.setVisible(false);
+        showDetail1();
+        showDetail2();
+        showDetail3();
 
     }
-
-
 
     public void initAccount() {
 
@@ -208,6 +215,7 @@ public class UserDashboardController extends StageController {
 
     }
 
+    private String bookIDtoDetail1;
     public void addDocToShelve(ObservableList<DisplayBook> docList, HBox hBox) {
 
         for (int i = 0; i < docList.size(); i++) {
@@ -218,6 +226,9 @@ public class UserDashboardController extends StageController {
             TextField title = (TextField) vBox.getChildren().get(1);
             title.setText(docList.get(i).getTitle());
             vBox.setOnMouseClicked(event -> {
+                bookIDtoDetail1 = doc.getBookId();
+                detail1.setVisible(false);
+                descripe3.setVisible(true);
                 pane1.setVisible(true);
                 borrowbutton1.setVisible(true);
                 documentimage3.setImage(image.getImage());
@@ -252,7 +263,7 @@ public class UserDashboardController extends StageController {
                 } else {
                     imageView.setImage(image);
                     imageView.setFitWidth(80);
-                    imageView.setFitHeight(120);
+                    imageView.setFitHeight(119);
                     imageView.setPreserveRatio(false);
                     setGraphic(imageView);
                     setStyle("-fx-alignment: CENTER;");
@@ -298,6 +309,10 @@ public class UserDashboardController extends StageController {
             search(data, tableView, search12);
         }
         tableView.getSelectionModel().selectedItemProperty().addListener((_, oldValue, newValue) -> {
+            detail2.setVisible(false);
+            detail3.setVisible(false);
+            descripe1.setVisible(true);
+            descripe11.setVisible(true);
             if (tableView == tableView1) {
                 pane2.setVisible(true);
             } else if (tableView == tableView12) {
@@ -329,6 +344,7 @@ public class UserDashboardController extends StageController {
     private void StrokeLine() {
         separator1.getStrokeDashArray().addAll(7d, 7d);
         separator3.getStrokeDashArray().addAll(7d, 7d);
+        separator5.getStrokeDashArray().addAll(7d, 7d);
     }
 
     private void SetButton() {
@@ -350,11 +366,11 @@ public class UserDashboardController extends StageController {
             imageRattingBook.setImage(book.getImage());
 
             String usersComment = dbs.getBorrowRepo().getAllComments(book.getBookId());
-            star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
-            star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
-            star3.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
-            star4.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
-            star5.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+            star1.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+            star2.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+            star3.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+            star4.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+            star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
 
             AtomicInteger rating = new AtomicInteger(5);
             star1.setOnMouseClicked(e -> {
@@ -574,18 +590,33 @@ public class UserDashboardController extends StageController {
 
                 SaveButton.setVisible(true);
                 ChangeInfoButton.setVisible(false);
+
                 accountName.setEditable(true);
+                accountName.setStyle("-fx-background-color: white;" + "-fx-border-color: lightgray;");
+
                 accountEmail.setEditable(true);
+                accountEmail.setStyle("-fx-background-color: white;" + "-fx-border-color: lightgray;");
+
                 accountAddress.setEditable(true);
+                accountAddress.setStyle("-fx-background-color: white;" + "-fx-border-color: lightgray;");
+
                 accountPhone.setEditable(true);
+                accountPhone.setStyle("-fx-background-color: white;" + "-fx-border-color: lightgray;");
 
             } else if (newValue.equals(SaveButton)) {
                 SaveButton.setVisible(false);
                 ChangeInfoButton.setVisible(true);
                 accountName.setEditable(false);
+                accountName.setStyle("-fx-background-color: transparent;" + "-fx-border-color: transparent;" );
+
                 accountEmail.setEditable(false);
+                accountEmail.setStyle("-fx-background-color: transparent;" + "-fx-border-color: transparent;");
+
                 accountAddress.setEditable(false);
+                accountAddress.setStyle("-fx-background-color: transparent;" + "-fx-border-color: transparent;");
+
                 accountPhone.setEditable(false);
+                accountPhone.setStyle("-fx-background-color: transparent;" + "-fx-border-color: transparent;");
 
                 dbs.getMemberRepo().updateInfo(user.getId(), accountName.getText(), accountAddress.getText(), accountEmail.getText(), accountPhone.getText());
             }
@@ -668,6 +699,92 @@ public class UserDashboardController extends StageController {
         stage.setTitle("QR Code Display");
         stage.setScene(scene);
         stage.show();
+    }
+    private String details(String bookId) {
+        try {
+            String apiKey = "AIzaSyA5B1G2E0gdk-1vag_sJTrsPKOlh7O2y_Y";
+            String urlString = "https://www.googleapis.com/books/v1/volumes/" + bookId + "?key=" + apiKey;
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine).append("\n");
+                }
+                in.close();
+                String json = response.toString();
+                Book book = JsonParser.ParseSingleBook(json);
+                if (book != null) {
+                    if (book.getVolumeInfo().getDescription() != null && !book.getVolumeInfo().getDescription().isEmpty()) {
+                        return book.getVolumeInfo().getDescription();
+                    } else {
+                        System.out.println("No summary available for this book.");
+                    }
+                } else {
+                    System.out.println("Book not found.");
+                }
+            } else {
+                System.out.println("Error: HTTP " + responseCode);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public void showDetail1() {
+        detailbutton1.setOnAction(event -> {
+            if (detailbutton1.isSelected()) {
+                if (bookIDtoDetail1 != null) {
+                    detail1.setText(bookIDtoDetail1);
+                    descripe3.setVisible(false);
+                    detail1.setVisible(true);
+                } else {
+                    System.out.println("No book selected");
+                }
+            } else {
+                detail1.setVisible(false);
+                descripe3.setVisible(true);
+            }
+        });
+    }
+    public void showDetail2() {
+        detailbutton2.setOnAction(event -> {
+            if (detailbutton2.isSelected()) {
+                DisplayBook book = tableView1.getSelectionModel().getSelectedItem();
+                if (book != null) {
+                    detail2.setText(book.getBookId());
+                    descripe1.setVisible(false);
+                    detail2.setVisible(true);
+                } else {
+                    System.out.println("No book selected");
+                }
+            } else {
+                detail2.setVisible(false);
+                descripe1.setVisible(true);
+            }
+        });
+    }
+    public void showDetail3() {
+        detailbutton3.setOnAction(event -> {
+            if (detailbutton3.isSelected()) {
+                DisplayBook book = tableView12.getSelectionModel().getSelectedItem();
+                if (book != null) {
+                    detail3.setText(book.getBookId());
+                    descripe11.setVisible(false);
+                    detail3.setVisible(true);
+                } else {
+                    System.out.println("No book selected");
+                }
+            } else {
+                detail3.setVisible(false);
+                descripe11.setVisible(true);
+            }
+        });
     }
 
 

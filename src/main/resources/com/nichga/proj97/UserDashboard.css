@@ -146,7 +146,7 @@
     -fx-font-weight: bold;
     -fx-font-size: 15;
     -fx-pref-height: 40px;
-    -fx-pref-width: 150px;
+    -fx-pref-width: 330px;
 }
 #paneInLibrary {
     -fx-background-color: rgba(255,248,243,1);
@@ -214,6 +214,7 @@
 }
 #tableView1 .table-row-cell {
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.5), 5, 0.0, 0, 0);
+    -fx-cell-size: 125;
 }
 #tableView1 .table-row-cell:selected {
     -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.7), 15, 0.0, 0, 0);
@@ -346,6 +347,8 @@
 }
 #accountTextfield {
     -fx-background-color: transparent;
+    -fx-border-radius: 10px;
+    -fx-background-radius: 10px;
 }
 .text-field {
     -fx-background-color: white; /* Màu nền */
