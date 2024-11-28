@@ -309,6 +309,8 @@
     -fx-background-color: white;
     -fx-background-radius: 4px;
     -fx-border-radius: 4px;
+    -fx-border-width: 1;
+    -fx-border-color: lightgray;
     -fx-pref-height: 15;
     -fx-padding: 0 5px 0 5px;
     -fx-alignment: center;

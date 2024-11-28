@@ -58,12 +58,8 @@
                                 <Font name="System Bold" size="13.0" />
                             </font>
                         </TextField>
-                        <ImageView id="imageReading" fx:id="imageReading" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true">
-                            <image>
-                                <Image url="@image/bia2.png" />
-                            </image>
-                        </ImageView>
-                        <TextField id="titleReading" fx:id="titleReading" prefHeight="13.0" prefWidth="200.0" text="Title">
+                        <ImageView id="imageReading" fx:id="imageReading" fitHeight="150.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" />
+                        <TextField id="titleReading" fx:id="titleReading" prefHeight="13.0" prefWidth="200.0">
                             <font>
                                 <Font name="System Bold" size="13.0" />
                             </font>
@@ -88,18 +84,14 @@
                                                     <children>
                                                         <ScrollPane id="scrollPaneShelve" fitToWidth="true" maxHeight="706.0" prefHeight="706.0" prefWidth="773.0">
                                                             <content>
-                                                                <AnchorPane id="paneShelve" maxWidth="856.0" minHeight="700.0" minWidth="755.0" prefHeight="1150.0" prefWidth="755.0">
+                                                                <AnchorPane id="paneShelve" maxWidth="856.0" minHeight="700.0" minWidth="755.0" prefHeight="930.0" prefWidth="756.0">
                                                                     <children>
                                                                         <TextField id="constantText" editable="false" layoutX="5.0" layoutY="12.0" text="Currently Reading" />
                                                                         <HBox id="Hbox" fx:id="currentList" layoutX="5.0" layoutY="53.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox17" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia4.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -109,11 +101,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox22" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia4.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -123,11 +111,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox32" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia4.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -137,11 +121,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox42" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia4.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="30.0" maxWidth="192.0" minWidth="150.0" prefHeight="25.0" prefWidth="192.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -151,11 +131,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox52" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia4.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -170,11 +146,7 @@
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox6" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia2.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -184,11 +156,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox7" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia2.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -198,11 +166,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox8" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia2.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -212,11 +176,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox9" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia2.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -226,11 +186,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox10" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia2.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -245,11 +201,7 @@
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox112" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia5.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -259,11 +211,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox122" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia5.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -273,11 +221,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox132" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia5.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -287,11 +231,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox142" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia5.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -301,11 +241,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox152" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia5.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -315,91 +251,12 @@
                                                                                 </VBox>
                                                                             </children>
                                                                         </HBox>
-                                                                        <TextField id="constantText" editable="false" layoutX="5.0" layoutY="695.0" text="Your Favourite Author" />
-                                                                        <HBox id="Hbox" fx:id="favouriteAuthorList" layoutX="5.0" layoutY="731.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
-                                                                            <children>
-                                                                                <VBox id="Vbox" fx:id="Vbox1121" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
-                                                                                    <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia3.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
-                                                                                        <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
-                                                                                            <font>
-                                                                                                <Font size="11.0" />
-                                                                                            </font>
-                                                                                        </TextField>
-                                                                                    </children>
-                                                                                </VBox>
-                                                                                <VBox id="Vbox" fx:id="Vbox1221" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
-                                                                                    <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia3.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
-                                                                                        <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
-                                                                                            <font>
-                                                                                                <Font size="11.0" />
-                                                                                            </font>
-                                                                                        </TextField>
-                                                                                    </children>
-                                                                                </VBox>
-                                                                                <VBox id="Vbox" fx:id="Vbox1321" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
-                                                                                    <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia3.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
-                                                                                        <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
-                                                                                            <font>
-                                                                                                <Font size="11.0" />
-                                                                                            </font>
-                                                                                        </TextField>
-                                                                                    </children>
-                                                                                </VBox>
-                                                                                <VBox id="Vbox" fx:id="Vbox1421" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
-                                                                                    <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia3.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
-                                                                                        <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
-                                                                                            <font>
-                                                                                                <Font size="11.0" />
-                                                                                            </font>
-                                                                                        </TextField>
-                                                                                    </children>
-                                                                                </VBox>
-                                                                                <VBox id="Vbox" fx:id="Vbox1521" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
-                                                                                    <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia3.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
-                                                                                        <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
-                                                                                            <font>
-                                                                                                <Font size="11.0" />
-                                                                                            </font>
-                                                                                        </TextField>
-                                                                                    </children>
-                                                                                </VBox>
-                                                                            </children>
-                                                                        </HBox>
-                                                                        <TextField id="constantText" editable="false" layoutX="5.0" layoutY="921.0" text="Most Popular" />
-                                                                        <HBox id="Hbox" fx:id="mostPopularList" layoutX="5.0" layoutY="957.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
+                                                                        <TextField id="constantText" editable="false" layoutX="5.0" layoutY="695.0" text="Most Popular" />
+                                                                        <HBox id="Hbox" fx:id="mostPopularList" layoutX="5.0" layoutY="731.0" maxHeight="190.0" prefHeight="190.0" prefWidth="750.0">
                                                                             <children>
                                                                                 <VBox id="Vbox" fx:id="Vbox11211" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia1.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="lefttitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -409,11 +266,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox12211" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia1.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -423,11 +276,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox13211" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia1.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -437,11 +286,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox14211" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia1.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="titleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -451,11 +296,7 @@
                                                                                 </VBox>
                                                                                 <VBox id="Vbox" fx:id="Vbox15211" maxHeight="190.0" maxWidth="150.0" minHeight="0.0" minWidth="150.0" prefHeight="190.0" prefWidth="150.0">
                                                                                     <children>
-                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true">
-                                                                                            <image>
-                                                                                                <Image url="@image/bia1.png" />
-                                                                                            </image>
-                                                                                        </ImageView>
+                                                                                        <ImageView fitHeight="165.0" fitWidth="110.0" pickOnBounds="true" />
                                                                                         <TextField id="rightTitleDoc" alignment="CENTER" editable="false" maxHeight="25.0" maxWidth="150.0" minWidth="150.0" prefHeight="25.0" prefWidth="150.0">
                                                                                             <font>
                                                                                                 <Font size="11.0" />
@@ -482,7 +323,7 @@
                                                                     </font>
                                                                 </TextArea>
                                                                 <TextArea id="descripe" fx:id="descripe3" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="140.0" prefWidth="250.0" promptText="descripe" wrapText="true" />
-                                                <TextArea id="descripe" fx:id="detail1" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="140.0" prefWidth="250.0" promptText="detail" visible="false" wrapText="true" />
+                                                <TextArea id="descripe" fx:id="detail1" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="130.0" prefWidth="250.0" promptText="detail" visible="false" wrapText="true" />
                                                                 <Button id="actionbutton" fx:id="borrowbutton1" layoutX="45.0" layoutY="658.0" maxWidth="77.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="77.0" text="Borrow">
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0" />
@@ -515,7 +356,7 @@
                                                                     </font>
                                                                 </TextArea>
                                                                 <TextArea id="descripe" fx:id="descripe1" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="153.0" prefWidth="250.0" promptText="descripe" wrapText="true" />
-                                                <TextArea id="descripe" fx:id="detail2" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="153.0" prefWidth="250.0" promptText="descripe" visible="false" wrapText="true" />
+                                                <TextArea id="descripe" fx:id="detail2" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="132.0" prefWidth="250.0" promptText="descripe" visible="false" wrapText="true" />
                                                                 <Button id="actionbutton" fx:id="borrowbutton2" layoutX="45.0" layoutY="658.0" mnemonicParsing="false" onAction="#borrowDocFromAllBooks" text="Borrow">
                                                                     <font>
                                                                         <Font name="System Bold" size="12.0" />
@@ -570,7 +411,7 @@
                                                          </font>
                                                       </FontAwesomeIcon>
                                                    </graphic></Button>
-                                                <TextArea id="descripe" fx:id="detail3" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="153.0" prefWidth="250.0" promptText="descripe" visible="false" wrapText="true" />
+                                                <TextArea id="descripe" fx:id="detail3" editable="false" layoutX="25.0" layoutY="390.0" prefHeight="144.0" prefWidth="250.0" promptText="descripe" visible="false" wrapText="true" />
                                                 <ToggleButton id="actionbutton" fx:id="detailbutton3" layoutX="199.0" layoutY="658.0" mnemonicParsing="false" onAction="#showDetail3" text="Detail" />
                                                             </children>
                                                         </Pane>
@@ -685,7 +526,6 @@
                               <Image url="@Book.png" />
                            </image>
                         </ImageView>
-                        <TextArea id="bookDetail" fx:id="bookDetail" editable="false" layoutX="230.0" layoutY="34.0" prefHeight="223.0" prefWidth="811.0" />
                         <TextFlow id="bookDetail" fx:id="bookDetailFlow" layoutX="230.0" layoutY="34.0" prefHeight="221.0" prefWidth="807.0" />
                         <ImageView id="star" fx:id="star1" fitHeight="30.0" fitWidth="30.0" layoutX="230.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
                            <image>
