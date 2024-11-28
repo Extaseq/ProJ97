@@ -93,13 +93,18 @@ public class UserDashboardController extends StageController {
     private final TokenProvider tp = new TokenProvider();
 
     private ObservableList<DisplayBook> getCurrentDoc() {
-        return FXCollections.observableArrayList();
+        ObservableList<DisplayBook> doc = FXCollections.observableArrayList();
+        int min = Math.min(userDocuments.size(), 5);
+        for (int i = 0; i < min; i++) {
+            doc.add(userDocuments.get(i));
+        }
+        return doc;
     }
     private ObservableList<DisplayBook> getRecommendedDoc() {
         return FXCollections.observableArrayList();
     }
     private ObservableList<DisplayBook> getFinishedDoc() {
-        return FXCollections.observableArrayList();
+        return dbs.getBookRepo().getUserFinishedBooks(String.valueOf(user.getId()));
     }
     private ObservableList<DisplayBook> getFavouriteAuthorDoc() {
         return FXCollections.observableArrayList();

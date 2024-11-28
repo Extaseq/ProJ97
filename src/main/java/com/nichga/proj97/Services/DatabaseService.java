@@ -8,6 +8,7 @@ public class DatabaseService {
     private final MemberRepository memberRepository;
     private final TokenRepository tokenRepository;
     private final UserRepository userRepository;
+    private final ReadingHistoryRepository readingHistoryRepository;
 
     public DatabaseService() {
         bookRepository = new BookRepository();
@@ -15,6 +16,7 @@ public class DatabaseService {
         memberRepository = new MemberRepository();
         tokenRepository = new TokenRepository();
         userRepository = new UserRepository();
+        readingHistoryRepository = new ReadingHistoryRepository();
     }
 
     public BookRepository getBookRepo() {
@@ -36,4 +38,6 @@ public class DatabaseService {
     public UserRepository getUserRepo() {
         return userRepository;
     }
+
+    public ReadingHistoryRepository getReadingHistoryRepository() { return readingHistoryRepository; }
 }

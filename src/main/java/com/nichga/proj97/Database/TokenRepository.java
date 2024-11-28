@@ -78,4 +78,19 @@ public final class TokenRepository extends GenericRepository {
         }
         return null;
     }
+
+    public boolean existToken(String memberID, String bookID) {
+        String sql = "SELECT COUNT(*) FROM " + tableName
+                + " WHERE member_id = ? AND book_id = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), memberID, bookID)) {
+            if (rs.next()) {
+                if(rs.getInt(1) > 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }
