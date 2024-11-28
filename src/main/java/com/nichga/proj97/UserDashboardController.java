@@ -71,6 +71,8 @@ public class UserDashboardController extends StageController {
     @FXML
     private TextField search1, search12;
     @FXML
+    private TextFlow bookDetailFlow;
+    @FXML
     private ToggleButton detailbutton1, detailbutton2, detailbutton3;
     @FXML
     private MenuItem sorttitle1, sortauthor1, sortview1;
@@ -358,12 +360,22 @@ public class UserDashboardController extends StageController {
             stackPane.getChildren().clear();
             stackPane.getChildren().add(accountPane);
         });
+
         rattingButton.setOnAction(event -> {
             stackPane.getChildren().clear();
             stackPane.getChildren().add(ratingPane);
 
             DisplayBook book = tableView12.getSelectionModel().getSelectedItem();
+
             imageRattingBook.setImage(book.getImage());
+            imageRattingBook.setPreserveRatio(false);
+            Text title = new Text(book.getTitle() + "\n");
+            title.setFont(Font.font("System", FontWeight.BOLD, 16));
+            Text detail = new Text("Author: " + book.getAuthor() + "\nPublisher: " + book.getPublisher() + "\nPublished year: " + book.getPublishedYear()
+                    + "\n" + book.getGenre()+ "\nAvailable: " + book.getAvailable());
+            bookDetailFlow.getChildren().clear();
+            bookDetailFlow.getChildren().addAll(title, detail);
+
 
             String usersComment = dbs.getBorrowRepo().getAllComments(book.getBookId());
             star1.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));

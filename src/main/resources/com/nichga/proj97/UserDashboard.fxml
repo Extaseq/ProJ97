@@ -25,6 +25,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Line?>
 <?import javafx.scene.text.Font?>
+<?import javafx.scene.text.TextFlow?>
 
 <BorderPane maxHeight="850.0" maxWidth="1214.0" minHeight="-Infinity" minWidth="-Infinity" prefHeight="850.0" prefWidth="1400.0" stylesheets="@UserDashboard.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nichga.proj97.UserDashboardController">
     <left>
@@ -685,6 +686,7 @@
                            </image>
                         </ImageView>
                         <TextArea id="bookDetail" fx:id="bookDetail" editable="false" layoutX="230.0" layoutY="34.0" prefHeight="223.0" prefWidth="811.0" />
+                        <TextFlow id="bookDetail" fx:id="bookDetailFlow" layoutX="230.0" layoutY="34.0" prefHeight="221.0" prefWidth="807.0" />
                         <ImageView id="star" fx:id="star1" fitHeight="30.0" fitWidth="30.0" layoutX="230.0" layoutY="265.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Star.png" />
