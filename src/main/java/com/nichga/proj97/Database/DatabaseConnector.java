@@ -20,9 +20,9 @@ public final class DatabaseConnector {
      */
     private DatabaseConnector() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://nichga.mysql.database.azure.com/library");
-        config.setUsername("kinastomes");
-        config.setPassword("TestNigga12!");
+        config.setJdbcUrl("jdbc:mysql://avnadmin:AVNS_QwhfGOT2-Nexl5JexnZ@nigga-trinhquanghunglk2014-4f30.i.aivencloud.com:23034/defaultdb?ssl-mode=REQUIRED/defaultdb");
+        config.setUsername("avnadmin");
+        config.setPassword("AVNS_QwhfGOT2-Nexl5JexnZ");
         config.setMaximumPoolSize(100);
         config.setMinimumIdle(2);
         config.setIdleTimeout(30000);

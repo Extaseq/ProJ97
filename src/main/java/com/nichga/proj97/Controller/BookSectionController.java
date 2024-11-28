@@ -187,11 +187,18 @@ public class BookSectionController {
         try {
             for (int i = 0; i < data.size(); i++) {
                 String cover_url = data.get(i).getUrl() == null ?
-                        "https://i.imgur.com/VwiPLSU.png" : data.get(i).getUrl();
+                        "https://imgur.com/VwiPLSU.png" : data.get(i).getUrl();
                 String book_title = data.get(i).getTitle() == null ?
                         "Unknown" : data.get(i).getTitle().split(",")[0].replaceAll("[\\[\\]\"]", "");
                 String book_author = data.get(i).getAuthor() == null ?
                         "Unknown" : data.get(i).getAuthor().split(",")[0].replaceAll("[\\[\\]\"]", "");
+
+                if (book_title.length() >= 20) {
+                    book_title = book_title.substring(0, 20) + "...";
+                }
+                if (book_author.length() >= 20) {
+                    book_author = book_author.substring(0, 20) + "...";
+                }
 
                 cover.get(i).setImage(new Image(cover_url));
                 ImageHelper.roundImage(cover.get(i), 20);

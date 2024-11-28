@@ -2,6 +2,8 @@ package com.nichga.proj97.Model;
 
 import javafx.scene.image.Image;
 
+import java.util.Objects;
+
 public final class DisplayBook {
     private final String bookId;
     private final String title;
@@ -10,13 +12,13 @@ public final class DisplayBook {
     private final String genre;
     private final String publishedYear;
     private final String isbn;
-    private final int copies_available;
+    private final int available;
     private final Image image;
 
 
     public DisplayBook(String bookId, String title, String author,
                        String publisher, String genre, String publishedYear,
-                       String isbn, int copies_available, String cover_url) {
+                       String isbn, int available, String cover_url) {
         this.bookId = bookId;
         this.title = title;
         this.author = author;
@@ -24,12 +26,8 @@ public final class DisplayBook {
         this.genre = genre;
         this.publishedYear = publishedYear;
         this.isbn = isbn;
-        this.copies_available = copies_available;
-        if (cover_url != null) {
-            this.image = new Image(cover_url);
-        } else {
-            this.image = new Image("https://i.imgur.com/VwiPLSU.png");
-        }
+        this.available = available;
+        this.image = new Image(Objects.requireNonNullElse(cover_url, "https://i.imgur.com/VwiPLSU.png"));
     }
 
     public String getBookId() {
@@ -60,8 +58,8 @@ public final class DisplayBook {
         return isbn;
     }
 
-    public int getCopiesAvailable() {
-        return copies_available;
+    public int getAvailable() {
+        return available;
     }
 
     public Image getImage() {

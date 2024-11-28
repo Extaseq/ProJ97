@@ -95,7 +95,7 @@ public class AdminDashboardController {
     private TableView<User> small_user_table;
 
     @FXML
-    TableView<DisplayBook> small_document_table;
+    private TableView<DisplayBook> small_book_table;
 
     private final DatabaseService dbs = new DatabaseService();
 
@@ -170,8 +170,13 @@ public class AdminDashboardController {
     }
 
     private void initBookTable() {
+        ObservableList<TableColumn<DisplayBook, ?>> columns = small_book_table.getColumns();
+        String[] label = {"bookId", "title", "author", "genre", "available"};
+        for (int i = 0; i < columns.size(); i++) {
+            columns.get(i).setCellValueFactory(new PropertyValueFactory<>(label[i]));
+        }
         ObservableList<DisplayBook> db = dbs.getBookRepo().getAllBook();
-        System.out.println(db.size());
+        small_book_table.setItems(db);
     }
 
     public void prepareUserTableView() {
