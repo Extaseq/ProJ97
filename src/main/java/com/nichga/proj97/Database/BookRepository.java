@@ -217,6 +217,36 @@ public final class BookRepository extends GenericRepository {
         } catch (SQLException e) {
             System.out.println("Can not generate recommend tags");
         }
-
+        String sql =
+                "WITH count_tag AS ( " +
+                        "    SELECT book_id, " +
+                        "           SUM( " +
+                        "               CASE WHEN genre LIKE '%?%' THEN 1 ELSE 0 END + " +
+                        "               CASE WHEN genre LIKE '%?%' THEN 1 ELSE 0 END + " +
+                        "               CASE WHEN genre LIKE '%?%' THEN 1 ELSE 0 END + " +
+                        "               CASE WHEN genre LIKE '%?%' THEN 1 ELSE 0 END + " +
+                        "               CASE WHEN genre LIKE '%?%' THEN 1 ELSE 0 END " +
+                        "           ) AS CountTag " +
+                        "    FROM books " +
+                        "    GROUP BY book_id " +
+                        "), " +
+                        "count_borrow AS ( " +
+                        "    SELECT book_id, COUNT(*) AS counted " +
+                        "    FROM borrow " +
+                        "    GROUP BY book_id " +
+                        ") " +
+                        "SELECT b.book_id " +
+                        "FROM borrow b " +
+                        "INNER JOIN count_borrow cb ON b.book_id = cb.book_id " +
+                        "INNER JOIN count_tag ct ON ct.book_id = b.book_id " +
+                        "ORDER BY ct.CountTag * cb.counted * b.rating DESC " +
+                        "LIMIT 5;";
+        try (ResultSet rs = executeQuery(createStatement(sql), tags.get(0), tags.get(1),
+                tags.get(2), tags.get(3), tags.get(4))) {
+            if(rs!=null) {
+                return rs;
+            }
+        } catch (SQLException e) {System.out.println("Error in recommend doc");}
+        return null;
     }
 }
