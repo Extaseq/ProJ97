@@ -468,7 +468,7 @@
                                                                 </AnchorPane>
                                                             </content>
                                                         </ScrollPane>
-                                                        <Pane layoutX="765.0" layoutY="6.0" prefHeight="700.0" prefWidth="291.0">
+                                                        <Pane fx:id="pane1" layoutX="765.0" layoutY="6.0" prefHeight="700.0" prefWidth="291.0">
                                                             <children>
                                                                 <ImageView id="documentimage" fx:id="documentimage3" fitHeight="300.0" fitWidth="200.0" layoutX="50.0" layoutY="25.0" pickOnBounds="true">
                                                                     <image>
@@ -509,7 +509,7 @@
                                                                 <TableColumn id="detailcolumn1" fx:id="detailcolumn1" editable="false" maxWidth="511.0" prefWidth="511.0" resizable="false" sortable="false" text="Detail" />
                                                             </columns>
                                                         </TableView>
-                                                        <Pane layoutX="765.0" layoutY="6.0" prefHeight="700.0" prefWidth="300.0">
+                                                        <Pane fx:id="pane2" layoutX="765.0" layoutY="6.0" prefHeight="700.0" prefWidth="300.0">
                                                             <children>
                                                                 <ImageView id="documentimage" fx:id="documentimage1" fitHeight="300.0" fitWidth="200.0" layoutX="50.0" layoutY="25.0" pickOnBounds="true" />
                                                                 <TextArea id="namedocument" fx:id="namedocument1" editable="false" layoutX="25.0" layoutY="330.0" prefHeight="60.0" prefWidth="250.0" promptText="Name of the Document" wrapText="true">
@@ -553,7 +553,7 @@
                                                                 <TableColumn id="detailcolumn1" fx:id="detailcolumn12" editable="false" maxWidth="511.0" prefWidth="511.0" resizable="false" sortable="false" text="Detail" />
                                                             </columns>
                                                         </TableView>
-                                                        <Pane layoutX="765.0" layoutY="6.0" prefHeight="700.0" prefWidth="300.0">
+                                                        <Pane fx:id="pane3" layoutX="765.0" layoutY="6.0" prefHeight="700.0" prefWidth="300.0">
                                                             <children>
                                                                 <ImageView id="documentimage" fx:id="documentimage11" fitHeight="300.0" fitWidth="200.0" layoutX="50.0" layoutY="25.0" pickOnBounds="true" />
                                                                 <TextArea id="namedocument" fx:id="namedocument11" editable="false" layoutX="25.0" layoutY="330.0" prefHeight="60.0" prefWidth="250.0" promptText="Name of the Document" wrapText="true">

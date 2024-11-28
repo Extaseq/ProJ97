@@ -116,10 +116,32 @@ public final class BorrowRepository extends GenericRepository {
         return executeUpdate(createStatement(sql), comment, member_id, book_id) > 0;
     }
 
-    public boolean addNewRating(String member_id, String book_id, String rating) {
+    public boolean addNewRating(String rating, String member_id, String book_id) {
         String sql = "UPDATE " + tableName
                 + " SET rating = ? "
                 + "WHERE member_id = ? AND book_id = ?";
-        return executeUpdate(createStatement(sql),rating, member_id, book_id ) > 0;
+        return executeUpdate(createStatement(sql), rating, member_id, book_id ) > 0;
+    }
+
+    public String getAllComments(String book_id) {
+        String sql = "SELECT members.fullname, temp.review_text, temp.rating "
+                + " FROM members"
+                + " NATURAL JOIN ( "
+                + " SELECT review_text, member_id, rating "
+                + " FROM " + tableName
+                + " WHERE review_text IS NOT NULL AND book_id = ? )"
+                + " AS temp";
+        String result = "";
+        try (ResultSet rs = executeQuery(createStatement(sql), book_id)) {
+            while (rs.next()) {
+                String name = rs.getString(1);
+                String comment = rs.getString(2);
+                int rating = rs.getInt(3);
+                result += name + ": " + comment + ". Rating: " + rating + "/5\n";
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
     }
 }

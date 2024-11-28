@@ -2,7 +2,6 @@ package com.nichga.proj97;
 
 import com.google.zxing.WriterException;
 import com.nichga.proj97.Model.DisplayBook;
-import com.nichga.proj97.Model.Book;
 
 import com.nichga.proj97.Services.DatabaseService;
 import com.nichga.proj97.Services.TokenProvider;
@@ -28,6 +27,7 @@ import javafx.stage.Stage;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class UserDashboardController extends StageController {
     private Users user;
@@ -76,6 +76,9 @@ public class UserDashboardController extends StageController {
     private HBox currentList, recommendList, finishedList, favouriteAuthorList, mostPopularList;
     @FXML
     private VBox continueReadDoc;
+    @FXML
+    private Pane pane1, pane2, pane3;
+
     //Account
     @FXML
     private Button signOut, returnbutton1, ChangePasswordButton;
@@ -144,6 +147,9 @@ public class UserDashboardController extends StageController {
         initShelve();
         initContinueReadDoc();
         initAccount();
+        pane1.setVisible(false);
+        pane2.setVisible(false);
+        pane3.setVisible(false);
 
     }
 
@@ -212,6 +218,7 @@ public class UserDashboardController extends StageController {
             TextField title = (TextField) vBox.getChildren().get(1);
             title.setText(docList.get(i).getTitle());
             vBox.setOnMouseClicked(event -> {
+                pane1.setVisible(true);
                 borrowbutton1.setVisible(true);
                 documentimage3.setImage(image.getImage());
                 namedocument3.setText(title.getText());
@@ -246,7 +253,7 @@ public class UserDashboardController extends StageController {
                     imageView.setImage(image);
                     imageView.setFitWidth(80);
                     imageView.setFitHeight(120);
-                    imageView.setPreserveRatio(true);
+                    imageView.setPreserveRatio(false);
                     setGraphic(imageView);
                     setStyle("-fx-alignment: CENTER;");
                 }
@@ -291,7 +298,11 @@ public class UserDashboardController extends StageController {
             search(data, tableView, search12);
         }
         tableView.getSelectionModel().selectedItemProperty().addListener((_, oldValue, newValue) -> {
-
+            if (tableView == tableView1) {
+                pane2.setVisible(true);
+            } else if (tableView == tableView12) {
+                pane3.setVisible(true);
+            }
             if (newValue != null && !newValue.equals(oldValue)) {
                 documentImage.setImage(newValue.getImage());
                 namedocument.setText(newValue.getTitle());
@@ -337,7 +348,65 @@ public class UserDashboardController extends StageController {
 
             DisplayBook book = tableView12.getSelectionModel().getSelectedItem();
             imageRattingBook.setImage(book.getImage());
-            otherComment.setText("");
+
+            String usersComment = dbs.getBorrowRepo().getAllComments(book.getBookId());
+            star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+            star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+            star3.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+            star4.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+            star5.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+
+            AtomicInteger rating = new AtomicInteger(5);
+            star1.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                rating.set(1);
+            });
+
+            star2.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                rating.set(2);
+            });
+
+            star3.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                rating.set(3);
+            });
+
+            star4.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                rating.set(4);
+            });
+
+            star5.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                rating.set(5);
+            });
+
+            if (usersComment.length() > 1) {
+                otherComment.setText(usersComment);
+            } else {
+                otherComment.setText("This book have no comments");
+            }
             commentButton.setOnMouseClicked(e -> {
                 String str = comment.getText();
                 if (dbs.getBorrowRepo().addNewComment(str, String.valueOf(user.getId()), book.getBookId())){
@@ -345,6 +414,7 @@ public class UserDashboardController extends StageController {
                     alert.setContentText("You comment have been saved");
                     alert.showAndWait();
                 }
+                if (dbs.getBorrowRepo().addNewRating(String.valueOf(rating), String.valueOf(user.getId()), book.getBookId()));
             });
         });
     }
