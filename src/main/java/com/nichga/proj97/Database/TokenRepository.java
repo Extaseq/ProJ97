@@ -65,4 +65,32 @@ public final class TokenRepository extends GenericRepository {
         String sql = "DELETE FROM " + tableName + " WHERE token = ?";
         return executeUpdate(createStatement(sql), token) > 0;
     }
+
+    public String getToken(String memberID, String bookID) {
+        String sql = "SELECT token FROM " + tableName + " WHERE member_id = ? AND book_id = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), memberID, bookID)) {
+            if (rs.next()) {
+                String token = rs.getString(1);
+                return token;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return null;
+    }
+
+    public boolean existToken(String memberID, String bookID) {
+        String sql = "SELECT COUNT(*) FROM " + tableName
+                + " WHERE member_id = ? AND book_id = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), memberID, bookID)) {
+            if (rs.next()) {
+                if(rs.getInt(1) > 0) {
+                    return true;
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
 }
