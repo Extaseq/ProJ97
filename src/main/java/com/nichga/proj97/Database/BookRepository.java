@@ -178,15 +178,21 @@ public final class BookRepository extends GenericRepository {
         String reading = "SELECT book_id FROM borrow WHERE member_id = ?";
         ResultSet readingResult = executeQuery(createStatement(reading), userId);
         List<String> bookReading = new ArrayList<>();
-
+        if(readingResult == null)
         try {
             while (readingResult.next()) {
                 bookReading.add(readingResult.getString("book_id"));
+                System.out.println("bookReading: "+bookReading);
             }
         } catch (SQLException e) {
             System.out.println("Can not list reading books");
         }
-
+        if(bookReading.isEmpty() || bookReading == null) {
+            bookReading.add("abc,.,.,.,.,.,.a,.z,.,");
+        }
+        for(String x:bookReading) {
+            System.out.println(x);
+        }
         // Xây dựng phần IN clause từ bookReading
         StringBuilder inClause = new StringBuilder();
         for (int i = 0; i < bookReading.size(); i++) {
@@ -230,7 +236,9 @@ public final class BookRepository extends GenericRepository {
         } catch (SQLException e) {
             System.out.println("Can not generate recommend tags");
         }
-
+        for(int i = 0;i < 5;i ++) {
+            System.out.println(tags.get(i));
+        }
         // Câu lệnh chính để lấy các sách đề xuất dựa trên các tag và số lần mượn
         String sql = "WITH count_tag AS ("
                 + "    SELECT book_id, "
@@ -261,8 +269,9 @@ public final class BookRepository extends GenericRepository {
                 pstmt.setString(i + 1, "%" + tags.get(i) + "%");
             }
             for (int i = 0; i < bookReading.size(); i++) {
-                pstmt.setString(i + 6, bookReading.get(i));
+                pstmt.setString(i + 6, (bookReading.get(i) == null)?Integer.toString(i):bookReading.get(i));
             }
+            System.out.println(pstmt.toString());
             ResultSet rs = pstmt.executeQuery();
             return rs;
         } catch (SQLException e) {
