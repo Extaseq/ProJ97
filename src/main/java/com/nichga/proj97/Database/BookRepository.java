@@ -252,7 +252,7 @@ public final class BookRepository extends GenericRepository {
                 + "LEFT JOIN count_borrow cb ON b.book_id = cb.book_id "
                 + "INNER JOIN count_tag ct ON ct.book_id = b.book_id "
                 + "WHERE b.book_id NOT IN (" + inClause.toString() + ") "
-                + "ORDER BY ct.CountTag * COALESCE(cb.counted,0) DESC "
+                + "ORDER BY ct.CountTag * COALESCE(cb.counted,0) DESC, COALESCE(cb.counted,0) DESC "
                 + "LIMIT 5;";
 
         try {
