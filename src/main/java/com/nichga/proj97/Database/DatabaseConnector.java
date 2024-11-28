@@ -20,7 +20,7 @@ public final class DatabaseConnector {
      */
     private DatabaseConnector() {
         HikariConfig config = new HikariConfig();
-        config.setJdbcUrl("jdbc:mysql://avnadmin:AVNS_QwhfGOT2-Nexl5JexnZ@nigga-trinhquanghunglk2014-4f30.i.aivencloud.com:23034/defaultdb?ssl-mode=REQUIRED/defaultdb");
+        config.setJdbcUrl("jdbc:mysql://avnadmin:AVNS_QwhfGOT2-Nexl5JexnZ@nigga-trinhquanghunglk2014-4f30.i.aivencloud.com:23034/defaultdb?ssl-mode=REQUIRED");
         config.setUsername("avnadmin");
         config.setPassword("AVNS_QwhfGOT2-Nexl5JexnZ");
         config.setMaximumPoolSize(100);

@@ -11,11 +11,11 @@ import java.sql.Connection;
 
 public class TestDatabase {
     public static void main(String[] args) {
-        Connection faker = DatabaseConnector.getInstance().getConnection();
-        if (faker != null) {
-            System.out.println("Database connection established");
+        Auth auth = new Auth();
+        if (auth.register("KinasTomes", "ahihi123!", "Kim Jong Un")) {
+            System.out.println("Register successfully");
         } else {
-            System.out.println("Database connection not established");
+            System.out.println("Register failed");
         }
     }
 }

@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public final class FinesRepository extends GenericRepository {
     public FinesRepository() {
-        super("Fines");
+        super("fines");
     }
 
     private final String FINE_FEE = "50.0";

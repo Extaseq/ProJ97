@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
  */
 public final class MemberRepository extends GenericRepository {
     public MemberRepository() {
-        super("Members");
+        super("members");
     }
 
     public static class Column extends GenericColumn {

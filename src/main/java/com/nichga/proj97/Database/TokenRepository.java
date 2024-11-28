@@ -8,7 +8,7 @@ import java.util.List;
 
 public final class TokenRepository extends GenericRepository {
     public TokenRepository() {
-        super("Tokens");
+        super("tokens");
     }
 
     public static class Column extends GenericColumn {

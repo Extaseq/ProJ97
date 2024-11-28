@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
  */
 public final class UserRepository extends GenericRepository {
     public UserRepository() {
-        super("UserAccounts");
+        super("useraccounts");
     }
 
     private final String TODAY = "DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
@@ -93,7 +93,7 @@ public final class UserRepository extends GenericRepository {
     }
 
     public ObservableList<User> getLatestUserByTime(String time) {
-        String sql = "SELECT account_id, username FROM UserAccounts "
+        String sql = "SELECT account_id, username FROM useraccounts "
             + "WHERE created_time >= ";
         switch (time) {
             case "Today":

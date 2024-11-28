@@ -213,7 +213,7 @@ public class UserDashboardController extends StageController {
                 documentimage3.setImage(image.getImage());
                 namedocument3.setText(title.getText());
                 descripe3.setText("Author: " + doc.getAuthor() + "\nPublisher: " + doc.getPublisher() + "\nPublished year: " + doc.getPublishedYear()
-                        + "\n" + doc.getGenre()+ "\nAvailable: " + doc.getCopiesAvailable());
+                        + "\n" + doc.getGenre()+ "\nAvailable: " + doc.getAvailable());
                 borrowbutton1.setOnMouseClicked(e -> {
                     borrowDocument(doc);
                 });
@@ -265,7 +265,7 @@ public class UserDashboardController extends StageController {
                         Text title = new Text(doc.getTitle() + "\n");
                         title.setFont(Font.font("System", FontWeight.BOLD, 16));
                         Text detail = new Text("Author: " + doc.getAuthor() + "\nPublisher: " + doc.getPublisher() + "\nPublished year: " + doc.getPublishedYear()
-                                + "\n" + doc.getGenre()+ "\nAvailable: " + doc.getCopiesAvailable());
+                                + "\n" + doc.getGenre()+ "\nAvailable: " + doc.getAvailable());
                         TextFlow flow = new TextFlow(title, detail);
                         flow.setPrefHeight(100);
                         setPrefHeight(100);
@@ -293,7 +293,7 @@ public class UserDashboardController extends StageController {
                 documentImage.setImage(newValue.getImage());
                 namedocument.setText(newValue.getTitle());
                 descripe.setText("Author: " + newValue.getAuthor() + "\nPublisher: " + newValue.getPublisher() + "\nPublished year: " + newValue.getPublishedYear()
-                        + "\n" + newValue.getGenre()+ "\nAvailable: " + newValue.getCopiesAvailable());
+                        + "\n" + newValue.getGenre()+ "\nAvailable: " + newValue.getAvailable());
 
                 if (!isTagButtonPressed) {
                     displayTags(newValue, tagsfield, tableView);

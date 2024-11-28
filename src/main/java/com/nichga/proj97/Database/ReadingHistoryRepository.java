@@ -5,7 +5,7 @@ import java.sql.SQLException;
 
 public final class ReadingHistoryRepository extends GenericRepository {
     public ReadingHistoryRepository() {
-        super("ReadingHistory");
+        super("readinghistory");
     }
 
     /**

@@ -29,7 +29,7 @@ public final class DisplayBook {
         this.genre = genre;
         this.publishedYear = publishedYear;
         this.isbn = isbn;
-        this.copies_available = copies_available;
+        this.available = available;
         if (cover_url != null && !cover_url.isEmpty()) {
             this.image = new Image(cover_url);
         } else {
