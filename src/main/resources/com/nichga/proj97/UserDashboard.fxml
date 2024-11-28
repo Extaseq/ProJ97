@@ -75,7 +75,7 @@
     <center>
         <StackPane id="stackPane" fx:id="stackPane" maxHeight="854.0" maxWidth="1170.0" prefHeight="854.0" prefWidth="1170.0" BorderPane.alignment="CENTER">
             <children>
-                <AnchorPane id="libraryPane" fx:id="libraryPane" prefHeight="852.0" prefWidth="1070.0" visible="false">
+                <AnchorPane id="libraryPane" fx:id="libraryPane" prefHeight="852.0" prefWidth="1070.0">
                     <children>
                         <AnchorPane id="paneInLibrary" fx:id="paneInLibrary1" layoutX="35.0" layoutY="20.0" prefHeight="812.0" prefWidth="1115.0">
                             <children>
@@ -571,11 +571,7 @@
                                                                         <Font name="System Bold" size="12.0" />
                                                                     </font>
                                                                 </Button>
-                                                                <Button id="actionbutton" fx:id="returnbutton1" layoutX="112.0" layoutY="658.0" mnemonicParsing="false" onAction="#returnDoc" text="Return">
-                                                                    <font>
-                                                                        <Font name="System Bold" size="12.0" />
-                                                                    </font>
-                                                                </Button>
+                                                <ToggleButton fx:id="rattingButton" layoutX="107.0" layoutY="658.0" mnemonicParsing="false" prefHeight="35.0" prefWidth="87.0" text="Ratting" />
                                                 <Button fx:id="showQr" layoutX="38.0" layoutY="509.0" mnemonicParsing="false" onAction="#showQr" text="Show QR" />
                                                             </children>
                                                         </Pane>
@@ -599,7 +595,7 @@
                         <Line id="separator2" fx:id="separator2" endX="7.0" endY="853.0" startX="7.0" startY="-1.0" stroke="WHITE" />
                     </children>
                 </AnchorPane>
-                <AnchorPane id="recommendPane" fx:id="accountPane" prefHeight="852.0" prefWidth="970.0" visible="false">
+                <AnchorPane id="recommendPane" fx:id="accountPane" prefHeight="852.0" prefWidth="970.0">
                     <children>
                         <AnchorPane id="paneInLibrary" fx:id="paneAccount1" layoutX="35.0" layoutY="20.0" prefHeight="812.0" prefWidth="1115.0">
                             <children>
@@ -681,48 +677,48 @@
                         <Line id="separator2" fx:id="separator4" endX="7.0" endY="852.0" startX="7.0" stroke="WHITE" />
                     </children>
                 </AnchorPane>
-            <AnchorPane id="recommendPane" fx:id="accountPane1" layoutX="10.0" layoutY="10.0" prefHeight="852.0" prefWidth="970.0">
+            <AnchorPane id="recommendPane" fx:id="ratingPane" layoutX="10.0" layoutY="10.0" prefHeight="852.0" prefWidth="970.0">
                <children>
-                  <AnchorPane id="paneInLibrary" fx:id="paneAccount11" layoutX="14.0" layoutY="69.0" prefHeight="812.0" prefWidth="1115.0">
+                  <AnchorPane id="paneInLibrary" fx:id="paneAccount11" layoutX="33.0" layoutY="20.0" prefHeight="812.0" prefWidth="1115.0">
                      <children>
-                        <ImageView fitHeight="270.0" fitWidth="180.0" layoutX="35.0" layoutY="34.0" pickOnBounds="true">
+                        <ImageView fx:id="imageRattingBook" fitHeight="270.0" fitWidth="180.0" layoutX="35.0" layoutY="34.0" pickOnBounds="true">
                            <image>
                               <Image url="@Book.png" />
                            </image>
                         </ImageView>
-                        <TextArea layoutX="230.0" layoutY="34.0" prefHeight="223.0" prefWidth="811.0" />
-                        <ImageView id="star" fitHeight="30.0" fitWidth="30.0" layoutX="230.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                        <TextArea fx:id="bookDetail" layoutX="230.0" layoutY="34.0" prefHeight="223.0" prefWidth="811.0" />
+                        <ImageView id="star" fx:id="star1" fitHeight="30.0" fitWidth="30.0" layoutX="230.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Star.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="star" fitHeight="30.0" fitWidth="30.0" layoutX="260.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="star" fx:id="star2" fitHeight="30.0" fitWidth="30.0" layoutX="260.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Star.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="star" fitHeight="30.0" fitWidth="30.0" layoutX="290.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="star" fx:id="star3" fitHeight="30.0" fitWidth="30.0" layoutX="290.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Star.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="star" fitHeight="30.0" fitWidth="30.0" layoutX="320.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="star" fx:id="star4" fitHeight="30.0" fitWidth="30.0" layoutX="320.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Star.png" />
                            </image>
                         </ImageView>
-                        <ImageView id="star" fitHeight="30.0" fitWidth="30.0" layoutX="350.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView id="star" fx:id="star5" fitHeight="30.0" fitWidth="30.0" layoutX="350.0" layoutY="274.0" pickOnBounds="true" preserveRatio="true">
                            <image>
                               <Image url="@Star.png" />
                            </image>
                         </ImageView>
-                        <TextField layoutX="36.0" layoutY="345.0" prefHeight="110.0" prefWidth="1044.0" />
-                        <Button layoutX="999.0" layoutY="429.0" mnemonicParsing="false" text="Comment">
+                        <TextField fx:id="comment" layoutX="36.0" layoutY="345.0" prefHeight="110.0" prefWidth="1044.0" promptText="Your Comment" />
+                        <Button fx:id="commentButton" layoutX="999.0" layoutY="429.0" mnemonicParsing="false" text="Comment">
                            <graphic>
                               <FontAwesomeIcon glyphName="PAPER_PLANE" />
                            </graphic>
                         </Button>
-                        <TextArea layoutX="35.0" layoutY="463.0" prefHeight="320.0" prefWidth="1047.0" />
+                        <TextArea fx:id="otherComment" layoutX="35.0" layoutY="463.0" prefHeight="320.0" prefWidth="1047.0" />
                      </children>
                   </AnchorPane>
                   <Line id="separator3" fx:id="separator31" endY="852.0" />

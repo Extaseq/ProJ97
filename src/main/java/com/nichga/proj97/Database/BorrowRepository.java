@@ -108,4 +108,18 @@ public final class BorrowRepository extends GenericRepository {
             + ") VALUES (?, ?, NOW(), DATE_ADD(NOW(), INTERVAL 7 DAY), null)";
         return executeUpdate(createStatement(sql), tokenInfo) > 0;
     }
+
+    public boolean addNewComment(String comment, String member_id, String book_id) {
+        String sql = "UPDATE " + tableName
+                + " SET review_text = ? "
+                + "WHERE member_id = ? AND book_id = ?";
+        return executeUpdate(createStatement(sql), comment, member_id, book_id) > 0;
+    }
+
+    public boolean addNewRating(String member_id, String book_id, String rating) {
+        String sql = "UPDATE " + tableName
+                + " SET rating = ? "
+                + "WHERE member_id = ? AND book_id = ?";
+        return executeUpdate(createStatement(sql),rating, member_id, book_id ) > 0;
+    }
 }

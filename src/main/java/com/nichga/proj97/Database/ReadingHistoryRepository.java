@@ -37,7 +37,7 @@ public final class ReadingHistoryRepository extends GenericRepository {
         return executeUpdate(createStatement(sql), member_id, book_id, comment) > 0;
     }
 
-    public boolean addNewRating(String member_id, String book_id, String rating) {
+    public boolean addNewRating(String rating, String member_id, String book_id) {
         String sql = "UPDATE " + tableName
             + " SET rating = ? "
             + "WHERE member_id = ? AND book_id = ?";
