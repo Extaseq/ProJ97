@@ -57,7 +57,7 @@ public final class BookRepository extends GenericRepository {
         String author = book.getVolumeInfo().getAuthors() != null ? book.getVolumeInfo().getAuthors().toString() : null;
         String publisher = book.getVolumeInfo().getPublisher();
         String genre = book.getVolumeInfo().getCategories() != null ? book.getVolumeInfo().getCategories().toString() : null;
-        String published_year = book.getVolumeInfo().getPublishedDate() != null ? String.valueOf(book.getVolumeInfo().getPublishedDate().getYear()) : null;
+        String published_year = book.getVolumeInfo().getPublishedDate() != null ? String.valueOf(book.getVolumeInfo().getPublishedDate().substring(0,4)) : null;
 
         String isbn = null;
         if (book.getVolumeInfo().getIndustryIdentifiers() != null && !book.getVolumeInfo().getIndustryIdentifiers().isEmpty()) {
@@ -171,4 +171,5 @@ public final class BookRepository extends GenericRepository {
         String sql = "UPDATE books SET copies_available = ? WHERE book_id = ?";
         return executeUpdate(createStatement(sql), new_available, bookId) > 0;
     }
+
 }

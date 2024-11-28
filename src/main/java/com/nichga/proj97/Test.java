@@ -18,7 +18,7 @@ public class Test {
     public static void main(String[] args) {
         try {
             // Define the query and encode it
-            String query = "Lean UX";
+            String query = "harry potter";
             String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
             String apiKey = "AIzaSyA5B1G2E0gdk-1vag_sJTrsPKOlh7O2y_Y";
             String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + encodedQuery + "&key=" + apiKey + "&maxResults=15";
@@ -46,7 +46,6 @@ public class Test {
                 String json = response.toString();
                 BookResponses responseObj = JsonParser.ParseJson(json);
                 BookRepository br = new BookRepository();
-                // Print the book details
                 if (responseObj != null && !responseObj.getItems().isEmpty()) {
                     for (Book book : responseObj.getItems()) {
                         System.out.println("Book Details: ");
