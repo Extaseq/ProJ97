@@ -122,7 +122,7 @@ public class UserDashboardController extends StageController {
         return doc;
     }
     private ObservableList<DisplayBook> getRecommendedDoc() {
-        return FXCollections.observableArrayList();
+        return dbs.getBookRepo().getUserRecommendBooks(user);
     }
     private ObservableList<DisplayBook> getFinishedDoc() {
         return dbs.getBookRepo().getUserFinishedBooks(String.valueOf(user.getId()));
@@ -441,6 +441,10 @@ public class UserDashboardController extends StageController {
                     Alert alert = new Alert(Alert.AlertType.INFORMATION);
                     alert.setContentText("You comment have been saved");
                     alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("You did not borrow this book in library!");
+                    alert.showAndWait();
                 }
                 if (dbs.getBorrowRepo().addNewRating(String.valueOf(rating), String.valueOf(user.getId()), book.getBookId()));
             });
@@ -752,7 +756,7 @@ public class UserDashboardController extends StageController {
         detailbutton1.setOnAction(event -> {
             if (detailbutton1.isSelected()) {
                 if (bookIDtoDetail1 != null) {
-                    detail1.setText(bookIDtoDetail1);
+                    detail1.setText(details(bookIDtoDetail1));
                     descripe3.setVisible(false);
                     detail1.setVisible(true);
                 } else {
@@ -769,7 +773,7 @@ public class UserDashboardController extends StageController {
             if (detailbutton2.isSelected()) {
                 DisplayBook book = tableView1.getSelectionModel().getSelectedItem();
                 if (book != null) {
-                    detail2.setText(book.getBookId());
+                    detail2.setText(details(book.getBookId()));
                     descripe1.setVisible(false);
                     detail2.setVisible(true);
                 } else {
@@ -786,7 +790,7 @@ public class UserDashboardController extends StageController {
             if (detailbutton3.isSelected()) {
                 DisplayBook book = tableView12.getSelectionModel().getSelectedItem();
                 if (book != null) {
-                    detail3.setText(book.getBookId());
+                    detail3.setText(details(book.getBookId()));
                     descripe11.setVisible(false);
                     detail3.setVisible(true);
                 } else {
