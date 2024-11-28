@@ -95,6 +95,30 @@ public final class BookRepository extends GenericRepository {
         return result;
     }
 
+    public ObservableList<DisplayBook> getUserBooks(String memberId) {
+        String sql = "SELECT * FROM " + tableName + " JOIN ( SELECT book_id FROM borrow WHERE"
+                + " member_id = ? " +"AND return_date IS NULL) AS temp on temp.book_id =" + tableName+ ".book_id";
+        ObservableList<DisplayBook> result = FXCollections.observableArrayList();
+        try (ResultSet rs = executeQuery(createStatement(sql), memberId)) {
+            while (rs.next()) {
+                result.add(new DisplayBook(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getString(9)
+                ));
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return result;
+    }
+
     public int getTotalBooks() {
         String sql = "SELECT COUNT(*) FROM books";
         try (ResultSet rs = executeQuery(createStatement(sql))) {

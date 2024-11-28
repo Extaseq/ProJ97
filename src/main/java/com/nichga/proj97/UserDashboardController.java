@@ -86,9 +86,6 @@ public class UserDashboardController extends StageController {
     @FXML
     private Button borrowbutton1, borrowbutton2;
 
-    @FXML
-    private Tab tabShelve, tabAllBooks;
-
     private ObservableList<DisplayBook> userDocuments;
 
     private ToggleGroup toggleGroup;
@@ -111,7 +108,10 @@ public class UserDashboardController extends StageController {
         return FXCollections.observableArrayList();
     }
 
-    public void initialize() {
+    public void init() {
+        System.out.println(user.getId());
+        userDocuments = getUserDocuments();
+
         toggleGroup = new ToggleGroup();
         buttonLibrary.setToggleGroup(toggleGroup);
         buttonAccount.setToggleGroup(toggleGroup);
@@ -119,15 +119,17 @@ public class UserDashboardController extends StageController {
         SetButton();
         LockColumn();
         mainData = getAllDocuments();
-        userDocuments = getUserDocuments();
         buttonLibrary.setSelected(true);
         tableView1.setItems(mainData);
         tableView12.setItems(userDocuments);
         initLibrary(tagsfield1, imagecolumn1, detailcolumn1, mainData, documentimage1, namedocument1, descripe1, tableView1);
         initLibrary(tagsfield11, imagecolumn12, detailcolumn12, userDocuments, documentimage11, namedocument11, descripe11, tableView12);
+
         Sort();
         initShelve();
         initContinueReadDoc();
+        initAccount();
+
     }
 
     @FXML
@@ -324,13 +326,12 @@ public class UserDashboardController extends StageController {
     }
 
     private ObservableList<DisplayBook> getAllDocuments() {
-        ObservableList<com.nichga.proj97.Model.DisplayBook> books = dbs.getBookRepo().getAllBook();
+        ObservableList<DisplayBook> books = dbs.getBookRepo().getAllBook();
         return books;
     }
 
     private ObservableList<DisplayBook> getUserDocuments() {
-        return FXCollections.observableArrayList();
-
+        return dbs.getBookRepo().getUserBooks(String.valueOf(user.getId()));
     }
 
     private void sortTable(Comparator<DisplayBook> comparator, TableView<DisplayBook> table) {

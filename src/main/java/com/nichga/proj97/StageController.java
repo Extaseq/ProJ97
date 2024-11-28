@@ -66,7 +66,8 @@ public abstract class StageController {
             if (user != null) {
 
                 ((UserDashboardController) controller).setUser(user);
-                ((UserDashboardController) controller).initAccount();
+                ((UserDashboardController) controller).init();
+
             } else {
                 System.out.println("Warning: Users object is null, skipping setUser.");
             }
