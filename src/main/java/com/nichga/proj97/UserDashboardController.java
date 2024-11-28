@@ -25,10 +25,8 @@ public class UserDashboardController extends StageController {
         this.user = user;
     }
     ObservableList<Documents> mainData;
-    SortedList<Documents> searchData;
     Set<String> tagList; {tagList = new HashSet<>();}
     Set<String> tagList2; {tagList2 = new HashSet<>();}
-    //SortedList<Documents> sortedData;
     private boolean isTagButtonPressed = false;
 
     @FXML
@@ -53,7 +51,7 @@ public class UserDashboardController extends StageController {
     @FXML
     private TextField search1, search12;
     @FXML
-    private MenuButton menuButton1, menuButton12;
+    private Button movePrev, moveNext;
     @FXML
     private MenuItem sorttitle1, sortauthor1, sortview1;
     @FXML
@@ -227,7 +225,7 @@ public class UserDashboardController extends StageController {
                     try {
                         imageView.setImage(new Image(getClass().getResourceAsStream(imageLink)));
                         imageView.setFitWidth(80);
-                        imageView.setFitHeight(120);
+                        imageView.setFitHeight(119);
                         imageView.setPreserveRatio(false);
                         setGraphic(imageView);
                         setStyle("-fx-alignment: CENTER;");
@@ -246,9 +244,11 @@ public class UserDashboardController extends StageController {
                 if (empty || getTableRow() == null) {
                     setText(null);
                     setGraphic(null);
+                    System.out.println("empty row");
                 } else {
                     Documents doc = getTableRow().getItem();
                     if (doc != null) {
+                        System.out.println(doc.getTitle());
                         Text title = new Text(doc.getTitle() + "\n");
                         title.setFont(Font.font("System", FontWeight.BOLD, 16));
                         Text detail = new Text("Author: " + doc.getAuthor() + "\nType: " + doc.getType() + "\n" + doc.getTagsString() + "\nAvailable: " + "\nView: ");
@@ -257,10 +257,10 @@ public class UserDashboardController extends StageController {
                         setPrefHeight(100);
                         setGraphic(flow);
                         setText(null);
-
                     } else {
                         setText(null);
                         setGraphic(null);
+                        System.out.println("Doc is null");
                     }
                 }
             }
@@ -269,7 +269,7 @@ public class UserDashboardController extends StageController {
         tableView.setItems(data);
         if (tableView == tableView1)
         {
-            search(data, tableView, search1);
+            search2(data, tableView, search1);
         } else {
             search(data, tableView, search12);
         }
@@ -288,7 +288,6 @@ public class UserDashboardController extends StageController {
                 isTagButtonPressed = false;
             }
         });
-
     }
 
     private void LockColumn() {
@@ -323,14 +322,14 @@ public class UserDashboardController extends StageController {
                 new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
                 new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
                 new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
-                new Documents("The Great Gatsby", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
-                new Documents("To Kill a Mockingbird", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
-                new Documents("1984", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
-                new Documents("Moby Dick", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
+                new Documents("The Great Gatsby 2", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
+                new Documents("To Kill a Mockingbird 2", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
+                new Documents("1984 2", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Moby Dick 2", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50),
+                new Documents("The Great Gatsby 3", "F. Scott Fitzgerald", "Fiction", new String[]{"Classic", "Novel"}, 5, 100),
+                new Documents("To Kill a Mockingbird 3", "Harper Lee", "Fiction", new String[]{"Classic", "Novel"}, 0, 200),
+                new Documents("1984 3", "George Orwell", "Dystopian", new String[]{"Science Fiction", "Dystopian", "ABCDJFIOEU"}, 4, 150),
+                new Documents("Moby Dick 3", "Herman Melville", "Adventure", new String[]{"Classic", "Adventure"}, 0, 50)
         );
     }
 
@@ -434,7 +433,7 @@ public class UserDashboardController extends StageController {
         }
         if (tableView == tableView1)
         {
-            search(filteredDocuments, tableView, search1);
+            search2(filteredDocuments, tableView, search1);
         } else {
             search(filteredDocuments, tableView, search12);
         }
@@ -456,12 +455,47 @@ public class UserDashboardController extends StageController {
         });
 
         applyFilter(filteredData, search.getText());
-
         SortedList<Documents> sortedData = new SortedList<>(filteredData);
         sortedData.comparatorProperty().bind(table.comparatorProperty());
         table.refresh();
         table.setItems(sortedData);
+    }
+    private static final int ROWS_PER_PAGE = 5;
+    private int currentPageIndex = 0;
 
+    public void search2(ObservableList<Documents> data, TableView<Documents> table, TextField search) {
+        FilteredList<Documents> filteredData = new FilteredList<>(data, p -> true);
+        search.textProperty().addListener((observable, oldValue, newValue) -> {
+            applyFilter(filteredData, search.getText());
+            updatePage(table, new SortedList<>(filteredData));
+        });
+        SortedList<Documents> sortedData = new SortedList<>(filteredData);
+        sortedData.comparatorProperty().bind(table.comparatorProperty());
+        updatePage(table, sortedData);
+    }
+    private void updatePage(TableView<Documents> table, SortedList<Documents> sortedData) {
+        ObservableList<Documents> currentPageData = FXCollections.observableArrayList();
+        int fromIndex = currentPageIndex * ROWS_PER_PAGE;
+        int toIndex = Math.min(fromIndex + ROWS_PER_PAGE, sortedData.size());
+        currentPageData.setAll(sortedData.subList(fromIndex, toIndex));
+        movePrev.setDisable(currentPageIndex == 0);
+        moveNext.setDisable(toIndex >= sortedData.size());
+
+        movePrev.setOnAction(event -> {
+            if (currentPageIndex > 0) {
+                currentPageIndex--;
+                updatePage(table, sortedData);
+            }
+        });
+
+        moveNext.setOnAction(event -> {
+            if ((currentPageIndex + 1) * ROWS_PER_PAGE < sortedData.size()) {
+                currentPageIndex++;
+                updatePage(table, sortedData);
+            }
+        });
+
+        table.setItems(currentPageData);
     }
     private void applyFilter(FilteredList<Documents> filteredData, String filterText) {
         filteredData.setPredicate(item -> {
