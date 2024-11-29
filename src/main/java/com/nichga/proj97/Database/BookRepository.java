@@ -187,7 +187,7 @@ public final class BookRepository extends GenericRepository {
         } catch (SQLException e) {
             System.out.println("Borrow book error at get number of copies");
         }
-        String new_available = String.valueOf(available);
+        String new_available = String.valueOf(available-1);
         String sql = "UPDATE books SET copies_available = ? WHERE book_id = ?";
         return executeUpdate(createStatement(sql), new_available, bookId) > 0;
     }
@@ -354,5 +354,19 @@ public final class BookRepository extends GenericRepository {
             System.out.println(e.getMessage());
         }
         return result;
+    }
+    public boolean adjustAfterReturn(String bookId) {
+        String subquery = "SELECT copies_available FROM books WHERE book_id = ?";
+        int available = 0;
+        try (ResultSet rs = executeQuery(createStatement(subquery),bookId)) {
+            if (rs.next()) {
+                available = rs.getInt(1);
+            }
+        } catch (SQLException e) {
+            System.out.println("Borrow book error at get number of copies");
+        }
+        String new_available = String.valueOf(available+1);
+        String sql = "UPDATE books SET copies_available = ? WHERE book_id = ?";
+        return executeUpdate(createStatement(sql), new_available, bookId) > 0;
     }
 }

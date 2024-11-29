@@ -43,4 +43,10 @@ public final class ReadingHistoryRepository extends GenericRepository {
             + "WHERE member_id = ? AND book_id = ?";
         return executeUpdate(createStatement(sql), member_id, book_id, rating) > 0;
     }
+    public boolean returnBook(String member_id, String book_id) {
+        String sql = "UPDATE " + tableName
+                + " SET status = 'Completed' "
+                + "WHERE member_id = ? AND book_id = ?";
+        return executeUpdate(createStatement(sql), member_id, book_id) > 0;
+    }
 }

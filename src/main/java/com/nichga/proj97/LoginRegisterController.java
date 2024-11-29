@@ -85,8 +85,13 @@ public class LoginRegisterController extends StageController {
         // Xử lý khi vai trò là ADMIN (chưa hoàn thành)
         else if (roleButton.getValue().equals("ADMIN")) {
             // Thêm logic xử lý đăng nhập vai trò ADMIN
-            alert.setContentText("Admin login functionality not implemented yet.");
-            alert.showAndWait();
+            if (userName.equals("admin") && passWord.equals("admin")) {
+                try {
+                    goToNextStage("/com/nichga/proj97/test.fxml", loginButton, null);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
         }
     }
 

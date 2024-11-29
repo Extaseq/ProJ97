@@ -144,4 +144,9 @@ public final class BorrowRepository extends GenericRepository {
         }
         return result;
     }
+    public boolean returnBook(String memberID, String bookID) {
+        String sql = "UPDATE " + tableName
+                + " SET return_date = NOW() ";
+        return executeUpdate(createStatement(sql), memberID, bookID) > 0;
+    }
 }
