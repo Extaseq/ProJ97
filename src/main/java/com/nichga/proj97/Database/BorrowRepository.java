@@ -48,7 +48,7 @@ public final class BorrowRepository extends GenericRepository {
 
     public boolean existBorrow(String memberID, String bookID) {
         String sql = "SELECT COUNT(*) FROM " + tableName
-            + " WHERE member_id = ? AND book_id = ?";
+            + " WHERE member_id = ? AND book_id = ? AND return_date IS NULL";
         try (ResultSet rs = executeQuery(createStatement(sql), memberID, bookID)) {
             if (rs.next()) {
                 if(rs.getInt(1) > 0) {

@@ -72,6 +72,24 @@ public final class BookRepository extends GenericRepository {
         return executeUpdate(createStatement(sql), book_id, title, author, publisher, genre, published_year, isbn, cover_url) > 0;
     }
 
+    public boolean insertBook(String book_id, String title, String author, String publisher, String genre, String published_year, String isbn, String available, String cover_url) {
+        String sql = "INSERT INTO books VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        return executeUpdate(createStatement(sql), book_id, title, author, publisher, genre, published_year, isbn, available, cover_url) > 0;
+    }
+
+    public boolean bookAvailable(String book_id) {
+        String sql = "SELECT COUNT(*), copies_available FROM " + tableName + " WHERE book_id = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), book_id)) {
+            if (rs.next()) {
+                return (rs.getInt(1) == 1)
+                    && rs.getInt(2) > 0;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
     public ObservableList<DisplayBook> getAllBook() {
         String sql = "SELECT * FROM " + tableName;
         ObservableList<DisplayBook> result = FXCollections.observableArrayList();

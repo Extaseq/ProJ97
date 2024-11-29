@@ -37,7 +37,7 @@ public class GenericRepository {
             }
             rs = stmt.executeQuery();
         } catch (SQLException e) {
-            System.out.println("Error here: " + e.getMessage());
+            System.out.println(e.getMessage());
         }
         return rs;
     }

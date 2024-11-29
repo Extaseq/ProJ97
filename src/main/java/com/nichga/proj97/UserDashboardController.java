@@ -562,7 +562,7 @@ public class UserDashboardController extends StageController {
             alert.showAndWait();
             return;
         }
-        BufferedImage qr = tp.generateQRCode(token);
+        BufferedImage qr = TokenProvider.generateQRCode(token);
         Image fxImage = SwingFXUtils.toFXImage(qr, null);
         ImageView imageView = new ImageView(fxImage);
         imageView.setPreserveRatio(true);

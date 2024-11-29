@@ -43,6 +43,12 @@ public class Auth {
      * @return {@code true} if the registration is successful, {@code false} otherwise.
      */
     public boolean register(String username, String pass_word, String fullname) {
+        if (username == null || pass_word == null || fullname == null) {
+            return false;
+        }
+        if (username.isEmpty() || pass_word.isEmpty() || fullname.isEmpty()) {
+            return false;
+        }
         if (userRepo.userExists(username)) {
             return false;
         }

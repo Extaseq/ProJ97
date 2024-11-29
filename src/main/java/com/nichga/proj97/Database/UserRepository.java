@@ -20,12 +20,6 @@ public final class UserRepository extends GenericRepository {
         super("useraccounts");
     }
 
-    private final String TODAY = "DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
-
-    private final String THIS_WEEK = "DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)";
-
-    private final String THIS_MONTH = "DATE_FORMAT(CURDATE(), '%Y-%m-01');";
-
     public static class Column extends GenericColumn {
         public static final List<Column> columns = new ArrayList<>();
 
@@ -93,8 +87,12 @@ public final class UserRepository extends GenericRepository {
     }
 
     public ObservableList<User> getLatestUserByTime(String time) {
-        String sql = "SELECT account_id, username FROM useraccounts "
-            + "WHERE created_time >= ";
+        String sql = "SELECT account_id, username FROM useraccounts WHERE created_time >= ";
+
+        String TODAY = "DATE_SUB(CURDATE(), INTERVAL 1 DAY)";
+        String THIS_WEEK = "DATE_SUB(CURDATE(), INTERVAL WEEKDAY(CURDATE()) DAY)";
+        String THIS_MONTH = "DATE_FORMAT(CURDATE(), '%Y-%m-01')";
+
         switch (time) {
             case "Today":
                 sql += TODAY;
@@ -106,22 +104,25 @@ public final class UserRepository extends GenericRepository {
                 sql += THIS_MONTH;
                 break;
             default:
-                sql += "0";
+                sql += "DATE_SUB(CURDATE(), INTERVAL 100 YEAR)";
+                break;
         }
 
         ObservableList<User> users = FXCollections.observableArrayList();
         try (ResultSet rs = executeQuery(createStatement(sql))) {
             while (rs.next()) {
                 users.add(new User(
-                    rs.getInt("account_id"),
-                    rs.getString("username")
+                        rs.getInt("account_id"),
+                        rs.getString("username")
                 ));
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+
         return users;
     }
+
 
 
     /**

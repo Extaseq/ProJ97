@@ -12,11 +12,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
@@ -29,10 +29,19 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 import com.nichga.proj97.Util.ImageHelper;
+import javafx.stage.Modality;
+import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class AdminDashboardController {
     @FXML
     private TextFlow information;
+
+    @FXML
+    private Button add_user;
+
+    @FXML
+    private Button add_book;
 
     @FXML
     private Text username_text;
@@ -68,6 +77,9 @@ public class AdminDashboardController {
     private ImageView book_section;
 
     @FXML
+    private ImageView quit_button;
+
+    @FXML
     private ImageView book_cover_1;
 
     @FXML
@@ -89,13 +101,21 @@ public class AdminDashboardController {
     private Text total_users;
 
     @FXML
-    private ScrollPane scrollPane;
-
-    @FXML
     private TableView<User> small_user_table;
 
     @FXML
     private TableView<DisplayBook> small_book_table;
+
+    @FXML
+    private ImageView user_section;
+
+    private int currentMenu = 1;
+
+    UserSectionController userSectionController = null;
+
+    BookSectionController bookSectionController = null;
+
+    private String inUseTime = "Today";
 
     private final DatabaseService dbs = new DatabaseService();
 
@@ -148,10 +168,24 @@ public class AdminDashboardController {
 
     private void refreshData() {
         Platform.runLater(() -> {
-            updateText(total_book, String.valueOf(dbs.getBookRepo().getTotalBooks()));
-            updateText(total_users, String.valueOf(dbs.getUserRepo().getTotalUsers()));
-            updateText(total_borrowed, String.valueOf(dbs.getBorrowRepo().getTotalBorrows()));
-            updateText(total_overdue, String.valueOf(dbs.getBorrowRepo().getTotalOverdue()));
+            if (currentMenu == 1) {
+                updateText(total_book, String.valueOf(dbs.getBookRepo().getTotalBooks()));
+                updateText(total_users, String.valueOf(dbs.getUserRepo().getTotalUsers()));
+                updateText(total_borrowed, String.valueOf(dbs.getBorrowRepo().getTotalBorrows()));
+                updateText(total_overdue, String.valueOf(dbs.getBorrowRepo().getTotalOverdue()));
+                small_user_table.setItems(dbs.getUserRepo().getLatestUserByTime(inUseTime));
+            }
+            if (currentMenu == 2) {
+                if (userSectionController != null) {
+                    userSectionController.refreshData();
+                }
+            }
+            if (currentMenu == 3) {
+                if (bookSectionController != null) {
+                    bookSectionController.initTableView();
+                    bookSectionController.initTopView();
+                }
+            }
             System.out.println("Updated!");
         });
     }
@@ -162,10 +196,49 @@ public class AdminDashboardController {
 
     public void onComboBoxEvent() {
         timeBox.setOnAction(_ -> {
-            String value = timeBox.getValue();
+            inUseTime = timeBox.getValue();
             small_user_table.setItems(
-                dbs.getUserRepo().getLatestUserByTime(value)
+                dbs.getUserRepo().getLatestUserByTime(inUseTime)
             );
+        });
+    }
+
+    private void initializeButtons() {
+        add_user.setOnAction(_ -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/nichga/proj97/AddNewUser.fxml")
+                );
+                Parent popupMenu = loader.load();
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.setTitle("Register new member");
+                popupStage.setScene(new Scene(popupMenu));
+                popupStage.setResizable(false);
+                popupStage.showAndWait();
+            } catch (Exception e) {
+                System.out.println("Error while opening menu: " + e.getMessage());
+            }
+        });
+        add_book.setOnAction(_ -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/nichga/proj97/AddNewBook.fxml")
+                );
+                Parent popupMenu = loader.load();
+                Stage popupStage = new Stage();
+                popupStage.initModality(Modality.APPLICATION_MODAL);
+                popupStage.setTitle("Add new book");
+                popupStage.setScene(new Scene(popupMenu));
+                popupStage.setResizable(false);
+                popupStage.showAndWait();
+            } catch (Exception e) {
+                System.out.println("Error while opening menu: " + e.getMessage());
+            }
+        });
+        quit_button.setOnMouseClicked(_ -> {
+            Stage stage = (Stage) quit_button.getScene().getWindow();
+            stage.close();
         });
     }
 
@@ -175,8 +248,7 @@ public class AdminDashboardController {
         for (int i = 0; i < columns.size(); i++) {
             columns.get(i).setCellValueFactory(new PropertyValueFactory<>(label[i]));
         }
-        ObservableList<DisplayBook> db = dbs.getBookRepo().getAllBook();
-        small_book_table.setItems(db);
+        small_book_table.setItems(dbs.getBookRepo().getAllBook());
     }
 
     public void prepareUserTableView() {
@@ -201,6 +273,7 @@ public class AdminDashboardController {
         ObservableList<User> users = dbs.getUserRepo().getLatestUserByTime("Today");
         small_user_table.setItems(users);
         TableViewHelper.disableScrollBars(small_user_table);
+        small_user_table.setItems(dbs.getUserRepo().getLatestUserByTime("Today"));
     }
 
     public void initSwitchMenu() {
@@ -210,6 +283,7 @@ public class AdminDashboardController {
             if (!inner_pane.getChildren().equals(originalContent)) {
                 inner_pane.getChildren().clear();
                 inner_pane.getChildren().addAll(originalContent);
+                currentMenu = 1;
             }
         });
 
@@ -217,6 +291,7 @@ public class AdminDashboardController {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nichga/proj97/BookSection.fxml"));
             bookSection = loader.load();
+            bookSectionController = loader.getController();
         } catch (IOException e) {
             System.out.println("Error loading BookSection: " + e.getMessage());
         }
@@ -227,18 +302,40 @@ public class AdminDashboardController {
                 if (!inner_pane.getChildren().contains(finalBookSection)) {
                     inner_pane.getChildren().clear();
                     inner_pane.getChildren().add(finalBookSection);
+                    currentMenu = 2;
                 }
             });
         } else {
             System.out.println("Failed to load BookSection");
         }
+
+        Node userSection = null;
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/com/nichga/proj97/UserSection.fxml"));
+            userSection = loader.load();
+            userSectionController = loader.getController();
+        } catch (IOException e) {
+            System.out.println("Error loading UserSection: " + e.getMessage());
+        }
+
+        if (userSection != null) {
+            Node finalUserSection = userSection;
+            user_section.setOnMouseClicked(_ -> {
+                if (!inner_pane.getChildren().contains(finalUserSection)) {
+                    inner_pane.getChildren().clear();
+                    inner_pane.getChildren().add(finalUserSection);
+                    currentMenu = 3;
+                }
+            });
+        } else {
+            System.out.println("Failed to load UserSection");
+        }
     }
-
-
 
 
     @FXML
     private void initialize() {
+        initializeButtons();
         initBookTable();
         initializeTextFields();
         initializeComboBoxes();

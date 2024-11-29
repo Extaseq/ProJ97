@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import de.jensd.fx.glyphs.fontawesome.FontAwesomeIcon?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="800.0" styleClass="wrapper" stylesheets="@AddNew.css" xmlns="http://javafx.com/javafx/23" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.nichga.proj97.Controller.AdminAddBookController">
+   <children>
+      <AnchorPane prefHeight="400.0" prefWidth="800.0" styleClass="inner" stylesheets="@AddNew.css">
+         <children>
+            <TextField fx:id="book_id" layoutX="58.0" layoutY="56.0" promptText="Book ID" styleClass="input_text_field" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="50.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="title" layoutX="58.0" layoutY="116.0" promptText="Title" styleClass="input_text_field" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="120.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="published_year" layoutX="321.0" layoutY="60.0" promptText="Published Year" styleClass="input_text_field" AnchorPane.leftAnchor="250.0" AnchorPane.topAnchor="50.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="amount" layoutX="273.0" layoutY="200.0" promptText="Amount" styleClass="input_text_field" AnchorPane.leftAnchor="250.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="cover_url" layoutX="551.0" layoutY="276.0" promptText="cover_url" styleClass="input_text_field" AnchorPane.leftAnchor="551.0" AnchorPane.topAnchor="260.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="author" layoutX="58.0" layoutY="190.0" promptText="Author" styleClass="input_text_field" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="190.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="publisher" layoutX="60.0" layoutY="280.0" promptText="Publisher" styleClass="input_text_field" AnchorPane.leftAnchor="50.0" AnchorPane.topAnchor="260.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="genre" layoutX="260.0" layoutY="270.0" promptText="Genre" styleClass="input_text_field" AnchorPane.leftAnchor="250.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="isbn" layoutX="251.0" layoutY="130.0" promptText="ISBN" styleClass="input_text_field" AnchorPane.leftAnchor="250.0">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </TextField>
+            <ImageView fx:id="display_image" fitHeight="200.0" fitWidth="150.0" layoutX="555.0" layoutY="30.0" pickOnBounds="true" preserveRatio="true" />
+            <Button fx:id="apply" layoutX="360.0" layoutY="324.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Add">
+               <graphic>
+                  <FontAwesomeIcon glyphName="BOOK" />
+               </graphic></Button>
+            <ImageView id="back_button" fx:id="back_button" fitHeight="32.0" fitWidth="32.0" layoutX="14.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="15.0" AnchorPane.topAnchor="15.0">
+               <image>
+                  <Image url="@BackButton.png" />
+               </image>
+            </ImageView>
+            <Button fx:id="test_img" layoutX="500.0" layoutY="271.0" mnemonicParsing="false" text="Test">
+               <graphic>
+                  <FontAwesomeIcon glyphName="IMAGE" />
+               </graphic>
+            </Button>
+            <Label fx:id="failed" layoutX="112.0" layoutY="328.0" text="Not enough information" textFill="#f65867" visible="false">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </Label>
+            <Label fx:id="success" layoutX="540.0" layoutY="328.0" text="Add book successful" textFill="#62ff5a" visible="false">
+               <font>
+                  <Font name="☞Eina03-SemiBold" size="12.0" />
+               </font>
+            </Label>
+         </children>
+      </AnchorPane>
+   </children>
+</VBox>

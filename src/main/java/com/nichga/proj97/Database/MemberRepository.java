@@ -100,6 +100,18 @@ public final class MemberRepository extends GenericRepository {
         return executeUpdate(createStatement(sql.toString()), args);
     }
 
+    public boolean memberExists(int member_id) {
+        String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE member_id = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), String.valueOf(member_id))) {
+            if (rs.next()) {
+                return rs.getInt("COUNT(*)") == 1;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
     public boolean updateInfo(int member_id, String... args) {
         long updateAttr = Column.getNumberRepresentation(Column.columns, "fullname", "address", "email", "phone");
         return updateInfo(member_id, updateAttr, args) > 0;

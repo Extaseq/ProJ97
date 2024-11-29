@@ -1,21 +1,17 @@
 package com.nichga.proj97;
 
-import com.nichga.proj97.Database.DatabaseConnector;
-import com.nichga.proj97.Model.DisplayBook;
-import com.nichga.proj97.Services.Auth;
-import com.nichga.proj97.Services.DatabaseService;
-import com.nichga.proj97.Services.TokenProvider;
-import javafx.collections.ObservableList;
-
-import java.sql.Connection;
+import com.nichga.proj97.Database.BorrowRepository;
 
 public class TestDatabase {
     public static void main(String[] args) {
-        Auth auth = new Auth();
-        if (auth.register("KinasTomes", "ahihi123!", "Kim Jong Un")) {
-            System.out.println("Register successfully");
+        BorrowRepository testRepo = new BorrowRepository();
+        String token = testRepo.createBorrowRequest("1", "p2xP5hOp4mMC");
+        if (token != null) {
+            System.out.println(token);
+            testRepo.applyBorrowRequest(token);
+            System.out.println("Borrow successfully");
         } else {
-            System.out.println("Register failed");
+            System.out.println("No token found");
         }
     }
 }

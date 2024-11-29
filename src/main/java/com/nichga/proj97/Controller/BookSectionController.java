@@ -1,19 +1,25 @@
 package com.nichga.proj97.Controller;
 
+import com.nichga.proj97.Database.BorrowRepository;
 import com.nichga.proj97.Database.DatabaseConnector;
+import com.nichga.proj97.Database.TokenRepository;
 import com.nichga.proj97.Model.BorrowHistory;
 import com.nichga.proj97.Model.TopViewBook;
 import com.nichga.proj97.Util.ImageHelper;
+import javafx.animation.PauseTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -82,6 +88,23 @@ public class BookSectionController {
     @FXML
     private TableView<BorrowHistory> book_status;
 
+    @FXML
+    private Button new_borrow;
+
+    @FXML
+    private ToggleButton apply_request;
+
+    @FXML
+    private Button check_button;
+
+    @FXML
+    private TextField token_input;
+
+    @FXML
+    private Label success;
+
+    private BorrowRepository borrowRepository = new BorrowRepository();
+
     List<ImageView> cover = new ArrayList<>();
 
     List<Text> title = new ArrayList<>();
@@ -141,7 +164,7 @@ public class BookSectionController {
             "author", "overdue", "status", "fine"
     };
 
-    private void initTableView() {
+    public void initTableView() {
         ObservableList<TableColumn<BorrowHistory, ?>> columns = book_status.getColumns();
         for (int i = 0; i < columns.size(); i++) {
             columns.get(i).setCellValueFactory(new PropertyValueFactory<>(label[i]));
@@ -168,7 +191,7 @@ public class BookSectionController {
         }
     }
 
-    private void initTopView() {
+    public void initTopView() {
         ObservableList<TopViewBook> data = FXCollections.observableArrayList();
         try (Connection connection = DatabaseConnector.getInstance().getConnection();
              PreparedStatement statement = Objects.requireNonNull(connection).prepareStatement(getTopView);
@@ -211,9 +234,56 @@ public class BookSectionController {
         }
     }
 
+    private void initButton() {
+        new_borrow.setOnAction(_ -> {
+            try {
+                FXMLLoader loader = new FXMLLoader(
+                    getClass().getResource("/com/nichga/proj97/BorrowPanel.fxml")
+                );
+                Parent popupMenu = loader.load();
+                Stage popupStage = new Stage();
+                popupStage.setTitle("New borrow");
+                popupStage.setScene(new Scene(popupMenu));
+                popupStage.setResizable(false);
+                popupStage.showAndWait();
+            } catch (Exception e) {
+                System.out.println(e.getMessage());
+            }
+        });
+        apply_request.setOnAction(_ -> {
+            if (apply_request.isSelected()) {
+                check_button.setVisible(true);
+                check_button.setDisable(false);
+                token_input.setVisible(true);
+                token_input.setDisable(false);
+            } else {
+                check_button.setVisible(false);
+                check_button.setDisable(true);
+                token_input.setVisible(false);
+                token_input.setDisable(true);
+            }
+        });
+        check_button.setOnAction(_ -> {
+            String token = token_input.getText();
+            if (token == null) {
+                return;
+            }
+            if (borrowRepository.applyBorrowRequest(token)) {
+                success.setVisible(true);
+                PauseTransition wait = new PauseTransition(Duration.seconds(1));
+                wait.setOnFinished(_ -> {
+                    success.setVisible(false);
+                    token_input.clear();
+                });
+                wait.play();
+            }
+        });
+    }
+
 
     @FXML
     private void initialize() {
+        initButton();
         initTextContainer();
         initTableView();
         initTopView();

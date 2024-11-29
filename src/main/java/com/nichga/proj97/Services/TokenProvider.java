@@ -11,7 +11,7 @@ import java.awt.image.BufferedImage;
 import java.util.UUID;
 
 public class TokenProvider {
-    private static final TokenRepository tokenRepo = new TokenRepository();
+    private static final DatabaseService dbs = new DatabaseService();
 
     private static final int IMG_SIZE = 512;
 
@@ -36,18 +36,21 @@ public class TokenProvider {
     }
 
     public static String generateToken(String memberID, String bookID) {
+        if (!dbs.getBookRepo().bookAvailable(bookID)) {
+            return null;
+        }
         String token = UUID.randomUUID().toString();
-        if (tokenRepo.pushToken(token, memberID, bookID)) {
+        if (dbs.getTokenRepo().pushToken(token, memberID, bookID)) {
             return token;
         }
         return null;
     }
 
     public static String[] getTokenInfo(String token) {
-        return tokenRepo.getTokenInfo(token);
+        return dbs.getTokenRepo().getTokenInfo(token);
     }
 
     public static boolean deleteToken(String token) {
-        return tokenRepo.deleteToken(token);
+        return dbs.getTokenRepo().deleteToken(token);
     }
 }
