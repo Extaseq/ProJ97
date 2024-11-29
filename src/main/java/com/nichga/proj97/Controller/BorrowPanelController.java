@@ -97,8 +97,10 @@ public class BorrowPanelController {
         apply.setOnAction(_ -> {
             String memberID = user_id.getText();
             String bookID = book_id.getText();
-            String token = dbs.getBorrowRepo().createBorrowRequest(memberID, bookID);
-            success.setVisible(dbs.getBorrowRepo().applyBorrowRequest(token));
+            DatabaseService dbs = new DatabaseService();
+            dbs.getBorrowRepo().returnBook(memberID, bookID);
+            dbs.getBookRepo().adjustAfterReturn(bookID);
+            dbs.getReadingHistoryRepository().returnBook(memberID, bookID);
             PauseTransition wait = new PauseTransition(Duration.seconds(2));
             wait.setOnFinished(_ -> {
                 Stage stage = (Stage) book_check.getScene().getWindow();
