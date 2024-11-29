@@ -142,8 +142,8 @@ public final class BookRepository extends GenericRepository {
     }
 
     public ObservableList<DisplayBook> getUserFinishedBooks(String memberId) {
-        String sql = "SELECT * FROM " + tableName + " JOIN ( SELECT book_id FROM readinghistory WHERE"
-                + " member_id = ? ) AS temp on temp.book_id =" + tableName+ ".book_id";
+        String sql = "SELECT * FROM " + tableName + " JOIN ( SELECT book_id FROM borrow WHERE"
+                + " member_id = ? AND return_date IS NOT NULL ) AS temp on temp.book_id =" + tableName+ ".book_id";
         ObservableList<DisplayBook> result = FXCollections.observableArrayList();
         try (ResultSet rs = executeQuery(createStatement(sql), memberId)) {
             while (rs.next()) {
