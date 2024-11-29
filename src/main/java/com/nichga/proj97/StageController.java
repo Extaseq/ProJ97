@@ -78,7 +78,7 @@ public abstract class StageController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        setUpMouseEvents(root, stage);
+        //setUpMouseEvents(root, stage);
         stage.show();
     }
     public void minimize(ActionEvent e) {
@@ -88,16 +88,16 @@ public abstract class StageController {
     public void close(ActionEvent e) {
         exit(0);
     }
-    private void setUpMouseEvents(Parent root, Stage stage) {
-        root.setOnMousePressed((MouseEvent e) -> {
-            x = e.getSceneX();
-            y = e.getSceneY();
-        });
-        root.setOnMouseDragged((MouseEvent e) -> {
-            stage.setX(e.getScreenX() - x);
-            stage.setY(e.getScreenY() - y);
-        });
-    }
+//    private void setUpMouseEvents(Parent root, Stage stage) {
+//        root.setOnMousePressed((MouseEvent e) -> {
+//            x = e.getSceneX();
+//            y = e.getSceneY();
+//        });
+//        root.setOnMouseDragged((MouseEvent e) -> {
+//            stage.setX(e.getScreenX() - x);
+//            stage.setY(e.getScreenY() - y);
+//        });
+//    }
 
     private double x = 0;
     private double y = 0;
@@ -123,7 +123,7 @@ public abstract class StageController {
         Stage stage = new Stage();
         stage.setScene(new Scene(root));
         stage.setResizable(false);
-        setUpMouseEvents(root, stage);
+        //setUpMouseEvents(root, stage);
         stage.show();
     }
 

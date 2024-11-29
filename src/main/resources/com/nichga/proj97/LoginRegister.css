@@ -46,11 +46,15 @@
 }
 #textField {
     -fx-background-color: rgba(255, 255, 255, 0.8);
+    -fx-border-color: lightgray;
+    -fx-border-radius: 10px;
     -fx-background-radius: 10px;
     -fx-font-size: 15;
 }
 #comboBox {
     -fx-background-color: rgba(255, 255, 255, 0.8);
     -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-color: lightgray;
     -fx-font-size: 15;
 }

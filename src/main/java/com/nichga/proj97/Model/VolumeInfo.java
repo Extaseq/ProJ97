@@ -7,7 +7,7 @@ public class VolumeInfo {
     String title;
     List<String> authors;
     String publisher;
-    LocalDate publishedDate;
+    String publishedDate;
     String description;
     List<IndustryIdentifier> industryIdentifiers;
     ReadingModes readingModes;
@@ -37,8 +37,8 @@ public class VolumeInfo {
     public String getPublisher() { return publisher; }
     public void setPublisher(String value) { this.publisher = value; }
 
-    public LocalDate getPublishedDate() { return publishedDate; }
-    public void setPublishedDate(LocalDate value) { this.publishedDate = value; }
+    public String getPublishedDate() { return publishedDate; }
+    public void setPublishedDate(String value) { this.publishedDate = value; }
 
     public String getDescription() { return description; }
     public void setDescription(String value) { this.description = value; }

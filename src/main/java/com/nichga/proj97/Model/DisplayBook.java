@@ -2,9 +2,7 @@ package com.nichga.proj97.Model;
 
 import javafx.scene.image.Image;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 public final class DisplayBook {
     private final String bookId;
@@ -16,7 +14,7 @@ public final class DisplayBook {
     private final String isbn;
     private final int available;
     private final Image image;
-    private final List<String> tags = new ArrayList<>();
+    private final Set<String> tags = new HashSet<>();
 
 
     public DisplayBook(String bookId, String title, String author,
@@ -49,6 +47,9 @@ public final class DisplayBook {
     }
 
     public String getAuthor() {
+        if (author == null) {
+            return "No Author Information";
+        }
         return author;
     }
 
@@ -76,7 +77,7 @@ public final class DisplayBook {
         return image;
     }
 
-    public List<String> getTags() {
+    public Set<String> getTags() {
         return tags;
     }
 

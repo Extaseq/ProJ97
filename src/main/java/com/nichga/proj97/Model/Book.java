@@ -39,8 +39,6 @@ public class Book {
         return "ID: " + getId() + "\n"
             + "Title: " + getVolumeInfo().getTitle() + "\n"
             + "Authors: " + getVolumeInfo().getAuthors() + "\n"
-            + "Publisher: " + getVolumeInfo().getPublisher() + "\n"
-            + "ISBN-10: " + getVolumeInfo().getIndustryIdentifiers().getFirst().getIdentifier() + "\n"
-            + "Thumbnail: " + getVolumeInfo().getImageLinks().getThumbnail() + "\n";
+            + "Publisher: " + getVolumeInfo().getPublisher() + "\n";
     }
 }

@@ -9,6 +9,8 @@ import com.nichga.proj97.Services.TokenProvider;
 import javafx.scene.control.Alert;
 
 import java.awt.image.BufferedImage;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.*;
 
 public class Users {
@@ -244,7 +246,6 @@ public class Users {
         try {
             BufferedImage qrCode = tp.generateQRCode(token);
             br.adjustAfterBorrow(bookId);
-
             return qrCode;
         } catch (WriterException e) {
             System.out.println("Cannot generate QR Code: " + e.getMessage());
@@ -252,5 +253,18 @@ public class Users {
             System.out.println("An error occurred while processing borrow: " + e.getMessage());
         }
         return null;
+    }
+    public String[] recommendDoc(int id) {
+        String[] result = new String[5];
+        DatabaseService ds = new DatabaseService();
+        try (ResultSet rs = ds.getBookRepo().recommendDocument(Integer.toString(id))) {
+            int i = 0;
+            while (rs != null && rs.next() && i < 5) {
+                result[i++] = rs.getString("book_id");
+            }
+        } catch (SQLException e) {
+            System.out.println("Error processing recommendations: " + e.getMessage());
+        }
+        return result;
     }
 }

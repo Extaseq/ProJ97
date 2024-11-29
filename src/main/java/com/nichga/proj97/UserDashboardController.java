@@ -1,11 +1,12 @@
 package com.nichga.proj97;
 
 import com.google.zxing.WriterException;
-import com.nichga.proj97.Model.DisplayBook;
 import com.nichga.proj97.Model.Book;
+import com.nichga.proj97.Model.DisplayBook;
 
 import com.nichga.proj97.Services.DatabaseService;
 import com.nichga.proj97.Services.TokenProvider;
+import com.nichga.proj97.Util.JsonParser;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
@@ -26,8 +27,13 @@ import javafx.scene.text.TextFlow;
 import javafx.stage.Stage;
 
 import java.awt.image.BufferedImage;
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class UserDashboardController extends StageController {
     private Users user;
@@ -46,13 +52,13 @@ public class UserDashboardController extends StageController {
     @FXML
     private TabPane tabpaneLibrary;
     @FXML
-    private ToggleButton buttonLibrary, buttonAccount;
+    private ToggleButton buttonLibrary, buttonAccount, rattingButton;
     @FXML
     private StackPane stackPane;
     @FXML
-    private AnchorPane libraryPane, accountPane;
+    private AnchorPane libraryPane, accountPane, ratingPane;
     @FXML
-    private Line separator1, separator3;
+    private Line separator1, separator3, separator5;
     //Library
     @FXML
     private TableColumn<DisplayBook, Image> imagecolumn1, detailcolumn1, imagecolumn12, detailcolumn12;
@@ -61,11 +67,13 @@ public class UserDashboardController extends StageController {
     @FXML
     private ImageView documentimage1, documentimage11, documentimage3;
     @FXML
-    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3;
+    private TextArea namedocument1, descripe1, namedocument11, descripe11, namedocument3, descripe3, detail1, detail2, detail3;
     @FXML
     private TextField search1, search12;
     @FXML
-    private MenuButton menuButton1, menuButton12;
+    private TextFlow bookDetailFlow;
+    @FXML
+    private ToggleButton detailbutton1, detailbutton2, detailbutton3;
     @FXML
     private MenuItem sorttitle1, sortauthor1, sortview1;
     @FXML
@@ -76,6 +84,9 @@ public class UserDashboardController extends StageController {
     private HBox currentList, recommendList, finishedList, favouriteAuthorList, mostPopularList;
     @FXML
     private VBox continueReadDoc;
+    @FXML
+    private Pane pane1, pane2, pane3;
+
     //Account
     @FXML
     private Button signOut, returnbutton1, ChangePasswordButton;
@@ -85,6 +96,16 @@ public class UserDashboardController extends StageController {
     private ToggleButton ChangeInfoButton, SaveButton;
     @FXML
     private Button borrowbutton1, borrowbutton2;
+
+    //Rating
+    @FXML
+    private TextField  comment;
+    @FXML
+    private TextArea otherComment, bookDetail;
+    @FXML
+    private Button commentButton;
+    @FXML
+    private ImageView star1, star2, star3, star4, star5, imageRattingBook;
 
     private ObservableList<DisplayBook> userDocuments;
 
@@ -101,7 +122,7 @@ public class UserDashboardController extends StageController {
         return doc;
     }
     private ObservableList<DisplayBook> getRecommendedDoc() {
-        return FXCollections.observableArrayList();
+        return dbs.getBookRepo().getUserRecommendBooks(user);
     }
     private ObservableList<DisplayBook> getFinishedDoc() {
         return dbs.getBookRepo().getUserFinishedBooks(String.valueOf(user.getId()));
@@ -110,7 +131,7 @@ public class UserDashboardController extends StageController {
         return FXCollections.observableArrayList();
     }
     private ObservableList<DisplayBook> getMostPopularDoc() {
-        return FXCollections.observableArrayList();
+        return dbs.getBookRepo().getMostPopularBooks();
     }
 
     public void init() {
@@ -119,6 +140,7 @@ public class UserDashboardController extends StageController {
         toggleGroup = new ToggleGroup();
         buttonLibrary.setToggleGroup(toggleGroup);
         buttonAccount.setToggleGroup(toggleGroup);
+        rattingButton.setToggleGroup(toggleGroup);
         StrokeLine();
         SetButton();
         LockColumn();
@@ -133,19 +155,12 @@ public class UserDashboardController extends StageController {
         initShelve();
         initContinueReadDoc();
         initAccount();
-
-    }
-
-    @FXML
-    public void returnDoc() {
-        DisplayBook doc = tableView12.getSelectionModel().getSelectedItem();
-        if (doc != null) {
-            System.out.println("remove " + doc.getTitle());
-            userDocuments.remove(doc);
-            tableView12.refresh();
-            tableView12.setItems(userDocuments);
-            setContinueReadDoc(userDocuments.get(0));
-        }
+        pane1.setVisible(false);
+        pane2.setVisible(false);
+        pane3.setVisible(false);
+        showDetail1();
+        showDetail2();
+        showDetail3();
 
     }
 
@@ -173,6 +188,8 @@ public class UserDashboardController extends StageController {
         DisplayBook doc = getCurrentDoc().getFirst();
         TextField title = (TextField) continueReadDoc.getChildren().get(2);
         title.setText(doc.getTitle());
+        ImageView image = (ImageView) continueReadDoc.getChildren().get(1);
+        image.setImage(doc.getImage());
         continueReadDoc.setOnMouseClicked(event -> {
             if (buttonAccount.isSelected()) {
                 toggleGroup.selectToggle(buttonLibrary);
@@ -200,15 +217,21 @@ public class UserDashboardController extends StageController {
 
     }
 
+    private String bookIDtoDetail1;
     public void addDocToShelve(ObservableList<DisplayBook> docList, HBox hBox) {
 
         for (int i = 0; i < docList.size(); i++) {
             DisplayBook doc = docList.get(i);
             VBox vBox = (VBox) hBox.getChildren().get(i);
             ImageView image = (ImageView) vBox.getChildren().get(0);
+            image.setImage(doc.getImage());
             TextField title = (TextField) vBox.getChildren().get(1);
             title.setText(docList.get(i).getTitle());
             vBox.setOnMouseClicked(event -> {
+                bookIDtoDetail1 = doc.getBookId();
+                detail1.setVisible(false);
+                descripe3.setVisible(true);
+                pane1.setVisible(true);
                 borrowbutton1.setVisible(true);
                 documentimage3.setImage(image.getImage());
                 namedocument3.setText(title.getText());
@@ -242,8 +265,8 @@ public class UserDashboardController extends StageController {
                 } else {
                     imageView.setImage(image);
                     imageView.setFitWidth(80);
-                    imageView.setFitHeight(120);
-                    imageView.setPreserveRatio(true);
+                    imageView.setFitHeight(119);
+                    imageView.setPreserveRatio(false);
                     setGraphic(imageView);
                     setStyle("-fx-alignment: CENTER;");
                 }
@@ -288,7 +311,15 @@ public class UserDashboardController extends StageController {
             search(data, tableView, search12);
         }
         tableView.getSelectionModel().selectedItemProperty().addListener((_, oldValue, newValue) -> {
-
+            detail2.setVisible(false);
+            detail3.setVisible(false);
+            descripe1.setVisible(true);
+            descripe11.setVisible(true);
+            if (tableView == tableView1) {
+                pane2.setVisible(true);
+            } else if (tableView == tableView12) {
+                pane3.setVisible(true);
+            }
             if (newValue != null && !newValue.equals(oldValue)) {
                 documentImage.setImage(newValue.getImage());
                 namedocument.setText(newValue.getTitle());
@@ -315,6 +346,7 @@ public class UserDashboardController extends StageController {
     private void StrokeLine() {
         separator1.getStrokeDashArray().addAll(7d, 7d);
         separator3.getStrokeDashArray().addAll(7d, 7d);
+        separator5.getStrokeDashArray().addAll(7d, 7d);
     }
 
     private void SetButton() {
@@ -327,6 +359,95 @@ public class UserDashboardController extends StageController {
         buttonAccount.setOnAction(event -> {
             stackPane.getChildren().clear();
             stackPane.getChildren().add(accountPane);
+        });
+
+        rattingButton.setOnAction(event -> {
+            stackPane.getChildren().clear();
+            stackPane.getChildren().add(ratingPane);
+
+            DisplayBook book = tableView12.getSelectionModel().getSelectedItem();
+
+            imageRattingBook.setImage(book.getImage());
+            imageRattingBook.setPreserveRatio(false);
+            Text title = new Text(book.getTitle() + "\n");
+            title.setFont(Font.font("System", FontWeight.BOLD, 16));
+            Text detail = new Text("Author: " + book.getAuthor() + "\nPublisher: " + book.getPublisher() + "\nPublished year: " + book.getPublishedYear()
+                    + "\n" + book.getGenre()+ "\nAvailable: " + book.getAvailable());
+            bookDetailFlow.getChildren().clear();
+            bookDetailFlow.getChildren().addAll(title, detail);
+
+
+            String usersComment = dbs.getBorrowRepo().getAllComments(book.getBookId());
+            star1.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+            star2.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+            star3.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+            star4.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+            star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+
+            AtomicInteger rating = new AtomicInteger(5);
+            star1.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                rating.set(1);
+            });
+
+            star2.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                rating.set(2);
+            });
+
+            star3.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                rating.set(3);
+            });
+
+            star4.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star.png").toExternalForm()));
+                rating.set(4);
+            });
+
+            star5.setOnMouseClicked(e -> {
+                star1.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star2.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star3.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star4.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                star5.setImage(new Image(getClass().getResource("Star2.png").toExternalForm()));
+                rating.set(5);
+            });
+
+            if (usersComment.length() > 1) {
+                otherComment.setText(usersComment);
+            } else {
+                otherComment.setText("This book have no comments");
+            }
+            commentButton.setOnMouseClicked(e -> {
+                String str = comment.getText();
+                if (dbs.getBorrowRepo().addNewComment(str, String.valueOf(user.getId()), book.getBookId())){
+                    Alert alert = new Alert(Alert.AlertType.INFORMATION);
+                    alert.setContentText("You comment have been saved");
+                    alert.showAndWait();
+                } else {
+                    Alert alert = new Alert(Alert.AlertType.ERROR);
+                    alert.setContentText("You did not borrow this book in library!");
+                    alert.showAndWait();
+                }
+                if (dbs.getBorrowRepo().addNewRating(String.valueOf(rating), String.valueOf(user.getId()), book.getBookId()));
+            });
         });
     }
 
@@ -363,8 +484,8 @@ public class UserDashboardController extends StageController {
         }
 
         isTagButtonPressed = false;
-        List<String> tagList = doc.getTags();
-        for(String tags : tagList) {
+        Set<String> tagSet = doc.getTags();
+        for(String tags : tagSet) {
             Button tag = new Button(tags);
             tag.getStyleClass().setAll("default-button");
             tag.setMaxWidth(1000);
@@ -405,7 +526,12 @@ public class UserDashboardController extends StageController {
         } else {
             tags = tagList2;
         }
+
         for (DisplayBook document : data) {
+            if (tags.isEmpty()) {
+                filteredDocuments.addAll(data);
+                break;
+            }
             boolean hasAllTags = true;
             for (String tag : tags) {
                 if (!document.hasTag(tag)) {
@@ -480,18 +606,33 @@ public class UserDashboardController extends StageController {
 
                 SaveButton.setVisible(true);
                 ChangeInfoButton.setVisible(false);
+
                 accountName.setEditable(true);
+                accountName.setStyle("-fx-background-color: white;" + "-fx-border-color: lightgray;");
+
                 accountEmail.setEditable(true);
+                accountEmail.setStyle("-fx-background-color: white;" + "-fx-border-color: lightgray;");
+
                 accountAddress.setEditable(true);
+                accountAddress.setStyle("-fx-background-color: white;" + "-fx-border-color: lightgray;");
+
                 accountPhone.setEditable(true);
+                accountPhone.setStyle("-fx-background-color: white;" + "-fx-border-color: lightgray;");
 
             } else if (newValue.equals(SaveButton)) {
                 SaveButton.setVisible(false);
                 ChangeInfoButton.setVisible(true);
                 accountName.setEditable(false);
+                accountName.setStyle("-fx-background-color: transparent;" + "-fx-border-color: transparent;" );
+
                 accountEmail.setEditable(false);
+                accountEmail.setStyle("-fx-background-color: transparent;" + "-fx-border-color: transparent;");
+
                 accountAddress.setEditable(false);
+                accountAddress.setStyle("-fx-background-color: transparent;" + "-fx-border-color: transparent;");
+
                 accountPhone.setEditable(false);
+                accountPhone.setStyle("-fx-background-color: transparent;" + "-fx-border-color: transparent;");
 
                 dbs.getMemberRepo().updateInfo(user.getId(), accountName.getText(), accountAddress.getText(), accountEmail.getText(), accountPhone.getText());
             }
@@ -575,5 +716,92 @@ public class UserDashboardController extends StageController {
         stage.setScene(scene);
         stage.show();
     }
+    private String details(String bookId) {
+        try {
+            String apiKey = "AIzaSyA5B1G2E0gdk-1vag_sJTrsPKOlh7O2y_Y";
+            String urlString = "https://www.googleapis.com/books/v1/volumes/" + bookId + "?key=" + apiKey;
+            URL url = new URL(urlString);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("GET");
+            int responseCode = conn.getResponseCode();
+            if (responseCode == 200) {
+                BufferedReader in = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+                String inputLine;
+                StringBuilder response = new StringBuilder();
+                while ((inputLine = in.readLine()) != null) {
+                    response.append(inputLine).append("\n");
+                }
+                in.close();
+                String json = response.toString();
+                Book book = JsonParser.ParseSingleBook(json);
+                if (book != null) {
+                    if (book.getVolumeInfo().getDescription() != null && !book.getVolumeInfo().getDescription().isEmpty()) {
+                        return book.getVolumeInfo().getDescription();
+                    } else {
+                        System.out.println("No summary available for this book.");
+                    }
+                } else {
+                    System.out.println("Book not found.");
+                }
+            } else {
+                System.out.println("Error: HTTP " + responseCode);
+            }
+        } catch (Exception e) {
+            System.out.println("Error: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public void showDetail1() {
+        detailbutton1.setOnAction(event -> {
+            if (detailbutton1.isSelected()) {
+                if (bookIDtoDetail1 != null) {
+                    detail1.setText(details(bookIDtoDetail1));
+                    descripe3.setVisible(false);
+                    detail1.setVisible(true);
+                } else {
+                    System.out.println("No book selected");
+                }
+            } else {
+                detail1.setVisible(false);
+                descripe3.setVisible(true);
+            }
+        });
+    }
+    public void showDetail2() {
+        detailbutton2.setOnAction(event -> {
+            if (detailbutton2.isSelected()) {
+                DisplayBook book = tableView1.getSelectionModel().getSelectedItem();
+                if (book != null) {
+                    detail2.setText(details(book.getBookId()));
+                    descripe1.setVisible(false);
+                    detail2.setVisible(true);
+                } else {
+                    System.out.println("No book selected");
+                }
+            } else {
+                detail2.setVisible(false);
+                descripe1.setVisible(true);
+            }
+        });
+    }
+    public void showDetail3() {
+        detailbutton3.setOnAction(event -> {
+            if (detailbutton3.isSelected()) {
+                DisplayBook book = tableView12.getSelectionModel().getSelectedItem();
+                if (book != null) {
+                    detail3.setText(details(book.getBookId()));
+                    descripe11.setVisible(false);
+                    detail3.setVisible(true);
+                } else {
+                    System.out.println("No book selected");
+                }
+            } else {
+                detail3.setVisible(false);
+                descripe11.setVisible(true);
+            }
+        });
+    }
+
 
 }

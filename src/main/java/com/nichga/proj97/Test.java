@@ -17,16 +17,10 @@ public class Test {
 
     public static void main(String[] args) {
         try {
-            // Define the query and encode it
-            String query = "Lean UX";
-            String encodedQuery = URLEncoder.encode(query, StandardCharsets.UTF_8);
+            String bookId = "_i9uDwAAQBAJ";
             String apiKey = "AIzaSyA5B1G2E0gdk-1vag_sJTrsPKOlh7O2y_Y";
-            String urlString = "https://www.googleapis.com/books/v1/volumes?q=" + encodedQuery + "&key=" + apiKey + "&maxResults=15";
-
-            // Create a URL object
+            String urlString = "https://www.googleapis.com/books/v1/volumes/" + bookId + "?key=" + apiKey;
             URL url = new URL(urlString);
-
-            // Open a connection
             HttpURLConnection conn = (HttpURLConnection) url.openConnection();
             conn.setRequestMethod("GET");
 
@@ -44,22 +38,18 @@ public class Test {
                 in.close();
 
                 String json = response.toString();
-                BookResponses responseObj = JsonParser.ParseJson(json);
-                BookRepository br = new BookRepository();
-                // Print the book details
-                if (responseObj != null && !responseObj.getItems().isEmpty()) {
-                    for (Book book : responseObj.getItems()) {
-                        System.out.println("Book Details: ");
-                        System.out.println(book);
-                        if(br.insertBook(book)) {
-                            System.out.println("Book Inserted");
-                        }
-                        else {
-                            System.out.println("Book Insertion Failed");
-                        }
+                Book book = JsonParser.ParseSingleBook(json);
+                // Hiển thị tóm tắt
+                if (book != null) {
+                    System.out.println("Book Details:");
+                    System.out.println(book);
+                    if (book.getVolumeInfo().getDescription() != null && !book.getVolumeInfo().getDescription().isEmpty()) {
+                        System.out.println("Summary: " + book.getVolumeInfo().getDescription());
+                    } else {
+                        System.out.println("No summary available for this book.");
                     }
                 } else {
-                    System.out.println("No books found.");
+                    System.out.println("Book not found.");
                 }
             } else {
                 System.out.println("Error: HTTP " + responseCode);
