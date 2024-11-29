@@ -53,7 +53,7 @@
                   <Font name="☞Eina04-Bold" size="12.0" />
                </font>
             </Label>
-            <Label fx:id="error_label" layoutX="415.0" layoutY="167.0" text="Username already taken" textFill="#f65867" visible="false">
+            <Label fx:id="error_label" layoutX="415.0" layoutY="167.0" text="Username not valid" textFill="#f65867" visible="false">
                <font>
                   <Font name="☞Eina04-Bold" size="12.0" />
                </font>

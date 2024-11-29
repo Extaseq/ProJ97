@@ -239,7 +239,7 @@ public class Users {
         String token = bre.createBorrowRequest(String.valueOf(id),bookId);
         if (token == null) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setContentText("You already have this book");
+            alert.setContentText("You can't borrow this book");
             alert.showAndWait();
             return null;
         }
