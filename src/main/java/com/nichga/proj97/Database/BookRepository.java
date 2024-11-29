@@ -59,7 +59,7 @@ public final class BookRepository extends GenericRepository {
         String author = book.getVolumeInfo().getAuthors() != null ? book.getVolumeInfo().getAuthors().toString() : null;
         String publisher = book.getVolumeInfo().getPublisher();
         String genre = book.getVolumeInfo().getCategories() != null ? book.getVolumeInfo().getCategories().toString() : null;
-        String published_year = book.getVolumeInfo().getPublishedDate() != null ? String.valueOf(book.getVolumeInfo().getPublishedDate().substring(0,4)) : null;
+        String published_year = book.getVolumeInfo().getPublishedDate() != null ? book.getVolumeInfo().getPublishedDate().toString() : null;
 
         String isbn = null;
         if (book.getVolumeInfo().getIndustryIdentifiers() != null && !book.getVolumeInfo().getIndustryIdentifiers().isEmpty()) {
@@ -260,7 +260,7 @@ public final class BookRepository extends GenericRepository {
         // Câu lệnh chính để lấy các sách đề xuất dựa trên các tag và số lần mượn
         String sql = "WITH count_tag AS ("
                 + "    SELECT book_id, "
-                + "           SUM    (CASE WHEN genre LIKE ? THEN 1 ELSE 0 END + "
+                + "           SUM(CASE WHEN genre LIKE ? THEN 1 ELSE 0 END + "
                 + "                   CASE WHEN genre LIKE ? THEN 1 ELSE 0 END + "
                 + "                   CASE WHEN genre LIKE ? THEN 1 ELSE 0 END + "
                 + "                   CASE WHEN genre LIKE ? THEN 1 ELSE 0 END + "
