@@ -31,9 +31,7 @@ public class AdminDashboard extends Application {
 
         primaryStage.setTitle("Admin Dashboard");
         primaryStage.setScene(new Scene(loader.load()));
-//        primaryStage.initStyle(StageStyle.UNDECORATED);
         primaryStage.show();
-
         primaryStage.setOnCloseRequest(_ -> dbConnector.closeConnection());
     }
 }

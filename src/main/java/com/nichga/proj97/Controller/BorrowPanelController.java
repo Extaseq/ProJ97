@@ -70,7 +70,7 @@ public class BorrowPanelController {
             String id = user_id.getText();
             try {
                 int member_id = Integer.parseInt(id);
-                if (!dbs.getMemberRepo().memberExists(member_id)) {
+                if (!dbs.getBorrowRepo().memberExists(member_id)) {
                     System.out.println("No user found!");
                     user_fail.setVisible(true);
                 } else {
@@ -85,7 +85,7 @@ public class BorrowPanelController {
 
         book_check_button.setOnAction(_ -> {
             String id = book_id.getText();
-            if (!dbs.getBookRepo().bookAvailable(id)) {
+            if (!dbs.getBorrowRepo().bookExists(id)) {
                 System.out.println("No book found!");
                 book_fail.setVisible(true);
             } else {
@@ -102,6 +102,7 @@ public class BorrowPanelController {
             dbs.getBookRepo().adjustAfterReturn(bookID);
             dbs.getReadingHistoryRepository().returnBook(memberID, bookID);
             PauseTransition wait = new PauseTransition(Duration.seconds(2));
+            success.setVisible(true);
             wait.setOnFinished(_ -> {
                 Stage stage = (Stage) book_check.getScene().getWindow();
                 stage.close();

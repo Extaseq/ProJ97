@@ -1,7 +1,6 @@
 package com.nichga.proj97.Database;
 
 import com.nichga.proj97.Services.TokenProvider;
-import javafx.scene.control.Alert;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -54,6 +53,30 @@ public final class BorrowRepository extends GenericRepository {
                 if(rs.getInt(1) > 0) {
                     return true;
                 }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean memberExists(int member_id) {
+        String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE member_id = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), String.valueOf(member_id))) {
+            if (rs.next()) {
+                return rs.getInt("COUNT(*)") >= 1;
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return false;
+    }
+
+    public boolean bookExists(String book_id) {
+        String sql = "SELECT COUNT(*) FROM " + tableName + " WHERE book_id = ?";
+        try (ResultSet rs = executeQuery(createStatement(sql), String.valueOf(book_id))) {
+            if (rs.next()) {
+                return rs.getInt("COUNT(*)") >= 1;
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -144,9 +167,9 @@ public final class BorrowRepository extends GenericRepository {
         }
         return result;
     }
-    public boolean returnBook(String memberID, String bookID) {
+    public void returnBook(String memberID, String bookID) {
         String sql = "UPDATE " + tableName
-                + " SET return_date = NOW() ";
-        return executeUpdate(createStatement(sql), memberID, bookID) > 0;
+                + " SET return_date = NOW() WHERE member_id = ? AND book_id = ?";
+        executeUpdate(createStatement(sql), memberID, bookID);
     }
 }
